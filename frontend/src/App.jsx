@@ -1,9 +1,11 @@
-function App() {
-  return (
-    <>
-      <div>test</div>
-    </>
-  );
-}
+// function App() {
+//   return (
+//     <>
+//       <div>test</div>
+//     </>
+//   );
+// }
 
-export default App;
+// export default App;
+
+//No need for App.jsx
