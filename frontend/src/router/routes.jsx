@@ -3,6 +3,7 @@ import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
 import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
 import IncomeDetail from "../views/IncomeDetail";
+import ExpenseDetail from "../views/ExpenseDetail";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "income-detail",
         element: <IncomeDetail />,
+      },
+      {
+        path: "expense-detail",
+        element: <ExpenseDetail />,
       },
     ],
   },
