@@ -4,7 +4,7 @@ import CurrencyCard from "./CurrencyCard";
 import CurrencyCardContainer from "./CurrencyCardContainer";
 import CurrencyCardSkeleton from "./CurrencyCardSkeleton";
 import React from "react";
-import useLatestRates from "../../../apis/useLatestRates";
+import useLatestRates from "../../../hooks/useLatestRates";
 
 const CurrencyGrid = () => {
   const { data, isLoading, error } = useLatestRates();

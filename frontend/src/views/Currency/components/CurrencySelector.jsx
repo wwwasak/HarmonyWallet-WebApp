@@ -9,7 +9,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import { CURRENCIES } from "../../../data/CURRENCIES.JS";
+import { CURRENCIES } from "../../../data/CURRENCIES";
 import React, { useState } from "react";
 
 const CurrencySelector = ({ baseCurrency, setBaseCurrency }) => {

@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import chart from "../../../assets/chart.png";
 import React from "react";
 import star from "../../../assets/star.png";
