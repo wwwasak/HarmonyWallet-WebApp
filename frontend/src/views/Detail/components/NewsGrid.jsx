@@ -1,5 +1,6 @@
 import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
 import React from "react";
+import NewsCard from "./NewsCard";
 
 const NewsGrid = () => {
   return (
@@ -25,10 +26,10 @@ const NewsGrid = () => {
       </Box>
 
       <CardBody alignItems="center" width="100%">
-        <Box margin={2} background="gray.600" height="100px"></Box>
-        <Box margin={2} background="gray.600" height="100px"></Box>
-        <Box margin={2} background="gray.600" height="100px"></Box>
-        <Box margin={2} background="gray.600" height="100px"></Box>
+        <NewsCard />
+        <NewsCard />
+        <NewsCard />
+        <NewsCard />
       </CardBody>
     </Card>
   );
