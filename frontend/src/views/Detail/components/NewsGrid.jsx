@@ -2,7 +2,7 @@ import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
 import React from "react";
 import NewsCard from "./NewsCard";
 
-const NewsGrid = () => {
+const NewsGrid = ({ baseCurrency, selectedCurrency }) => {
   return (
     <Card
       key={`${baseCurrency}vs${selectedCurrency}`}
