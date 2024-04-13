@@ -1,16 +1,16 @@
-import chart from "../../../assets/chart.png";
 import {
-  Box,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Text,
-  Image,
-  HStack,
   Badge,
+  Box,
+  HStack,
+  Image,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
 } from "@chakra-ui/react";
+import chart from "../../../assets/chart.png";
 
 const Charts = ({ baseCurrency, selectedCurrency }) => {
   return (
