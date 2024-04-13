@@ -1,9 +1,9 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
-import Charts from "../../../assets/chart.png";
+import Charts from "./Charts";
 import React from "react";
 
-const RatesDetailCard = () => {
+const RatesDetailCard = ({ baseCurrency, selectedCurrency }) => {
   return (
     <Card
       key={`${baseCurrency}vs${selectedCurrency}`}
