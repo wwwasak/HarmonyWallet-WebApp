@@ -20,27 +20,25 @@ const CurrencyCard = ({ currency, rate }) => {
   const [isFavorite, setIsFavorite] = useLocalStorage(currency, false);
 
   return (
-    <Link to={`/currencyDetail/${baseCurrency}/${currency}`}>
-      <Card
-        key={currency}
-        alignItems="center"
-        paddingTop={3}
-        border="1px solid gray"
-        cursor="pointer"
-      >
-        <Box position="absolute" top={0} right={0} margin={2}>
-          <Image
-            src={isFavorite ? starFavorite : star}
-            boxSize="30px"
-            objectFit="cover"
-            onClick={(e) => {
-              setIsFavorite(!isFavorite);
-              e.stopPropagation();
-            }}
-            cursor="pointer"
-          />
-        </Box>
-
+    <Card
+      key={currency}
+      alignItems="center"
+      paddingTop={3}
+      border="1px solid gray"
+    >
+      <Box position="absolute" top={0} right={0} margin={2}>
+        <Image
+          src={isFavorite ? starFavorite : star}
+          boxSize="30px"
+          objectFit="cover"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsFavorite(!isFavorite);
+          }}
+          cursor="pointer"
+        />
+      </Box>
+      <Link to={`/currencyDetail/${baseCurrency}/${currency}`}>
         <Image src={chart} boxSize="150px" objectFit="cover" />
         <CardBody alignItems="center">
           <Flex flexDirection="column" alignItems="center">
@@ -51,8 +49,8 @@ const CurrencyCard = ({ currency, rate }) => {
             <Text>Local Time</Text>
           </Flex>
         </CardBody>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 };
 
