@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const DailyRate = require("../models/DailyRate");
 
+//wait for fetching data
 router.get("/", async (req, res) => {
   const dailyRates = await DailyRate.find();
   res.send(dailyRates);
