@@ -1,48 +1,49 @@
-import * as React from "react";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
-import { Text, Heading, Stack, Box, StackDivider } from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, Grid, Text, Heading, Box, Button, Flex, Divider, Avatar } from "@chakra-ui/react";
+
+const CardDisplay = ({ children, maxWidth }) => {
+    
+return (
+        <Card maxW={maxWidth}>
+            <CardHeader>
+                <Flex justify="space-between" align="center">
+                    <Heading size='sm' textTransform='uppercase'>Profile</Heading>
+                    <Button variant='solid' colorScheme='blue' fontSize="xs" size="xs">
+                        Edit
+                    </Button>
+                </Flex>
+                <Divider my={2} />
+                <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
+                <Box pt={2}>
+                    {children}
+                </Box>
+            </CardHeader>
+            <CardBody>
+                {/* CardBody Content */}
+            </CardBody>
+        </Card>
+    );
+} 
 
 const RecordingPage = () => {
     return (
-      <>
-     <Card>
-  <CardHeader>
-    <Heading size='md'>Client Report</Heading>
-    <Text>
-      qdasds
-    </Text>
-  </CardHeader>
-
-  <CardBody>
-    <Stack divider={<StackDivider />} spacing='4'>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Summary
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          View a summary of all your clients over the last month.
-        </Text>
-      </Box>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Overview
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          Check out the overview of your clients.
-        </Text>
-      </Box>
-      <Box>
-        <Heading size='xs' textTransform='uppercase'>
-          Analysis
-        </Heading>
-        <Text pt='2' fontSize='sm'>
-          See a detailed analysis of all your business clients.
-        </Text>
-      </Box>
-    </Stack>
-  </CardBody>
-</Card>
-      </>
+<Grid templateColumns="repeat(4, 1fr)" gap={6}>
+            <CardDisplay maxWidth="xs" gridArea="1 / 1 / 2 / 2"> {/* Grid area for xs */}
+                <Heading size='sm' textTransform='uppercase'>Sam</Heading>
+                <Text>Devs</Text>
+            </CardDisplay>
+            <CardDisplay maxWidth="md" gridArea="1 / 2 / 2 / 3"> {/* Grid area for md */}
+                <Heading size='sm' textTransform='uppercase'>Sam</Heading>
+                <Text>Devs</Text>
+            </CardDisplay>
+            <CardDisplay maxWidth="md" gridArea="1 / 3 / 2 / 4"> {/* Grid area for md */}
+                <Heading size='sm' textTransform='uppercase'>Sam</Heading>
+                <Text>Devs</Text>
+            </CardDisplay>
+            <CardDisplay maxWidth="xs" gridArea="1 / 4 / 2 / 5"> {/* Grid area for xs */}
+                <Heading size='sm' textTransform='uppercase'>Sam</Heading>
+                <Text>Devs</Text>
+            </CardDisplay>
+        </Grid>
     );
   };
 
