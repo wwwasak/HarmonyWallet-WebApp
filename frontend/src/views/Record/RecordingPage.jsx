@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardBody, Grid, Text, Heading, Box, Button, Flex, Divider, Avatar } from "@chakra-ui/react";
-
+import FloatWindow from "./FloatWindow";
 const CardDisplay = ({ children, maxWidth }) => {
     
 return (
@@ -43,6 +43,7 @@ const RecordingPage = () => {
                 <Heading size='sm' textTransform='uppercase'>Sam</Heading>
                 <Text>Devs</Text>
             </CardDisplay>
+           <FloatWindow/>
         </Grid>
     );
   };
