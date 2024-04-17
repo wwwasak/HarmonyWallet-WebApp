@@ -21,7 +21,7 @@ const GoToBillingPageButton = () => {
   );
 };
 
-const ProfileCard = ({ gridArea }) => {
+const ProfileCard = ({ gridArea, preferredCurrency }) => {
     return(
         <Card gridArea={gridArea}>
             <CardHeader>
@@ -34,13 +34,17 @@ const ProfileCard = ({ gridArea }) => {
                 <Divider my={2} />
                 <div>
                 <Avatar 
+                name='DefalutAvatar'
                 src='./src/assets/DefaultAvatar.svg' 
                 onError={(e) => { e.target.onerror = null; e.target.src='https://bit.ly/sage-adebayo'; }} 
                 />
                 </div>
             </CardHeader>
             <CardBody>
-            
+                <Box>
+                    <Heading size='sm' textTransform='uppercase'>Preferred Currency</Heading>
+                    <Text fontSize='lg'>{preferredCurrency}</Text>
+                </Box>
             </CardBody>
         </Card>
     );
@@ -138,6 +142,7 @@ const RecentRecordsCard = ({ gridArea }) => {
 }; 
 // gridArea arguments: row-start/column-start/row-end/column-end
 const RecordingPage = () => {
+    const preferredCurrency = "NZD";
     return (
         <>
             <Grid templateColumns="1fr 3fr" gap={6}>
@@ -155,7 +160,8 @@ const RecordingPage = () => {
                 <Text>Additional Info</Text>
             </RecentRecordsCard>
             </Grid>
-                <GoToBillingPageButton />    
+                <GoToBillingPageButton />   
+                <ProfileCard gridArea="1 / 1 / 2 / 2" preferredCurrency={preferredCurrency} />
         </>
     );
 };
