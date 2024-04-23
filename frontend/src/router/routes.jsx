@@ -11,6 +11,7 @@ import SignupPassword from "../views/SignUp/components/SignupPassword";
 import SignupQuestion from "../views/SignUp/components/SignupQuestion";
 import SignupCurrency from "../views/SignUp/components/SignupCurrency";
 import ChangePassword from "../views/SignUp/components/ChangePassword";
+import RecordingPage from "../views/Record/RecordingPage";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "recording",
+        element: <RecordingPage />,
+      },
       {
         path: "exchange-record",
         element: <ExchangeRecordDetail />,
