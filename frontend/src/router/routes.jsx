@@ -6,11 +6,11 @@ import IncomeDetail from "../views/IncomeDetail";
 import ExpenseDetail from "../views/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
-import SignupUsername from "../views/Login/components/SignupUsername";
-import SignupPassword from "../views/Login/components/SignupPassword";
-import SignupQuestion from "../views/Login/components/SignupQuestion";
-import SignupCurrency from "../views/Login/components/SignupCurrency";
-import ChangePassword from "../views/Login/components/ChangePassword";
+import SignupUsername from "../views/SignUp/components/SignupUsername";
+import SignupPassword from "../views/SignUp/components/SignupPassword";
+import SignupQuestion from "../views/SignUp/components/SignupQuestion";
+import SignupCurrency from "../views/SignUp/components/SignupCurrency";
+import ChangePassword from "../views/SignUp/components/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -39,23 +39,26 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+    children: [
+      {
+        index: true,
+        element: <SignupUsername />,
+      },
+      {
+        path: "password",
+        element: <SignupPassword />,
+      },
+      {
+        path: "question",
+        element: <SignupQuestion />,
+      },
+      {
+        path: "currency",
+        element: <SignupCurrency />,
+      },
+    ],
   },
-  {
-    path: "/signupUsername",
-    element: <SignupUsername />,
-  },
-  {
-    path: "/signupPassword",
-    element: <SignupPassword />,
-  },
-  {
-    path: "/signupQuestion",
-    element: <SignupQuestion />,
-  },
-  {
-    path: "/signupCurrency",
-    element: <SignupCurrency />,
-  },
+
   {
     path: "/changePassword",
     element: <ChangePassword />,

@@ -9,8 +9,10 @@ import {
   ButtonGroup,
   Flex,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const LoginBox = () => {
+  const navigate = useNavigate();
   return (
     <Box>
       <Flex justifyContent="center">
@@ -21,9 +23,10 @@ const LoginBox = () => {
               <Input variant="filled" placeholder="Password" size="lg" />
               <Link>forgot password</Link>
               <ButtonGroup gap="20">
-                <Button h="50px" w="180px">
+                <Button h="50px" w="180px" onClick={() => navigate("/signup")}>
                   Sign Up
                 </Button>
+
                 <Button h="50px" w="180px">
                   Log In
                 </Button>
