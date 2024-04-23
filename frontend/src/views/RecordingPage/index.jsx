@@ -21,8 +21,8 @@ import {
 } from "recharts";
 import ProfileCard from "./components/ProfileCard";
 // import IncomeLineChartCard from "./components/IncomeLineChartCard";
-import GoToBillingPageButton from "./components/GoToBillingPageButton";
 import RecentRecordsCard from "./components/RecentRecordsCard";
+import FloatWindow from "./components/FloatWindow";
 
 const data = [
   { Date: "17/04/2024", currency: 2400, amt: 2400 },
@@ -98,12 +98,10 @@ const RecordingPage = () => {
   return (
     <Card>
       <Grid templateColumns="1fr 3fr" gap={6}>
-        <ProfileCard gridArea="1 / 1 / 1 / 2">
-          <Heading size="sm" textTransform="uppercase">
-            Sam
-          </Heading>
-          <Text>Devs1</Text>
-        </ProfileCard>
+        <ProfileCard
+          gridArea="1 / 1 / 2 / 2"
+          preferredCurrency={preferredCurrency}
+        />
         <IncomeLineChartCard gridArea="1 / 2 / 1 / 4">
           <Text>Line Chart Data</Text>
         </IncomeLineChartCard>
@@ -114,11 +112,8 @@ const RecordingPage = () => {
           <Text>Additional Info</Text>
         </RecentRecordsCard>
       </Grid>
-      <GoToBillingPageButton />
-      <ProfileCard
-        gridArea="1 / 1 / 2 / 2"
-        preferredCurrency={preferredCurrency}
-      />
+
+      <FloatWindow />
     </Card>
   );
 };
