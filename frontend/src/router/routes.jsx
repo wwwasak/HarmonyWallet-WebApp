@@ -4,7 +4,8 @@ import ErrorPage from "../views/Layout/ErrorPage";
 import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
 import IncomeDetail from "../views/IncomeDetail";
 import ExpenseDetail from "../views/ExpenseDetail";
-import Login from "../views/Login/components/Login";
+import Login from "../views/Login";
+import SignUp from "../views/SignUp";
 import SignupUsername from "../views/Login/components/SignupUsername";
 import SignupPassword from "../views/Login/components/SignupPassword";
 import SignupQuestion from "../views/Login/components/SignupQuestion";
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
   {
     path: "/signupUsername",
