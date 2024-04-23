@@ -1,3 +1,4 @@
+import { BaseCurrencyProvider } from "../stores/BaseCurrencyContext";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
@@ -12,13 +13,26 @@ import SignupQuestion from "../views/SignUp/components/SignupQuestion";
 import SignupCurrency from "../views/SignUp/components/SignupCurrency";
 import ChangePassword from "../views/SignUp/components/ChangePassword";
 import RecordingPage from "../views/RecordingPage";
+import RatesDetailPage from "../views/Detail/RatesDetailPage";
+import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <BaseCurrencyProvider>
+        <Layout />
+      </BaseCurrencyProvider>
+    ),
     errorElement: <ErrorPage />,
+
     children: [
+    { path: "exchangeoverview", element: <RatesOverviewPage /> },
+      {
+        path: "ratesDetail/:baseCurrency/:selectedCurrency",
+        element: <RatesDetailPage />,
+      },
+    
       {
         path: "recording",
         element: <RecordingPage />,
