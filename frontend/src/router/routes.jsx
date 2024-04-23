@@ -11,7 +11,7 @@ import SignupPassword from "../views/SignUp/components/SignupPassword";
 import SignupQuestion from "../views/SignUp/components/SignupQuestion";
 import SignupCurrency from "../views/SignUp/components/SignupCurrency";
 import ChangePassword from "../views/SignUp/components/ChangePassword";
-import RecordingPage from "../views/Record/RecordingPage";
+import RecordingPage from "../views/RecordingPage";
 
 const router = createBrowserRouter([
   {
