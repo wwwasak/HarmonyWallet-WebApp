@@ -1,4 +1,4 @@
-import { CURRENCIES } from "../../../data/CURRENCIES";
+import { CURRENCIES } from "../../../data/CURRENCIES.js";
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import CurrencyCard from "./CurrencyCard";
 import CurrencyCardContainer from "./CurrencyCardContainer";
