@@ -21,8 +21,7 @@ async function getRelatedNews(targetCurrency) {
       url: article.url,
       time_published: article.time_published,
     }));
-    console.log(extractedData);
-    return extractedData;
+    return extractedData; //format: [{title:String,url:String,time_published:String}]
   } catch (error) {
     console.error("Failed to fetch news:", error);
     throw error;
