@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import News from "../../models/news-schema.js";
+import News from "../../schemas/news-schema.js";
 
 //wait for fetching data
 router.get("/", (req, res) => {
