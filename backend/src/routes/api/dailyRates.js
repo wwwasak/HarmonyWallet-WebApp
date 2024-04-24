@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const DailyRate = require("../models/DailyRate");
+import DailyRate from "../../models/DailyRate.js";
 
 //wait for fetching data
 router.get("/", async (req, res) => {
@@ -21,4 +21,4 @@ router.get("/:date/:baseCurrency/:targetCurrency", async (req, res) => {
   res.json({ date, baseCurrency, targetCurrency, rate: rateForTargetCurrency });
 });
 
-module.exports = router;
+export default router;

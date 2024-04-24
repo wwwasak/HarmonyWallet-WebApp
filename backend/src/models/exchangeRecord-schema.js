@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const exchangeRecordSchema = new Schema({
   exchang_id: Schema.Types.ObjectId,
-  time_stamp:Date,
+  time_stamp:Timestamp,
   exchange_from:{
     amount_used:Number,
     currency: { type: Schema.Types.ObjectId, ref: 'Currency' }

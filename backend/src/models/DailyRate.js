@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const dailyRateSchema = new mongoose.Schema({
   date: Date,
@@ -8,4 +8,4 @@ const dailyRateSchema = new mongoose.Schema({
 
 const DailyRate = mongoose.model("DailyRate", dailyRateSchema);
 
-module.exports = DailyRate;
+export default DailyRate;
