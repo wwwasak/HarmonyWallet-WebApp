@@ -46,9 +46,13 @@ export default function ResultOfChangePassword(props) {
   return (
     <Box p={8} maxW="400px" mx="auto">
       <Stack spacing={6}>
-        <Text>Sign Up Result</Text>
+        <Text>Change Password Result</Text>
         <Box>
-          {isResponded ? <Text>{message}</Text> : <Text>Registering...</Text>}
+          {isResponded ? (
+            <Text>{message}</Text>
+          ) : (
+            <Text>Changing Password...</Text>
+          )}
         </Box>
 
         <Button colorScheme="blue" size="lg" onClick={() => navigate("/login")}>

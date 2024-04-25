@@ -47,9 +47,13 @@ export default function CheckUsernameQuestion(props) {
   return (
     <Box p={8} maxW="400px" mx="auto">
       <Stack spacing={6}>
-        <Text>Sign Up Result</Text>
+        <Text>Check Info Result</Text>
         <Box>
-          {isResponded ? <Text>{message}</Text> : <Text>Registering...</Text>}
+          {isResponded ? (
+            <Text>{message}</Text>
+          ) : (
+            <Text>Cheking Information...</Text>
+          )}
         </Box>
         {isResponded && isSuccess ? (
           <Button
