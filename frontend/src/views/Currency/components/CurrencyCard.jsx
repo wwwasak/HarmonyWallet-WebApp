@@ -38,7 +38,7 @@ const CurrencyCard = ({ currency, rate }) => {
           cursor="pointer"
         />
       </Box>
-      <Link to={`/currencyDetail/${baseCurrency}/${currency}`}>
+      <Link to={`/ratesDetail/${baseCurrency}/${currency}`}>
         <Image src={chart} boxSize="150px" objectFit="cover" />
         <CardBody alignItems="center">
           <Flex flexDirection="column" alignItems="center">

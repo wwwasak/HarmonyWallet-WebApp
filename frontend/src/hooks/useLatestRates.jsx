@@ -1,4 +1,3 @@
-import { API_KEY } from "../data/API_KEY";
 import { useState, useEffect } from "react";
 import axios, { CanceledError } from "axios";
 
@@ -12,10 +11,11 @@ const useLatestRates = (base) => {
 
     setLoading(true);
     axios
-      .get(`https://openexchangerates.org/api/latest.json?app_id=${API_KEY}`)
+      .get(`https://api.frankfurter.app/latest?from=${base}`)
       .then((res) => {
         setData(res.data);
         setLoading(false);
+        console.log(res);
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
