@@ -37,8 +37,17 @@ const Signup = () => {
   );
 
   const sendInfoToServer = async () => {
-    const response = await axios.post(url, signUpInfo);
-    return response;
+    try {
+      const response = await axios.post(url, signUpInfo);
+      return response;
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        console.error("Username already exists.");
+      } else {
+        console.error("Failed to communicate with the server.");
+      }
+      throw error;
+    }
   };
 
   const renderStep = () => {
