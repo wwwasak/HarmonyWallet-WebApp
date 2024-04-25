@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Input, Select, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function SignupQuestion(props) {
@@ -21,7 +29,7 @@ export default function SignupQuestion(props) {
   return (
     <Box p={8} maxW="400px" mx="auto">
       <Stack spacing={6}>
-        <h1>Select Security Question</h1>
+        <Text>Select Security Question</Text>
         <Select
           placeholder="Security Questions"
           size="lg"

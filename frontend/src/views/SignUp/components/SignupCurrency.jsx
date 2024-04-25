@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Stack } from "@chakra-ui/react";
+import { Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 import SingupCurrenciesSelector from "./SignupCurrenciesSelector.jsx";
@@ -8,7 +8,7 @@ export default function SignupCurrency(props) {
   return (
     <Box p={8} w="300px" mx="auto">
       <Stack spacing={6}>
-        <h1>Select Your Currency</h1>
+        <Text>Select Your Currency</Text>
         <SingupCurrenciesSelector
           handleChange={props.handleChange}
           setIsSelected={setIsSelected}
