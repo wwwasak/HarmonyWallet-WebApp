@@ -8,11 +8,13 @@ router.post("/", async (req, res) => {
     username,
     password,
     security_question,
-    auestion_answer,
+    question_answer,
     default_currency,
     notification,
     favourite_currency,
   } = req.body;
+
+  console.log(req.body);
 
   if (!username || !password) {
     return res
@@ -32,7 +34,7 @@ router.post("/", async (req, res) => {
       username: username,
       password: hashedPassword,
       security_question: security_question,
-      auestion_answer: auestion_answer,
+      question_answer: question_answer,
       default_currency: default_currency,
       notification: notification,
       favourite_currency: favourite_currency,

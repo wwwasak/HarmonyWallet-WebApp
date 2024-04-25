@@ -7,14 +7,11 @@ import IncomeDetail from "../views/IncomeDetail";
 import ExpenseDetail from "../views/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
-import SignupUsername from "../views/SignUp/components/SignupUsername";
-import SignupPassword from "../views/SignUp/components/SignupPassword";
-import SignupQuestion from "../views/SignUp/components/SignupQuestion";
-import SignupCurrency from "../views/SignUp/components/SignupCurrency";
 import ChangePassword from "../views/SignUp/components/ChangePassword";
 import RecordingPage from "../views/RecordingPage";
 import RatesDetailPage from "../views/Detail/RatesDetailPage";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
+import ForgotPassword from "../views/ForgotPassword/index";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
   },
 
   {

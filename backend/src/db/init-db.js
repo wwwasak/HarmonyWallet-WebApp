@@ -13,17 +13,7 @@ async function run() {
   console.log("Connecting to database...");
   await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 
-  const user1 = new User({
-    username: "user1",
-    security_question: "String1",
-    auestion_answer: "String",
-    password: "123456",
-    default_currency: null,
-    notification: [],
-    favourite_currency: [],
-  });
-
-  await user1.save();
+  await User.deleteMany();
 
   await mongoose.disconnect();
   console.log("Done!");
