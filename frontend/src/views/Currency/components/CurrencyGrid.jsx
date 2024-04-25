@@ -4,10 +4,13 @@ import CurrencyCard from "./CurrencyCard";
 import CurrencyCardContainer from "./CurrencyCardContainer";
 import CurrencyCardSkeleton from "./CurrencyCardSkeleton";
 import React from "react";
+import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import useLatestRates from "../../../hooks/useLatestRates";
 
 const CurrencyGrid = () => {
-  const { data, isLoading, error } = useLatestRates();
+  const { baseCurrency } = useCurrency();
+  const { data, isLoading, error } = useLatestRates(baseCurrency);
+  console.log(data);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   if (error) {
