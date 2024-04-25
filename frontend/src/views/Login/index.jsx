@@ -15,8 +15,21 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    const response = await axios.post(url, body);
-    alert(response.data);
+    try {
+      const response = await axios.post(url, body);
+
+      if (response.status === 200) {
+        alert("Login successfully ");
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          alert("Username or Password is not correct");
+        } else {
+          alert("Error: " + error.response.data.message);
+        }
+      }
+    }
   };
 
   return (
