@@ -22,6 +22,7 @@ const SingupCurrenciesSelector = (props) => {
 
   const handleCurrencyChange = (currency) => () => {
     setSelectedCurrency(currency);
+    props.setIsSelected(true);
     const fakeEvent = {
       target: {
         name: "default_currency",
