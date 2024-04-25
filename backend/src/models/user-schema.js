@@ -7,7 +7,7 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   security_question: String,
   auestion_answer: String,
-  default_currency: { type: Schema.Types.ObjectId, ref: "Currency" },
+  default_currency: String,
   notification: [
     {
       base_currency: { type: Schema.Types.ObjectId, ref: "Currency" },

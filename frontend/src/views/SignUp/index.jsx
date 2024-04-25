@@ -1,5 +1,5 @@
 import { Box, Card, Flex, Stack } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 
 import SignupUsername from "./components/SignupUsername";
@@ -29,9 +29,12 @@ const Signup = () => {
     setStep(step - 1);
   };
 
-  const handleChange = (input) => (e) => {
-    setSignUpInfo({ ...signUpInfo, [input]: e.target.value });
-  };
+  const handleChange = useCallback(
+    (input) => (e) => {
+      setSignUpInfo((prevState) => ({ ...prevState, [input]: e.target.value }));
+    },
+    []
+  );
 
   const sendInfoToServer = async () => {
     const response = await axios.post(url, signUpInfo);

@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     if (user) {
       res.status(200).send("Login successfully");
     } else {
-      res.status(401).send("Invalid");
+      res.status(401).send("Username or Password is not correct");
     }
   } catch (err) {
     res.status(500).send("Server error");

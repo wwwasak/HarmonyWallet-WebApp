@@ -7,9 +7,14 @@ export default function SignupResult(props) {
   const navigate = useNavigate();
   const [isResponded, setIsResponded] = useState(false);
   useEffect(() => {
-    const response = props.sendInfoToServer();
-    console.log(response);
-  });
+    const fetchData = async () => {
+      const response = await props.sendInfoToServer();
+      console.log(response);
+      setIsResponded(true);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box p={8} maxW="400px" mx="auto">

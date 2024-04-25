@@ -14,8 +14,6 @@ router.post("/", async (req, res) => {
     favourite_currency,
   } = req.body;
 
-  console.log(req.body);
-
   if (!username || !password) {
     return res
       .status(400)
@@ -39,6 +37,8 @@ router.post("/", async (req, res) => {
       notification: notification,
       favourite_currency: favourite_currency,
     });
+
+    console.log(user);
 
     await user.save();
 
