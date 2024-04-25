@@ -1,30 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Box, Button, Flex, Input, Select, Stack } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Flex, Stack } from "@chakra-ui/react";
 
-export default function SignupQuestion() {
-  const navigate = useNavigate();
+import SingupCurrenciesSelector from "./SignupCurrenciesSelector.jsx";
+
+export default function SignupCurrency(props) {
   return (
-    <Box p={8} maxW="400px" mx="auto">
+    <Box p={8} w="300px" mx="auto">
       <Stack spacing={6}>
-        <Select placeholder="Select your case currency" size="lg">
-          <option value="C1">C1</option>
-          <option value="C2">C2</option>
-          <option value="C3">C3</option>
-        </Select>
+        <h1>Select Your Currency</h1>
+        <SingupCurrenciesSelector handleChange={props.handleChange} />
         <Flex justify="space-between">
-          <Link to="/signup/question">
-            <Button colorScheme="gray" size="lg">
-              Back
-            </Button>
-          </Link>
-
-          <Button
-            colorScheme="blue"
-            size="lg"
-            onClick={() => navigate("/login")}
-          >
+          <Button colorScheme="gray" size="lg" onClick={props.prevStep}>
+            Back
+          </Button>
+          <Button colorScheme="blue" size="lg" onClick={props.nextStep}>
             Next
           </Button>
         </Flex>

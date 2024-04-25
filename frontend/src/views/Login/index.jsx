@@ -1,5 +1,4 @@
 import { Grid, GridItem, Center } from "@chakra-ui/react";
-import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
@@ -9,7 +8,7 @@ import LoginBox from "./components/LoginBox";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const url = "http://localhost:3000/login";
+  const url = import.meta.env.VITE_LOGIN_SERVER_URL;
   const body = {
     username: username,
     password: password,

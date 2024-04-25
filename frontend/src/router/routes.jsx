@@ -27,12 +27,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
 
     children: [
-    { path: "exchangeoverview", element: <RatesOverviewPage /> },
+      { path: "exchangeoverview", element: <RatesOverviewPage /> },
       {
         path: "ratesDetail/:baseCurrency/:selectedCurrency",
         element: <RatesDetailPage />,
       },
-    
+
       {
         path: "recording",
         element: <RecordingPage />,
@@ -58,24 +58,6 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
-    children: [
-      {
-        index: true,
-        element: <SignupUsername />,
-      },
-      {
-        path: "password",
-        element: <SignupPassword />,
-      },
-      {
-        path: "question",
-        element: <SignupQuestion />,
-      },
-      {
-        path: "currency",
-        element: <SignupCurrency />,
-      },
-    ],
   },
 
   {
