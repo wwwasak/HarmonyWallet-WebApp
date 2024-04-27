@@ -1,10 +1,13 @@
 import { LineChart, Line, Tooltip, YAxis, ResponsiveContainer } from "recharts";
-const WeeklyLineChart = ({ data, currency }) => {
-  const currencyData = data.map((item) => ({
-    date: item.date,
-    rate: item.data.rates[currency],
+const RatesChart = ({ data, currency }) => {
+  if (!data || !data.rates) {
+    return null;
+  }
+
+  const currencyData = Object.keys(data.rates).map((date) => ({
+    date: date,
+    rate: data.rates[date][currency],
   }));
-  console.log(currencyData);
 
   return (
     <ResponsiveContainer width="95%" height={200}>
@@ -17,4 +20,4 @@ const WeeklyLineChart = ({ data, currency }) => {
   );
 };
 
-export default WeeklyLineChart;
+export default RatesChart;

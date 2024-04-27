@@ -6,12 +6,15 @@ import CurrencyCardSkeleton from "./CurrencyCardSkeleton";
 import React from "react";
 import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import useLatestRates from "../../../hooks/useLatestRates";
-import useWeeklyRates from "../../../hooks/useWeeklyRates.jsx";
+import useRates from "../../../hooks/useRates.jsx";
+import { DATE_RANGES } from "../../../data/DATE_RANGES.js";
 
 const CurrencyGrid = () => {
   const { baseCurrency } = useCurrency();
   const { data, isLoading, error } = useLatestRates(baseCurrency);
-  const { data: weeklyData } = useWeeklyRates(baseCurrency);
+  const { data: weeklyData } = useRates(baseCurrency, DATE_RANGES["weekly"]);
+  console.log(weeklyData);
+
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   if (error) {

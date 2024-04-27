@@ -22,11 +22,11 @@ const RatesDetailCard = ({ baseCurrency, selectedCurrency }) => {
         borderTopRadius={20}
       >
         <Heading size="md" color="white">
-          100 {baseCurrency} <ArrowForwardIcon /> {selectedCurrency}
+          1 {baseCurrency} <ArrowForwardIcon /> {selectedCurrency}
         </Heading>
       </Box>
 
-      <CardBody alignItems="center">
+      <CardBody alignItems="center" width="100%">
         <Charts
           baseCurrency={baseCurrency}
           selectedCurrency={selectedCurrency}

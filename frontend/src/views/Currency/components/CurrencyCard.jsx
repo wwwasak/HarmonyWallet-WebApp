@@ -16,7 +16,7 @@ import star from "../../../assets/star.png";
 import starFavorite from "../../../assets/starFavorite.png";
 import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import LocalTime from "./LocalTime";
-import WeeklyLineChart from "./WeeklyLineChart";
+import RatesChart from "./RatesChart";
 
 const CurrencyCard = ({ currency, rate, rates }) => {
   const { baseCurrency } = useCurrency();
@@ -49,7 +49,7 @@ const CurrencyCard = ({ currency, rate, rates }) => {
       </CardHeader>
       <CardBody alignItems="center" padding={0}>
         <Link to={`/ratesDetail/${baseCurrency}/${currency}`}>
-          <WeeklyLineChart data={rates} currency={currency} />
+          <RatesChart data={rates} currency={currency} />
           <Flex flexDirection="column" alignItems="center" margin={2}>
             <Button fontSize="lg">{rate}</Button>
             <HStack>
