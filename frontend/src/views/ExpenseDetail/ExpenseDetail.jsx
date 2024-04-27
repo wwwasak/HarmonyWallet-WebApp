@@ -1,6 +1,6 @@
 import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
 import ExpenseChartTabs from "./components/ExpenseChartTabs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ExpenseDetail() {
   const [selectedOption, setSelectedOption] = useState("NZD");

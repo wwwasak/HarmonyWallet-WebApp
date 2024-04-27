@@ -4,7 +4,7 @@ import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
 import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
 import IncomeDetail from "../views/IncomeDetail";
-import ExpenseDetail from "../views/ExpenseDetail";
+import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
 import SignupUsername from "../views/SignUp/components/SignupUsername";
