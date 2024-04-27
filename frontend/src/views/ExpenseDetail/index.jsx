@@ -1,5 +1,5 @@
 import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
-import LineAndPieChartTabs from "./components/LineAndPieChartTabs";
+import ExpenseChartTabs from "./components/ExpenseChartTabs";
 import { useState } from "react";
 
 export default function ExpenseDetail() {
@@ -27,11 +27,11 @@ export default function ExpenseDetail() {
         >
           <option value="AUD">AUD</option>
           <option value="NZD">NZD</option>
-          <option value="RMB">RMB</option>
+          <option value="RMB">CNY</option>
         </Select>
       </Flex>
 
-      <LineAndPieChartTabs />
+      <ExpenseChartTabs />
     </Box>
   );
 }

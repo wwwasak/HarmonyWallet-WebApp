@@ -1,8 +1,8 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import LineChart from "./LineChart";
-import PieChart from "./PieChart";
+import LeftExpenseChart from "./LeftExpenseChart";
+import RightExpenseChart from "./RightExpenseChart";
 
-export default function LineAndPieChartTabs() {
+export default function ExpenseChartTabs() {
   return (
     <>
       <Tabs variant="soft-rounded" colorScheme="green">
@@ -41,8 +41,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -51,8 +51,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -61,8 +61,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -71,8 +71,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
         </TabPanels>
       </Tabs>
