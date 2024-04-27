@@ -6,11 +6,12 @@ import CurrencyCardSkeleton from "./CurrencyCardSkeleton";
 import React from "react";
 import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import useLatestRates from "../../../hooks/useLatestRates";
+import useWeeklyRates from "../../../hooks/useWeeklyRates.jsx";
 
 const CurrencyGrid = () => {
   const { baseCurrency } = useCurrency();
   const { data, isLoading, error } = useLatestRates(baseCurrency);
-  console.log(data);
+  const { data: weeklyData } = useWeeklyRates(baseCurrency);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   if (error) {
@@ -31,7 +32,6 @@ const CurrencyGrid = () => {
   });
 
   const sortedCurrencies = [...favoriteCurrencies, ...unfavoriteCurrencies];
-  console.log(sortedCurrencies);
 
   return (
     <SimpleGrid
@@ -48,7 +48,11 @@ const CurrencyGrid = () => {
       {sortedCurrencies.map((currency, index) => (
         <CurrencyCardContainer key={index}>
           {data.rates && data.rates[currency] && (
-            <CurrencyCard currency={currency} rate={data.rates[currency]} />
+            <CurrencyCard
+              currency={currency}
+              rate={data.rates[currency]}
+              rates={weeklyData}
+            />
           )}
         </CurrencyCardContainer>
       ))}

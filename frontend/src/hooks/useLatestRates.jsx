@@ -15,7 +15,6 @@ const useLatestRates = (base) => {
       .then((res) => {
         setData(res.data);
         setLoading(false);
-        console.log(res);
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;

@@ -3,30 +3,39 @@ import {
   Button,
   Card,
   CardBody,
+  CardHeader,
   Flex,
+  HStack,
   Image,
   Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
-import chart from "../../../assets/chart.png";
 import React from "react";
 import star from "../../../assets/star.png";
 import starFavorite from "../../../assets/starFavorite.png";
 import { useCurrency } from "../../../stores/BaseCurrencyContext";
+import LocalTime from "./LocalTime";
+import WeeklyLineChart from "./WeeklyLineChart";
 
-const CurrencyCard = ({ currency, rate }) => {
+const CurrencyCard = ({ currency, rate, rates }) => {
   const { baseCurrency } = useCurrency();
   const [isFavorite, setIsFavorite] = useLocalStorage(currency, false);
 
   return (
     <Card
       key={currency}
-      alignItems="center"
       paddingTop={3}
-      border="1px solid gray"
+      overflow="hidden"
+      variant="outline"
+      borderRadius={10}
     >
-      <Box position="absolute" top={0} right={0} margin={2}>
+      <CardHeader
+        display="flex"
+        justifyContent="flex-end"
+        padding={0}
+        paddingRight={3}
+      >
         <Image
           src={isFavorite ? starFavorite : star}
           boxSize="30px"
@@ -37,19 +46,29 @@ const CurrencyCard = ({ currency, rate }) => {
           }}
           cursor="pointer"
         />
-      </Box>
-      <Link to={`/ratesDetail/${baseCurrency}/${currency}`}>
-        <Image src={chart} boxSize="150px" objectFit="cover" />
-        <CardBody alignItems="center">
-          <Flex flexDirection="column" alignItems="center">
+      </CardHeader>
+      <CardBody alignItems="center" padding={0}>
+        <Link to={`/ratesDetail/${baseCurrency}/${currency}`}>
+          <WeeklyLineChart data={rates} currency={currency} />
+          <Flex flexDirection="column" alignItems="center" margin={2}>
             <Button fontSize="lg">{rate}</Button>
-            <Text fontSize="lg" fontWeight="bold">
-              {currency}
-            </Text>
-            <Text>Local Time</Text>
+            <HStack>
+              <Image
+                src={`${currency}.png`}
+                marginRight="8px"
+                width="30px"
+                height="auto"
+                margin={1}
+              />
+
+              <Text fontSize="lg" fontWeight="bold">
+                {currency}
+              </Text>
+            </HStack>
+            <LocalTime currency={currency} />
           </Flex>
-        </CardBody>
-      </Link>
+        </Link>
+      </CardBody>
     </Card>
   );
 };
