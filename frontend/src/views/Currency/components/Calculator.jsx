@@ -18,6 +18,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import useConversionRates from "../../../hooks/useConversionRates";
 
 const Calculator = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,11 +26,26 @@ const Calculator = () => {
   const [toCurrency, setToCurrency] = useState("");
   const [input, setInput] = useState("");
   const [isConvertClicked, setIsConvertClicked] = useState(false);
+  const [convertedAmount, setConvertedAmount] = useState(null);
+  const {
+    data: conversionData,
+    error,
+    isLoading,
+  } = useConversionRates(input, fromCurrency, toCurrency);
 
   const handleInputChange = (e) => setInput(e.target.value);
 
-  const handleConvert = () => {
+  const handleConvert = async () => {
     setIsConvertClicked(true);
+    if (input && fromCurrency && toCurrency) {
+      try {
+        if (conversionData && conversionData.rates)
+          setConvertedAmount(conversionData.rates[toCurrency]);
+      } catch (error) {
+        console.error("Error converting:", error);
+        setConvertedAmount(null);
+      }
+    }
   };
 
   return (
@@ -84,7 +100,7 @@ const Calculator = () => {
                   {input} {fromCurrency} =
                 </Text>
                 <Text mt={4} fontSize={25}>
-                  converted amount {toCurrency}
+                  {convertedAmount} {toCurrency}
                 </Text>
               </>
             )}
