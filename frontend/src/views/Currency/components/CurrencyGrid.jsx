@@ -13,7 +13,6 @@ const CurrencyGrid = () => {
   const { baseCurrency } = useCurrency();
   const { data, isLoading, error } = useLatestRates(baseCurrency);
   const { data: weeklyData } = useRates(baseCurrency, DATE_RANGES["weekly"]);
-  console.log(weeklyData);
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 

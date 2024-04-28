@@ -4,7 +4,6 @@ import budget from "../../../assets/budget.png";
 import CurrencySelector from "./CurrencySelector";
 import React from "react";
 import {
-  Button,
   Grid,
   GridItem,
   Image,
@@ -12,7 +11,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Spinner,
@@ -26,8 +24,6 @@ const Calculator = () => {
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
   const [input, setInput] = useState("");
-  const [isConvertClicked, setIsConvertClicked] = useState(false);
-  const [convertedAmount, setConvertedAmount] = useState(null);
   const {
     data: conversionData,
     error,
@@ -36,27 +32,11 @@ const Calculator = () => {
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
-    setConvertedAmount(null);
-  };
-
-  const handleConvert = async () => {
-    setIsConvertClicked(true);
-    if (input && fromCurrency && toCurrency && !isLoading) {
-      try {
-        // if (conversionData && conversionData.rates)
-        setConvertedAmount(conversionData.rates[toCurrency]);
-      } catch (error) {
-        console.error("Error converting:", error);
-        setConvertedAmount(null);
-      }
-    }
   };
 
   if (error) {
     return <Text>Error: {error}</Text>;
   }
-
-  // if (fromCurrency === toCurrency) setConvertedAmount(input);
 
   return (
     <>
@@ -72,7 +52,6 @@ const Calculator = () => {
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          setIsConvertClicked(false);
         }}
       >
         <ModalOverlay />
@@ -105,46 +84,29 @@ const Calculator = () => {
               </GridItem>
             </Grid>
             {isLoading && <Spinner />}
-            {isConvertClicked &&
-              input &&
-              fromCurrency &&
-              toCurrency &&
-              fromCurrency !== toCurrency && (
+            {fromCurrency !== toCurrency &&
+              conversionData.rates &&
+              conversionData.rates[toCurrency] && (
                 <>
                   <Text mt={4}>
                     {input} {fromCurrency} =
                   </Text>
                   <Text mt={4} fontSize={25}>
-                    {convertedAmount} {toCurrency}
+                    {conversionData.rates[toCurrency]} {toCurrency}
                   </Text>
                 </>
               )}
-            {isConvertClicked &&
-              input &&
-              fromCurrency &&
-              toCurrency &&
-              fromCurrency === toCurrency && (
-                <>
-                  <Text mt={4}>
-                    {input} {fromCurrency} =
-                  </Text>
-                  <Text mt={4} fontSize={25}>
-                    {input} {toCurrency}
-                  </Text>
-                </>
-              )}
+            {fromCurrency === toCurrency && (
+              <>
+                <Text mt={4}>
+                  {input} {fromCurrency} =
+                </Text>
+                <Text mt={4} fontSize={25}>
+                  {input} {toCurrency}
+                </Text>
+              </>
+            )}
           </ModalBody>
-
-          <ModalFooter>
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={handleConvert}
-              isDisabled={!input || !fromCurrency || !toCurrency}
-            >
-              Convert
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
