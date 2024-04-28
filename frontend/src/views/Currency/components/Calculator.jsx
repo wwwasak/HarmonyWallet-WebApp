@@ -15,6 +15,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -33,20 +34,29 @@ const Calculator = () => {
     isLoading,
   } = useConversionRates(input, fromCurrency, toCurrency);
 
-  const handleInputChange = (e) => setInput(e.target.value);
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+    setConvertedAmount(null);
+  };
 
   const handleConvert = async () => {
     setIsConvertClicked(true);
-    if (input && fromCurrency && toCurrency) {
+    if (input && fromCurrency && toCurrency && !isLoading) {
       try {
-        if (conversionData && conversionData.rates)
-          setConvertedAmount(conversionData.rates[toCurrency]);
+        // if (conversionData && conversionData.rates)
+        setConvertedAmount(conversionData.rates[toCurrency]);
       } catch (error) {
         console.error("Error converting:", error);
         setConvertedAmount(null);
       }
     }
   };
+
+  if (error) {
+    return <Text>Error: {error}</Text>;
+  }
+
+  // if (fromCurrency === toCurrency) setConvertedAmount(input);
 
   return (
     <>
@@ -94,16 +104,35 @@ const Calculator = () => {
                 />
               </GridItem>
             </Grid>
-            {isConvertClicked && input && fromCurrency && toCurrency && (
-              <>
-                <Text mt={4}>
-                  {input} {fromCurrency} =
-                </Text>
-                <Text mt={4} fontSize={25}>
-                  {convertedAmount} {toCurrency}
-                </Text>
-              </>
-            )}
+            {isLoading && <Spinner />}
+            {isConvertClicked &&
+              input &&
+              fromCurrency &&
+              toCurrency &&
+              fromCurrency !== toCurrency && (
+                <>
+                  <Text mt={4}>
+                    {input} {fromCurrency} =
+                  </Text>
+                  <Text mt={4} fontSize={25}>
+                    {convertedAmount} {toCurrency}
+                  </Text>
+                </>
+              )}
+            {isConvertClicked &&
+              input &&
+              fromCurrency &&
+              toCurrency &&
+              fromCurrency === toCurrency && (
+                <>
+                  <Text mt={4}>
+                    {input} {fromCurrency} =
+                  </Text>
+                  <Text mt={4} fontSize={25}>
+                    {input} {toCurrency}
+                  </Text>
+                </>
+              )}
           </ModalBody>
 
           <ModalFooter>

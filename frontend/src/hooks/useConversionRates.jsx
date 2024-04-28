@@ -8,7 +8,7 @@ const useConversionRates = (amount, fromCurrency, toCurrency) => {
 
   useEffect(() => {
     const controller = new AbortController();
-    if (amount && fromCurrency && toCurrency) {
+    if (amount && fromCurrency && toCurrency && fromCurrency !== toCurrency) {
       setLoading(true);
       axios
         .get(
