@@ -1,4 +1,11 @@
-import { LineChart, Line, Tooltip, YAxis, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  Tooltip,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+} from "recharts";
 const RatesChart = ({ data, currency }) => {
   if (!data || !data.rates) {
     return null;
@@ -12,6 +19,7 @@ const RatesChart = ({ data, currency }) => {
   return (
     <ResponsiveContainer width="95%" height={200}>
       <LineChart data={currencyData}>
+        <XAxis dataKey="date" hide />
         <Tooltip />
         <Line type="monotone" dataKey="rate" stroke="#8884d8" />
         <YAxis type="number" domain={["auto", "auto"]} hide />
