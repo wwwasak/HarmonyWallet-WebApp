@@ -1,29 +1,29 @@
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  Heading,
-  Flex,
-  Divider,
-  Box,
-} from "@chakra-ui/react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+    Card,
+    CardHeader,
+    CardBody,
+    Heading,
+    Flex,
+    Divider,
+    Box,
+  } from "@chakra-ui/react";
+  import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+  } from "recharts";
 
-const IncomeLineChartCard = ({ gridArea, data }) => {
+const ExpenseLineChartCard = ({ gridArea, data }) => {
   return (
     <Card gridArea={gridArea}>
       <CardHeader>
         <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">Income</Heading>
+          <Heading size="sm" textTransform="uppercase">Expense</Heading>
         </Flex>
         <Divider my={2} />
       </CardHeader>
@@ -45,4 +45,4 @@ const IncomeLineChartCard = ({ gridArea, data }) => {
   );
 };
 
-export default IncomeLineChartCard;
+export default ExpenseLineChartCard;
