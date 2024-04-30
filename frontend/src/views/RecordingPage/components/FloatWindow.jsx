@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
+import CurrencySelector from "./CurrencySelector";
 import {
   Box,
   Button,
@@ -20,10 +22,24 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 export default function FloatWindow() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tableType, setTableType] = useState("incomeExpense");
+  const [date, setDate] = useState(new Date());
+  const [incomeType, setIncomeType] = useState("Income");
+  const [amount, setAmount] = useState("");
+  const [unit, setUnit] = useState("RMB");
+
+  const [fromAmount, setFromAmount] = useState("");
+  const [fromUnit, setFromUnit] = useState("USD");
+  const [toAmount, setToAmount] = useState("");
+  const [toUnit, setToUnit] = useState("EUR");
+
+  const navigate = useNavigate();
 
   const handleIncomeExpenseClick = () => {
     setTableType("incomeExpense");
@@ -31,6 +47,42 @@ export default function FloatWindow() {
 
   const handleExchangeRecordClick = () => {
     setTableType("exchangeRecord");
+  };
+
+  const handleSaveClick = async () => {
+    const url = "http://localhost:3000/api/add-record";
+    const authToken = localStorage.getItem("authToken");
+
+    const data =
+      tableType === "incomeExpense"
+        ? {
+            date,
+            type: incomeType,
+            amount,
+            unit,
+          }
+        : {
+            date,
+            type: "Exchange",
+            fromAmount,
+            fromUnit,
+            toAmount,
+            toUnit,
+          };
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
+    try {
+      const response = await axios.post(url, data, config);
+      console.log("Server response:", response.data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error posting data:", error);
+    }
   };
 
   return (
@@ -83,7 +135,7 @@ export default function FloatWindow() {
                 <Thead>
                   <Tr>
                     <Th w="150px">Date</Th>
-                    <Th w="150px">Income/FEE</Th>
+                    <Th w="150px">Income/EXPENSE</Th>
                     <Th w="150px">Amount</Th>
                     <Th w="150px">Unit</Th>
                   </Tr>
@@ -91,19 +143,32 @@ export default function FloatWindow() {
                 <Tbody>
                   <Tr>
                     <Td>
-                      <Input size="md" defaultValue="2024-04-17" />
+                      <DatePicker
+                        dateFormat="MMMM d, yyyy"
+                        selected={date}
+                        onChange={setDate}
+                        customInput={<input />}
+                      />
                     </Td>
                     <Td>
-                      <Select size="md" defaultValue="Income">
+                      <Select
+                        size="md"
+                        value={incomeType}
+                        onChange={(e) => setIncomeType(e.target.value)}
+                      >
                         <option value="Income">Income</option>
-                        <option value="Fee">Fee</option>
+                        <option value="Expense">Expense</option>
                       </Select>
                     </Td>
                     <Td>
-                      <Input size="md" defaultValue="100" />
+                      <Input
+                        size="md"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                      />
                     </Td>
                     <Td>
-                      <Input size="md" defaultValue="RMB" />
+                      <CurrencySelector selected={unit} onSelect={setUnit} />
                     </Td>
                   </Tr>
                 </Tbody>
@@ -123,19 +188,38 @@ export default function FloatWindow() {
                 <Tbody>
                   <Tr>
                     <Td>
-                      <Input size="md" defaultValue="2024-04-17" />
+                      <DatePicker
+                        dateFormat="MMMM d, yyyy"
+                        selected={date}
+                        onChange={setDate}
+                        customInput={<input />}
+                      />
                     </Td>
                     <Td>
-                      <Input size="md" defaultValue="100" />
+                      <Input
+                        size="md"
+                        value={fromAmount}
+                        onChange={(e) => setFromAmount(e.target.value)}
+                      />
                     </Td>
                     <Td>
-                      <Input size="md" defaultValue="RMB" />
+                      <CurrencySelector
+                        selected={fromUnit}
+                        onSelect={setFromUnit}
+                      />
                     </Td>
                     <Td>
-                      <Input size="md" defaultValue="80" />
+                      <Input
+                        size="md"
+                        value={toAmount}
+                        onChange={(e) => setToAmount(e.target.value)}
+                      />
                     </Td>
                     <Td>
-                      <Input size="md" defaultValue="USD" />
+                      <CurrencySelector
+                        selected={toUnit}
+                        onSelect={setToUnit}
+                      />
                     </Td>
                   </Tr>
                 </Tbody>
@@ -147,7 +231,15 @@ export default function FloatWindow() {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Save</Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                handleSaveClick();
+                onClose();
+              }}
+            >
+              Save
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

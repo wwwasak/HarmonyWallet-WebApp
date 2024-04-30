@@ -1,7 +1,9 @@
 import { Box, Button, Flex, Input, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function SignupPassword(props) {
+export default function VerifyNewPassword(props) {
+  const navigate = useNavigate();
   const [confirmPassword, setConfirmPassword] = useState("");
   const [typeConfirmPassword, setTypeConfirmPassword] = useState(false);
 
@@ -47,8 +49,12 @@ export default function SignupPassword(props) {
           <Text opacity="0">true</Text>
         )}
         <Flex justify="space-between">
-          <Button colorScheme="gray" size="lg" onClick={props.prevStep}>
-            Back
+          <Button
+            colorScheme="gray"
+            size="lg"
+            onClick={() => navigate("/login")}
+          >
+            Cancel
           </Button>
           <Button
             colorScheme="blue"
