@@ -7,7 +7,7 @@ import {
     Divider,
     Box,
   } from "@chakra-ui/react";
-  import {
+import {
     LineChart,
     Line,
     XAxis,
@@ -17,13 +17,19 @@ import {
     Legend,
     ResponsiveContainer,
   } from "recharts";
+import { useNavigate } from 'react-router-dom';
 
-const ExpenseLineChartCard = ({ gridArea, data }) => {
+const ExpenseLineChartCard = ({ data }) => {
+  const navigate = useNavigate();
+    const handleCardClick = () => {
+        navigate('/expense-detail'); 
+    };
   return (
-    <Card gridArea={gridArea}>
+    <Box onClick={handleCardClick} cursor="pointer" boxShadow="md" p="6" rounded="md" bg="white">
+    <Card>
       <CardHeader>
         <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">Expense</Heading>
+          <Heading size="sm" textTransform="uppercase">Expense Records</Heading>
         </Flex>
         <Divider my={2} />
       </CardHeader>
@@ -42,6 +48,7 @@ const ExpenseLineChartCard = ({ gridArea, data }) => {
         </Box>
       </CardBody>
     </Card>
+    </Box>
   );
 };
 

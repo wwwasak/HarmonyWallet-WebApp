@@ -5,7 +5,7 @@ import {
   Heading,
   Flex,
   Divider,
-  Box,
+  Box
 } from "@chakra-ui/react";
 import {
   LineChart,
@@ -17,13 +17,20 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { useNavigate } from 'react-router-dom';
 
-const IncomeLineChartCard = ({ gridArea, data }) => {
+const IncomeLineChartCard = ({ data }) => {
+  const navigate = useNavigate();
+    const handleCardClick = () => {
+        navigate('/income-detail'); 
+    };
+
   return (
-    <Card gridArea={gridArea}>
+    <Box onClick={handleCardClick} cursor="pointer" boxShadow="md" p="6" rounded="md" bg="white">
+    <Card >
       <CardHeader>
         <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">Income</Heading>
+          <Heading size="sm" textTransform="uppercase">Income Records</Heading>
         </Flex>
         <Divider my={2} />
       </CardHeader>
@@ -42,6 +49,7 @@ const IncomeLineChartCard = ({ gridArea, data }) => {
         </Box>
       </CardBody>
     </Card>
+    </Box>
   );
 };
 

@@ -1,7 +1,8 @@
 import {
-  Card,
+  Box,
   Grid,
-  Text,
+  GridItem,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import ProfileCard from "./components/ProfileCard";
@@ -20,28 +21,39 @@ const data = [
   { Date: "11/04/2024", currency: 4300, amt: 2100 },
 ];
 
-// gridArea arguments: row-start/column-start/row-end/column-end
 const RecordingPage = () => {
-  const preferredCurrency = "NZD";
+  const baseCurrency = "NZD";
+  const username = 'Joker';
+  const bgColor = useColorModeValue('gray.100', 'gray.700'); 
+
   return (
-    <Card>
-      <Grid templateColumns="1fr 3fr" gap={6}>
-        <ProfileCard
-          gridArea="1 / 1 / 2 / 2"
-          preferredCurrency={preferredCurrency}
-        />
-        <IncomeLineChartCard gridArea="1 / 2 / 1 / 4" data={data}>
-          <Text>Line Chart Data</Text>
-        </IncomeLineChartCard>
-        <ExpenseLineChartCard gridArea="2 / 2 / 2 / 4" data={data}>
-          <Text>More Data Here</Text>
-        </ExpenseLineChartCard>
-        <RecentRecordsCard gridArea="2 / 1 / 2 / 2">
-          <Text>Additional Info</Text>
-        </RecentRecordsCard>
+    <Box bg={bgColor} p={5}>
+      <Grid
+        templateColumns="repeat(12, 1fr)"  // Creates three columns
+        gap={4}  // Sets gap between grid items
+        p={8}  // Padding around the grid
+      >
+        <GridItem colSpan={3} ml={45} mr={79}>
+        <ProfileCard w="100%" h="100%" username={username}baseCurrency={baseCurrency}/>
+        </GridItem>
+        <GridItem colSpan={9} >
+          <IncomeLineChartCard w="100%" h="100%" data={data}>
+            {/* <Text>Line Chart Data</Text> */}
+          </IncomeLineChartCard>
+        </GridItem>
+        <GridItem colSpan={9}>
+          <ExpenseLineChartCard w="100%" h="100%" data={data}>
+            {/* <Text>More Data Here</Text> */}
+          </ExpenseLineChartCard>
+        </GridItem>
+        <GridItem colSpan={3}>
+          <RecentRecordsCard w="100%" h="100%">
+            {/* <Text>Additional Info</Text> */}
+          </RecentRecordsCard>
+        </GridItem>
       </Grid>
       <FloatWindow />
-    </Card>
+    </Box>
   );
 };
 
