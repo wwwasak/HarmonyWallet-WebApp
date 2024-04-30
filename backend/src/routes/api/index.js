@@ -19,6 +19,6 @@ router.use("/change-password", changePassowrd);
 router.use("/change-base", changeBase);
 router.use("/get-expense/:peroid", getExpense);
 router.use("/get-income/:peroid", getIncome);
-router.use("/add-in-ex-record", addIncomeExpenseRecord);
+router.use("/add-record", addIncomeExpenseRecord);
 
 export default router;
