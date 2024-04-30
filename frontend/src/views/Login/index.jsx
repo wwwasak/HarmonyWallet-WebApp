@@ -19,6 +19,9 @@ const Login = () => {
       const response = await axios.post(url, body);
 
       if (response.status === 200) {
+        const token = response.data.token;
+        localStorage.setItem("authToken", token);
+
         alert("Login successfully ");
       }
     } catch (error) {
@@ -26,7 +29,7 @@ const Login = () => {
         if (error.response.status === 401) {
           alert("Username or Password is not correct");
         } else {
-          alert("Error: " + error.response.data.message);
+          alert("Error: " + error.response.data);
         }
       }
     }

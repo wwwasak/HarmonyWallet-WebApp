@@ -7,6 +7,7 @@ import changePassowrd from "./change-password.js";
 import changeBase from "./change-base.js";
 import getExpense from "./get-expense.js";
 import getIncome from "./get-income.js";
+import addIncomeExpenseRecord from "./add-income-expense-record.js";
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use("/change-password", changePassowrd);
 router.use("/change-base", changeBase);
 router.use("/get-expense/:peroid", getExpense);
 router.use("/get-income/:peroid", getIncome);
+router.use("/add-in-ex-record", addIncomeExpenseRecord);
 
 export default router;
