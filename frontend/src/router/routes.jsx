@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "recording",
+        path: "/",
         element: (
           <RequireAuth>
             <RecordingPage />

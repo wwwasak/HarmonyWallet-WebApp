@@ -1,6 +1,7 @@
 import { Grid, GridItem, Center } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import AppInfo from "./components/AppInfo";
 import LoginBox from "./components/LoginBox";
@@ -8,6 +9,7 @@ import LoginBox from "./components/LoginBox";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const url = import.meta.env.VITE_LOGIN_SERVER_URL;
   const body = {
     username: username,
@@ -23,6 +25,7 @@ const Login = () => {
         localStorage.setItem("authToken", token);
 
         alert("Login successfully ");
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {
