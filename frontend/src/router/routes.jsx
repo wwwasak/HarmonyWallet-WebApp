@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
 import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
-import IncomeDetail from "../views/IncomeDetail";
+import IncomeDetail from "../views/IncomeDetail/IncomeDetailsPage";
 import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
@@ -27,12 +27,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
 
     children: [
-    { path: "exchangeoverview", element: <RatesOverviewPage /> },
+      { path: "exchangeoverview", element: <RatesOverviewPage /> },
       {
         path: "ratesDetail/:baseCurrency/:selectedCurrency",
         element: <RatesDetailPage />,
       },
-    
+
       {
         path: "recording",
         element: <RecordingPage />,
