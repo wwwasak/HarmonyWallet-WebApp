@@ -1,11 +1,11 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import LineChart from "./LineChart";
-import PieChart from "./PieChart";
+import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
+import LeftExpenseChart from "./LeftExpenseChart";
+import RightExpenseChart from "./RightExpenseChart";
 
-export default function LineAndPieChartTabs() {
+export default function ExpenseChartTabs() {
   return (
     <>
-      <Tabs variant="soft-rounded" colorScheme="green">
+      <Tabs isLazy variant="soft-rounded" colorScheme="green">
         <TabList padding="20px" justifyContent="space-around">
           <Tab
             _selected={{ bg: "green.500", color: "white", fontWeight: "bold" }}
@@ -41,8 +41,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -51,8 +51,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -61,8 +61,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -71,8 +71,8 @@ export default function LineAndPieChartTabs() {
             alignItems="center"
             height="100%"
           >
-            <LineChart />
-            <PieChart />
+            <LeftExpenseChart />
+            <RightExpenseChart />
           </TabPanel>
         </TabPanels>
       </Tabs>
