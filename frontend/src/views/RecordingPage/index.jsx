@@ -1,26 +1,13 @@
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  Grid,
-  Text,
-  Heading,
-  Flex,
-  Divider,
   Box,
+  Grid,
+  GridItem,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+
 import ProfileCard from "./components/ProfileCard";
-// import IncomeLineChartCard from "./components/IncomeLineChartCard";
+import IncomeLineChartCard from "./components/IncomeLineChartCard";
+import ExpenseLineChartCard from "./components/ExpenseLineChartCard";
 import RecentRecordsCard from "./components/RecentRecordsCard";
 import FloatWindow from "./components/FloatWindow";
 
@@ -34,87 +21,39 @@ const data = [
   { Date: "11/04/2024", currency: 4300, amt: 2100 },
 ];
 
-const IncomeLineChartCard = ({ gridArea }) => {
-  return (
-    <Card gridArea={gridArea}>
-      <CardHeader>
-        <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">
-            Income
-          </Heading>
-        </Flex>
-        <Divider my={2} />
-      </CardHeader>
-      <CardBody>
-        <Box p={4} boxShadow="base" rounded="md" bg="white" width="100%">
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data}>
-              <XAxis dataKey="Date" />
-              <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="currency" stroke="#8884d8" />
-            </LineChart>
-          </ResponsiveContainer>
-        </Box>
-      </CardBody>
-    </Card>
-  );
-};
-
-const ExpenseLineChartCard = ({ gridArea }) => {
-  return (
-    <Card gridArea={gridArea}>
-      <CardHeader>
-        <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">
-            Expense
-          </Heading>
-        </Flex>
-        <Divider my={2} />
-      </CardHeader>
-      <CardBody>
-        <Box p={4} boxShadow="base" rounded="md" bg="white" width="100%">
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data}>
-              <XAxis dataKey="Date" />
-              <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="currency" stroke="#8884d8" />
-            </LineChart>
-          </ResponsiveContainer>
-        </Box>
-      </CardBody>
-    </Card>
-  );
-};
-
-// gridArea arguments: row-start/column-start/row-end/column-end
 const RecordingPage = () => {
-  const preferredCurrency = "NZD";
-  return (
-    <Card>
-      <Grid templateColumns="1fr 3fr" gap={6}>
-        <ProfileCard
-          gridArea="1 / 1 / 2 / 2"
-          preferredCurrency={preferredCurrency}
-        />
-        <IncomeLineChartCard gridArea="1 / 2 / 1 / 4">
-          <Text>Line Chart Data</Text>
-        </IncomeLineChartCard>
-        <ExpenseLineChartCard gridArea="2 / 2 / 2 / 4">
-          <Text>More Data Here</Text>
-        </ExpenseLineChartCard>
-        <RecentRecordsCard gridArea="2 / 1 / 2 / 2">
-          <Text>Additional Info</Text>
-        </RecentRecordsCard>
-      </Grid>
+  const baseCurrency = "NZD";
+  const username = 'Joker';
+  const bgColor = useColorModeValue('gray.100', 'gray.700'); 
 
+  return (
+    <Box bg={bgColor} p={5}>
+      <Grid
+        templateColumns="repeat(12, 1fr)"  // Creates three columns
+        gap={4}  // Sets gap between grid items
+        p={8}  // Padding around the grid
+      >
+        <GridItem colSpan={3} ml={45} mr={79}>
+        <ProfileCard w="100%" h="100%" username={username}baseCurrency={baseCurrency}/>
+        </GridItem>
+        <GridItem colSpan={9} >
+          <IncomeLineChartCard w="100%" h="100%" data={data}>
+            {/* <Text>Line Chart Data</Text> */}
+          </IncomeLineChartCard>
+        </GridItem>
+        <GridItem colSpan={9}>
+          <ExpenseLineChartCard w="100%" h="100%" data={data}>
+            {/* <Text>More Data Here</Text> */}
+          </ExpenseLineChartCard>
+        </GridItem>
+        <GridItem colSpan={3}>
+          <RecentRecordsCard w="100%" h="100%">
+            {/* <Text>Additional Info</Text> */}
+          </RecentRecordsCard>
+        </GridItem>
+      </Grid>
       <FloatWindow />
-    </Card>
+    </Box>
   );
 };
 

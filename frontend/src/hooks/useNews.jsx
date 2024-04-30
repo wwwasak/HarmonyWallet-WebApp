@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { CanceledError } from "axios";
 
-const useLatestRates = (base) => {
+const useNews = (baseCurrency, selectedCurrency) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -11,7 +11,9 @@ const useLatestRates = (base) => {
 
     setLoading(true);
     axios
-      .get(`https://api.frankfurter.app/latest?from=${base}`)
+      .get(
+        `https://forexnewsapi.com/api/v1?currencypair=${baseCurrency}-${selectedCurrency}&items=1&page=1&token=dmo77gpbxukjmjpcg8xnvwlglqeo9d28svxpxti7`
+      )
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -22,9 +24,9 @@ const useLatestRates = (base) => {
         setLoading(false);
       });
     return () => controller.abort();
-  }, [base]);
+  }, [baseCurrency, selectedCurrency]);
 
   return { data, error, isLoading };
 };
 
-export default useLatestRates;
+export default useNews;

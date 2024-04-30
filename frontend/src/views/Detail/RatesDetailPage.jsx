@@ -10,11 +10,11 @@ const RatesDetailPage = () => {
     <Grid
       templateAreas={{
         base: `"main" "aside"`,
-        lg: `" main main aside"`,
+        lg: `" main main main aside aside"`,
       }}
       templateColumns={{
         base: "1fr",
-        lg: "1fr 1fr 1fr",
+        lg: "1fr 1fr 1fr 1fr 1fr",
       }}
     >
       <GridItem area="main">

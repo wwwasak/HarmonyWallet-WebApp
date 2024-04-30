@@ -1,36 +1,35 @@
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  Heading,
-  Flex,
-  Divider,
-  Box
-} from "@chakra-ui/react";
+    Card,
+    CardHeader,
+    CardBody,
+    Heading,
+    Flex,
+    Divider,
+    Box,
+  } from "@chakra-ui/react";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+  } from "recharts";
 import { useNavigate } from 'react-router-dom';
 
-const IncomeLineChartCard = ({ data }) => {
+const ExpenseLineChartCard = ({ data }) => {
   const navigate = useNavigate();
     const handleCardClick = () => {
-        navigate('/income-detail'); 
+        navigate('/expense-detail'); 
     };
-
   return (
     <Box onClick={handleCardClick} cursor="pointer" boxShadow="md" p="6" rounded="md" bg="white">
-    <Card >
+    <Card>
       <CardHeader>
         <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">Income Records</Heading>
+          <Heading size="sm" textTransform="uppercase">Expense Records</Heading>
         </Flex>
         <Divider my={2} />
       </CardHeader>
@@ -53,4 +52,4 @@ const IncomeLineChartCard = ({ data }) => {
   );
 };
 
-export default IncomeLineChartCard;
+export default ExpenseLineChartCard;

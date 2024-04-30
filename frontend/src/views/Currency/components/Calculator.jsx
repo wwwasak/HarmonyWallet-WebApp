@@ -4,7 +4,6 @@ import budget from "../../../assets/budget.png";
 import CurrencySelector from "./CurrencySelector";
 import React from "react";
 import {
-  Button,
   Grid,
   GridItem,
   Image,
@@ -12,25 +11,32 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import useConversionRates from "../../../hooks/useConversionRates";
 
 const Calculator = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
   const [input, setInput] = useState("");
-  const [isConvertClicked, setIsConvertClicked] = useState(false);
+  const {
+    data: conversionData,
+    error,
+    isLoading,
+  } = useConversionRates(input, fromCurrency, toCurrency);
 
-  const handleInputChange = (e) => setInput(e.target.value);
-
-  const handleConvert = () => {
-    setIsConvertClicked(true);
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
   };
+
+  if (error) {
+    return <Text>Error: {error}</Text>;
+  }
 
   return (
     <>
@@ -46,7 +52,6 @@ const Calculator = () => {
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          setIsConvertClicked(false);
         }}
       >
         <ModalOverlay />
@@ -78,28 +83,30 @@ const Calculator = () => {
                 />
               </GridItem>
             </Grid>
-            {isConvertClicked && input && fromCurrency && toCurrency && (
+            {isLoading && <Spinner />}
+            {fromCurrency !== toCurrency &&
+              conversionData.rates &&
+              conversionData.rates[toCurrency] && (
+                <>
+                  <Text mt={4}>
+                    {input} {fromCurrency} =
+                  </Text>
+                  <Text mt={4} fontSize={25}>
+                    {conversionData.rates[toCurrency]} {toCurrency}
+                  </Text>
+                </>
+              )}
+            {fromCurrency === toCurrency && (
               <>
                 <Text mt={4}>
                   {input} {fromCurrency} =
                 </Text>
                 <Text mt={4} fontSize={25}>
-                  converted amount {toCurrency}
+                  {input} {toCurrency}
                 </Text>
               </>
             )}
           </ModalBody>
-
-          <ModalFooter>
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={handleConvert}
-              isDisabled={!input || !fromCurrency || !toCurrency}
-            >
-              Convert
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
