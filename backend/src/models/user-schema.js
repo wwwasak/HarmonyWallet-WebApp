@@ -8,7 +8,7 @@ const userSchema = new Schema({
   avatorURL: String,
   security_question: String,
   question_answer: String,
-  base_currency: String,
+  base_currency: { type: Schema.Types.ObjectId, ref: "Currency" },
   notification: [
     {
       base_currency: { type: Schema.Types.ObjectId, ref: "Currency" },

@@ -2,22 +2,14 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const currencySchema = new Schema({
-  currency: { type: String, unique: true },
-  hourly_exchange: [
-    {
-      rate: Number,
-      time_stamp: Timestamp,
-    },
-  ],
-  daily_exchange: [
-    {
-      rate: Number,
-      time_stamp: Timestamp,
-    },
-  ],
+const CurrencySchema = new Schema({
+  currency: String,
+  amount: Number,
+  start_date: Date,
+  end_date: Date,
+  rates: Map,
 });
 
-const Currency = mongoose.model("Currency", currencySchema);
+const Currency = mongoose.model("Currency", CurrencySchema);
 
 export default Currency;
