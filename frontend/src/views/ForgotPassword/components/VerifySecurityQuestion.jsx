@@ -44,7 +44,7 @@ export default function SignupQuestion(props) {
           variant="filled"
           placeholder="Answer"
           size="lg"
-          value={props.question_answer}
+          value={props.questionAnswer}
           onChange={handleAnswerChange}
         />
 

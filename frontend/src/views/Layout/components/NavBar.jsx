@@ -35,7 +35,7 @@ const NavBar = () => {
 
         <GridItem area="middle">
           <HStack justifyContent="center">
-            <Link to="/recording">
+            <Link to="/">
               <Button fontSize="lg">Record</Button>
             </Link>
             <Link to="/exchangeoverview">

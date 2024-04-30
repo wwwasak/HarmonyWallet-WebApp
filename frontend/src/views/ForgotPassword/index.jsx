@@ -2,11 +2,11 @@ import { Box, Card, Flex, Stack } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
 import axios from "axios";
 
-import SignupUsername from "./components/SignupUsername";
-import SignupPassword from "./components/SignupPassword";
-import SignupQuestion from "./components/SignupQuestion";
-import SignupCurrency from "./components/SignupCurrency";
-import SignupResult from "./components/SignupResult";
+import VerifyUsername from "./components/VerifyUsername";
+import VerifyNewPassword from "./components/VerifyNewPassword";
+import VerifySecurityQuestion from "./components/VerifySecurityQuestion";
+import CheckUsernameQuestion from "./components/CheckUsernameQuestion";
+import ResultOfChangePassword from "./components/ResultOfChangePassword";
 
 const Signup = () => {
   const [step, setStep] = useState(1);
@@ -15,11 +15,9 @@ const Signup = () => {
     password: "",
     security_question: "",
     question_answer: "",
-    base_currency: "",
-    notification: [],
-    favourite_currency: [],
   });
-  const url = import.meta.env.VITE_SIGNUP_SERVER_URL;
+  const url = import.meta.env.VITE_CHECK_USERNAME_QUESTION_URL;
+  const changePasswordUrl = import.meta.env.VITE_CHANGE_PASSWORD_URL;
 
   const nextStep = () => {
     setStep(step + 1);
@@ -36,13 +34,13 @@ const Signup = () => {
     []
   );
 
-  const sendInfoToServer = async () => {
+  const checkUsernameQuestion = async () => {
     try {
       const response = await axios.post(url, signUpInfo);
       return response;
     } catch (error) {
       if (error.response && error.response.status === 409) {
-        console.error("Username already exists.");
+        console.error("User does not exist.");
       } else {
         console.error("Failed to communicate with the server.");
       }
@@ -50,11 +48,20 @@ const Signup = () => {
     }
   };
 
+  const changePassword = async () => {
+    try {
+      const response = await axios.post(changePasswordUrl, signUpInfo);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <SignupUsername
+          <VerifyUsername
             nextStep={nextStep}
             handleChange={handleChange}
             username={signUpInfo.username}
@@ -62,16 +69,7 @@ const Signup = () => {
         );
       case 2:
         return (
-          <SignupPassword
-            nextStep={nextStep}
-            prevStep={prevStep}
-            handleChange={handleChange}
-            password={signUpInfo.password}
-          />
-        );
-      case 3:
-        return (
-          <SignupQuestion
+          <VerifySecurityQuestion
             nextStep={nextStep}
             prevStep={prevStep}
             handleChange={handleChange}
@@ -79,17 +77,28 @@ const Signup = () => {
             question_answer={signUpInfo.question_answer}
           />
         );
-      case 4:
+      case 3:
         return (
-          <SignupCurrency
+          <CheckUsernameQuestion
             nextStep={nextStep}
             prevStep={prevStep}
-            handleChange={handleChange}
-            base_currency={signUpInfo.base_currency}
+            checkUsernameQuestion={checkUsernameQuestion}
+            setStep={setStep}
+            step={step}
           />
         );
+      case 4:
+        return (
+          <VerifyNewPassword
+            nextStep={nextStep}
+            handleChange={handleChange}
+            password={signUpInfo.password}
+          />
+        );
+      case 5:
+        return <ResultOfChangePassword changePassword={changePassword} />;
       default:
-        return <SignupResult sendInfoToServer={sendInfoToServer} />;
+        return <ChangePassword changePassword={changePassword} />;
     }
   };
 
