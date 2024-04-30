@@ -16,9 +16,9 @@ async function run() {
   await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 
   await User.deleteMany();
-  // await Currency.deleteMany();
+  await Currency.deleteMany();
 
-  // await initCurrencyDatabase();
+  await initCurrencyDatabase();
 
   await mongoose.disconnect();
   console.log("Done!");
