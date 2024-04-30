@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const currencySchema = new Schema({
-  short_name: { type: String, unique: true },
+  currency: { type: String, unique: true },
   hourly_exchange: [
     {
       rate: Number,

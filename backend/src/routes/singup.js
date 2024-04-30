@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     password,
     security_question,
     question_answer,
-    default_currency,
+    base_currency,
     notification,
     favourite_currency,
   } = req.body;
@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
       security_question: security_question,
       question_answer: question_answer,
-      default_currency: default_currency,
+      base_currency: base_currency,
       notification: notification,
       favourite_currency: favourite_currency,
     });

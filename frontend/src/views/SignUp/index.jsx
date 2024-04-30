@@ -15,7 +15,7 @@ const Signup = () => {
     password: "",
     security_question: "",
     question_answer: "",
-    default_currency: "",
+    base_currency: "",
     notification: [],
     favourite_currency: [],
   });
@@ -85,7 +85,7 @@ const Signup = () => {
             nextStep={nextStep}
             prevStep={prevStep}
             handleChange={handleChange}
-            default_currency={signUpInfo.default_currency}
+            base_currency={signUpInfo.base_currency}
           />
         );
       default:

@@ -5,9 +5,10 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
+  avatorURL: String,
   security_question: String,
   question_answer: String,
-  default_currency: String,
+  base_currency: String,
   notification: [
     {
       base_currency: { type: Schema.Types.ObjectId, ref: "Currency" },
