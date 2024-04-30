@@ -12,6 +12,7 @@ import RecordingPage from "../views/RecordingPage";
 import RatesDetailPage from "../views/Detail/RatesDetailPage";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
 import ForgotPassword from "../views/ForgotPassword/index";
+import RequireAuth from "./components/RequireAuth.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,24 +28,44 @@ const router = createBrowserRouter([
       { path: "exchangeoverview", element: <RatesOverviewPage /> },
       {
         path: "ratesDetail/:baseCurrency/:selectedCurrency",
-        element: <RatesDetailPage />,
+        element: (
+          <RequireAuth>
+            <RatesDetailPage />
+          </RequireAuth>
+        ),
       },
 
       {
         path: "recording",
-        element: <RecordingPage />,
+        element: (
+          <RequireAuth>
+            <RecordingPage />
+          </RequireAuth>
+        ),
       },
       {
         path: "exchange-record",
-        element: <ExchangeRecordDetail />,
+        element: (
+          <RequireAuth>
+            <ExchangeRecordDetail />
+          </RequireAuth>
+        ),
       },
       {
         path: "income-detail",
-        element: <IncomeDetail />,
+        element: (
+          <RequireAuth>
+            <IncomeDetail />
+          </RequireAuth>
+        ),
       },
       {
         path: "expense-detail",
-        element: <ExpenseDetail />,
+        element: (
+          <RequireAuth>
+            <ExpenseDetail />
+          </RequireAuth>
+        ),
       },
     ],
   },
@@ -63,7 +84,11 @@ const router = createBrowserRouter([
 
   {
     path: "/changePassword",
-    element: <ChangePassword />,
+    element: (
+      <RequireAuth>
+        <ChangePassword />
+      </RequireAuth>
+    ),
   },
 ]);
 
