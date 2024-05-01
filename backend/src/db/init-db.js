@@ -9,6 +9,7 @@ import Currency from "../models/currency-schema.js";
 
 import { getRelatedNews } from "../services/getRelatedNews.js";
 import { initCurrencyDatabase } from "../services/initCurrencyDatabase.js";
+import { fillMissingRates } from "../services/fillMissingRates.js";
 
 // This is a standalone program which will populate the database with initial data.
 async function run() {
@@ -19,6 +20,8 @@ async function run() {
   await Currency.deleteMany();
 
   await initCurrencyDatabase();
+
+  await fillMissingRates();
 
   await mongoose.disconnect();
   console.log("Done!");
