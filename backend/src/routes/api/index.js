@@ -9,6 +9,7 @@ import getExpense from "./get-expense.js";
 import getIncome from "./get-income.js";
 import addIncomeExpenseRecord from "./add-income-expense-record.js";
 import getCurrencyRate from "./get-currency-rate.js";
+import getLatestExchanges from "./get-latest-exchanges.js";
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.use("/get-expense/:peroid", getExpense);
 router.use("/get-income/:peroid", getIncome);
 router.use("/add-record", addIncomeExpenseRecord);
 router.use("/get-currency-rate", getCurrencyRate);
+router.use("/get-exchanges/:day", getLatestExchanges);
 
 export default router;
