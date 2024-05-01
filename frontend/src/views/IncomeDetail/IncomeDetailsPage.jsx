@@ -1,11 +1,15 @@
 import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
 import LineAndPieChartTabs from "./components/LineAndPieChartTabs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function IncomeDetail() {
   const [selectedOption, setSelectedOption] = useState("NZD");
 
-  const handleChange = (event) => setSelectedOption(event.target.value);
+  const handleChange = (event) => {
+    const newCurrency = event.target.value;
+    setSelectedOption(newCurrency);
+    window.location.href = `/income-detail/7/${newCurrency}`;
+  };
 
   return (
     <Box>
@@ -31,7 +35,7 @@ export default function IncomeDetail() {
         </Select>
       </Flex>
 
-      <LineAndPieChartTabs />
+      <LineAndPieChartTabs currency={selectedOption} />
     </Box>
   );
 }
