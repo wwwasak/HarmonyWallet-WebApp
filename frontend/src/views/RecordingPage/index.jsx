@@ -1,10 +1,11 @@
 import { Box, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
-
 import ProfileCard from "./components/ProfileCard";
 import IncomeLineChartCard from "./components/IncomeLineChartCard";
 import ExpenseLineChartCard from "./components/ExpenseLineChartCard";
 import RecentRecordsCard from "./components/RecentRecordsCard";
 import FloatWindow from "./components/FloatWindow";
+
+import axios from "axios";
 
 const data = [
   { Date: "17/04/2024", currency: 2400, amt: 2400 },
@@ -15,6 +16,11 @@ const data = [
   { Date: "12/04/2024", currency: 3800, amt: 2500 },
   { Date: "11/04/2024", currency: 4300, amt: 2100 },
 ];
+
+async function getUserInfo() {
+  const url = import.meta.env.VITE_GET_USER_INFO_URL;
+  const userInfo = await axios.post(url, body);
+}
 
 const RecordingPage = () => {
   const baseCurrency = "NZD";
