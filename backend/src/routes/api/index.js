@@ -8,6 +8,7 @@ import changeBase from "./change-base.js";
 import getExpense from "./get-expense.js";
 import getIncome from "./get-income.js";
 import addIncomeExpenseRecord from "./add-income-expense-record.js";
+import getCurrencyRate from "./get-currency-rate.js";
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.use("/change-base", changeBase);
 router.use("/get-expense/:peroid", getExpense);
 router.use("/get-income/:peroid", getIncome);
 router.use("/add-record", addIncomeExpenseRecord);
+router.use("/get-currency-rate", getCurrencyRate);
 
 export default router;
