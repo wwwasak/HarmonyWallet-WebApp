@@ -25,6 +25,6 @@ router.use("/get-income/:peroid", getIncome);
 router.use("/add-record", addIncomeExpenseRecord);
 router.use("/get-currency-rate", getCurrencyRate);
 router.use("/get-exchanges/:day", getLatestExchanges);
-router.use("/get-user-info/", getUserInfo);
+router.use("/get-user-info", getUserInfo);
 
 export default router;

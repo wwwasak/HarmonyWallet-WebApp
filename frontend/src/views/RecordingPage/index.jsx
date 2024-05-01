@@ -6,6 +6,7 @@ import RecentRecordsCard from "./components/RecentRecordsCard";
 import FloatWindow from "./components/FloatWindow";
 
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const data = [
   { Date: "17/04/2024", currency: 2400, amt: 2400 },
@@ -17,15 +18,43 @@ const data = [
   { Date: "11/04/2024", currency: 4300, amt: 2100 },
 ];
 
-async function getUserInfo() {
+const getUserInfo = async () => {
   const url = import.meta.env.VITE_GET_USER_INFO_URL;
-  const userInfo = await axios.post(url, body);
-}
+  const authToken = localStorage.getItem("authToken");
+  const body = {};
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
+};
 
 const RecordingPage = () => {
-  const baseCurrency = "NZD";
-  const username = "Joker";
   const bgColor = useColorModeValue("gray.100", "gray.700");
+  const [username, setUsername] = useState("");
+  const [baseCurrency, setBaseCurrency] = useState("");
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = await getUserInfo();
+        setUsername(userInfo.username);
+        setBaseCurrency(userInfo.base_currency);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   return (
     <Box bg={bgColor} p={5}>
