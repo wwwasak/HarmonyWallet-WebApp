@@ -1,9 +1,11 @@
 import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
 import IncomeChartTabs from "./components/IncomeChartTabs";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function IncomeDetail() {
-  const [selectedOption, setSelectedOption] = useState("NZD");
+  const { currency } = useParams();
+  const [selectedOption, setSelectedOption] = useState(currency || "NZD");
 
   const handleChange = (event) => {
     const newCurrency = event.target.value;
