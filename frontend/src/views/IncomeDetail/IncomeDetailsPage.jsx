@@ -1,5 +1,5 @@
 import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
-import LineAndPieChartTabs from "./components/LineAndPieChartTabs";
+import IncomeChartTabs from "./components/IncomeChartTabs";
 import { useState, useEffect } from "react";
 
 export default function IncomeDetail() {
@@ -31,11 +31,11 @@ export default function IncomeDetail() {
         >
           <option value="AUD">AUD</option>
           <option value="NZD">NZD</option>
-          <option value="RMB">RMB</option>
+          <option value="CNY">CNY</option>
         </Select>
       </Flex>
 
-      <LineAndPieChartTabs currency={selectedOption} />
+      <IncomeChartTabs currency={selectedOption} />
     </Box>
   );
 }

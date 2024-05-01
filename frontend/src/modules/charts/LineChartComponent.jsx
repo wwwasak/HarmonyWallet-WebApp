@@ -47,7 +47,7 @@ const generatePieces = (highlightedZone, yAxisValueCount) => {
       pieces.push({ gt: zone.start, lte: zone.end, color: 'red' });
     };
 
-    if (current < yAxisValueCount - 1 && index == highlightedZone.length - 1) {
+    if (current < yAxisValueCount - 1 && index === highlightedZone.length - 1) {
       pieces.push({ gt: zone.end, color: 'green' });
     };
 
@@ -116,8 +116,10 @@ export default function LineChartComponent({ title, xAxisData, yAxisLabel, highl
 
   useEffect(() => {
     if (option) {
-      const chart = echarts.init(chartRef.current);
-      chart.setOption(option);
+      const chart = echarts.getInstanceByDom(chartRef.current);
+      if (chart) {
+        chart.setOption(option);
+      }
     }
   }, [option]);
 

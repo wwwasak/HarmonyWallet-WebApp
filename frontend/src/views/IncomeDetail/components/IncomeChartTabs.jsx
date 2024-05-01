@@ -1,12 +1,12 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import LineChart from "./LineChart";
-import PieChart from "./PieChart";
+import LeftChart from "./LeftIncomeChart";
+import RightChart from "./RightIncomeChart";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import useIncome from "../../../hooks/useIncome";
 import { DATE_RANGES } from "../../../data/DATE_RANGES";
 
-export default function LineAndPieChartTabs({ currency }) {
+export default function IncomeChartTabs({ currency }) {
   //console.log(currency);
   //const { datePeriod, currency } = useParams();
   const { data: weeklyData } = useIncome(currency, DATE_RANGES["weekly"]);
@@ -78,8 +78,8 @@ export default function LineAndPieChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LineChart datePeriod={weeklyData} currency={currency} />
-            <PieChart />
+            <LeftChart datePeriod={weeklyData} currency={currency} />
+            <RightChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -88,8 +88,8 @@ export default function LineAndPieChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LineChart datePeriod={fortnightlyData} currency={currency} />
-            <PieChart />
+            <LeftChart datePeriod={fortnightlyData} currency={currency} />
+            <RightChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -98,8 +98,8 @@ export default function LineAndPieChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LineChart datePeriod={monthlyData} currency={currency} />
-            <PieChart />
+            <LeftChart datePeriod={monthlyData} currency={currency} />
+            <RightChart />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -108,8 +108,8 @@ export default function LineAndPieChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LineChart datePeriod={oneYearData} currency={currency} />
-            <PieChart />
+            <LeftChart datePeriod={oneYearData} currency={currency} />
+            <RightChart />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -2,7 +2,7 @@ import { Text, Box } from "@chakra-ui/react";
 import Chart from "react-apexcharts";
 import React from "react";
 
-export default function PieChart({ datePeriod, series }) {
+export default function PieChartComponent({ datePeriod, series }) {
   //const dateLastQuotes = ["23/Apr", "24/Apr", "25/Apr", "26/Apr", "26/Apr"];
   //const series = [500, 600, 100, 500, 1000];
   var options = {

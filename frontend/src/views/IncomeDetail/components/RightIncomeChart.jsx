@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 
 import React, { useState, useEffect, useCallback } from "react";
 
-export default function PieChart({ datePeriod, currency }) {
+export default function RightIncomeChart({ datePeriod, currency }) {
   const dataPeriod = ["23/Apr", "24/Apr", "25/Apr", "26/Apr", "26/Apr"];
   var options = {
     labels: dataPeriod,
