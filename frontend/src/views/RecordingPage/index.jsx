@@ -145,11 +145,16 @@ const RecordingPage = () => {
       }
     };
 
-    fetchUserInfo();
-    fetchExchanges();
-    fetchIncomes();
-    fetchExpenses();
-  }, [baseCurrency]);
+    const fetchData = async () => {
+      await fetchUserInfo();
+      if (username.length > 0) {
+        await fetchExchanges();
+        await fetchIncomes();
+        await fetchExpenses();
+      }
+    };
+    fetchData();
+  }, [username]);
 
   return (
     <Box bg={bgColor} p={5}>
