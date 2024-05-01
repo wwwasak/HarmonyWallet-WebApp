@@ -30,7 +30,7 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
       <CardBody>
         {formattedExchanges.length > 0 ? (
           formattedExchanges.map((exchange, index) => (
-            <Box key={index} my={2}>
+            <Box key={index} my={2} borderBottom="1px" p="5px">
               {exchange.date} - From {exchange.fromAmount}{" "}
               {exchange.fromCurrency} to {exchange.toAmount}{" "}
               {exchange.toCurrency}

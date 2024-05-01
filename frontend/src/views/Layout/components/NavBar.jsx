@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.webp";
 import React from "react";
 import userImage from "../../../assets/userImage.webp";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    alert("Logout successfully");
+    navigate("/login");
+  };
   return (
     <>
       <Grid
@@ -45,9 +52,10 @@ const NavBar = () => {
         </GridItem>
 
         <GridItem area="right" justifySelf="end">
-          <Link to="/user">
-            <Image src={userImage} boxSize="60px" objectFit="cover" />
-          </Link>
+          <Button onClick={handleLogout}>
+            {/* <Image src={userImage} boxSize="60px" objectFit="cover" /> */}
+            Logout
+          </Button>
         </GridItem>
       </Grid>
     </>
