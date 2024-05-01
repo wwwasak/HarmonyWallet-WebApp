@@ -37,10 +37,31 @@ const getUserInfo = async () => {
   }
 };
 
+const getExchanges = async (n) => {
+  const url = import.meta.env.VITE_GET_EXCHANGES_URL;
+  const authToken = localStorage.getItem("authToken");
+  const body = {
+    day: n,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
+};
+
 const RecordingPage = () => {
   const bgColor = useColorModeValue("gray.100", "gray.700");
   const [username, setUsername] = useState("");
   const [baseCurrency, setBaseCurrency] = useState("");
+  const [exchanges, setExchanges] = useState([]);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -53,7 +74,17 @@ const RecordingPage = () => {
       }
     };
 
+    const fetchExchanges = async () => {
+      try {
+        const exchanges = await getExchanges(5);
+        setExchanges(exchanges);
+      } catch (error) {
+        console.error("Failed to fetch exchanges:", error);
+      }
+    };
+
     fetchUserInfo();
+    fetchExchanges();
   }, []);
 
   return (
@@ -82,7 +113,7 @@ const RecordingPage = () => {
           </ExpenseLineChartCard>
         </GridItem>
         <GridItem colSpan={3}>
-          <RecentRecordsCard w="100%" h="100%">
+          <RecentRecordsCard w="100%" h="100%" exchanges={exchanges}>
             {/* <Text>Additional Info</Text> */}
           </RecentRecordsCard>
         </GridItem>

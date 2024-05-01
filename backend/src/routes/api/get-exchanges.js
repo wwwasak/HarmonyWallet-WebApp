@@ -7,8 +7,9 @@ dotenv.config();
 
 const router = express.Router();
 
-router.post("/:day", authenticateToken, async (req, res) => {
-  const { day } = req.params;
+router.post("/", authenticateToken, async (req, res) => {
+  const { day } = req.body;
+  console.log(req.body);
   try {
     const userId = req.user.userId;
     console.log(userId);
@@ -16,19 +17,33 @@ router.post("/:day", authenticateToken, async (req, res) => {
     if (!user) return res.status(404).send({ message: "User not found" });
 
     let exchanges;
+    const populateQuery = [
+      { path: "fromCurrency", select: "currency" },
+      { path: "toCurrency", select: "currency" },
+    ];
 
     if (day == "n") {
-      exchanges = await Exchange.find({ user: userId });
+      exchanges = await Exchange.find({ user: userId }).populate(populateQuery);
     } else {
       const numbersOfDays = parseInt(day, 10);
       if (isNaN(numbersOfDays)) {
         return res.status(400).send("Invalid day params");
       }
 
-      exchanges = await Exchange.find({ user: userId }).limit(numbersOfDays);
+      exchanges = await Exchange.find({ user: userId })
+        .populate(populateQuery)
+        .limit(numbersOfDays);
     }
 
-    res.status.json(exchanges);
+    const filteredExchanges = exchanges.map((expense) => ({
+      date: expense.date,
+      fromAmount: expense.fromAmount,
+      fromCurrency: expense.fromCurrency.currency,
+      toAmount: expense.toAmount,
+      toCurrency: expense.toCurrency.currency,
+    }));
+    console.log(filteredExchanges);
+    res.status(200).json(filteredExchanges);
   } catch (error) {
     return res.status(500).send({ message: "Server error" });
   }

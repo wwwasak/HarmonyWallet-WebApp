@@ -6,25 +6,39 @@ import {
   Flex,
   Divider,
   Box,
+  Link,
 } from "@chakra-ui/react";
+import { parseISO, format } from "date-fns";
 
-const RecentRecordsCard = ({ gridArea }) => {
+const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
+  const formattedExchanges = exchanges.map((exchange) => ({
+    ...exchange,
+    date: format(parseISO(exchange.date), "MM-dd-yyyy"),
+  }));
+
   return (
     <Card gridArea={gridArea}>
       <CardHeader>
-        <Flex justifyContent="center" alignItems="center">
+        <Flex justifyContent="space-around" alignItems="center">
           <Heading size="sm" textTransform="uppercase">
-            RecentRecords
+            Exchange Records
           </Heading>
+          <Link>More</Link>
         </Flex>
         <Divider my={2} />
       </CardHeader>
       <CardBody>
-        <Box>records1 17/04/2024</Box>
-        <Divider my={12} />
-        <Box>records2 15/04/2024</Box>
-        <Divider my={12} />
-        <Box>records3 1/04/2024</Box>
+        {formattedExchanges.length > 0 ? (
+          formattedExchanges.map((exchange, index) => (
+            <Box key={index} my={2}>
+              {exchange.date} - From {exchange.fromAmount}{" "}
+              {exchange.fromCurrency} to {exchange.toAmount}{" "}
+              {exchange.toCurrency}
+            </Box>
+          ))
+        ) : (
+          <Box>No exchange records available.</Box>
+        )}
       </CardBody>
     </Card>
   );

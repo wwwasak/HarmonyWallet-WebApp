@@ -10,7 +10,10 @@ router.post("/", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     console.log(userId);
-    const user = await User.findById(userId).populate("base_currency");
+    const user = await User.findById(userId).populate({
+      path: "base_currency",
+      select: "currency",
+    });
     if (!user) return res.status(404).send({ message: "User not found" });
     const userInfo = {
       username: user.username,
