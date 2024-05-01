@@ -157,38 +157,49 @@ const RecordingPage = () => {
   }, [username]);
 
   return (
-    <Box bg={bgColor} p={5}>
-      <Grid
-        templateColumns="repeat(12, 1fr)" // Creates three columns
-        gap={4} // Sets gap between grid items
-        p={8} // Padding around the grid
+    <>
+      <Box
+        bg={bgColor}
+        m={5}
+        backgroundImage="url('./pictures/IMG_2143.JPG')"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
       >
-        <GridItem colSpan={3} ml={45} mr={79}>
-          <ProfileCard
-            w="100%"
-            h="100%"
-            username={username}
-            baseCurrency={baseCurrency}
-          />
-        </GridItem>
-        <GridItem colSpan={9}>
-          <IncomeLineChartCard w="100%" h="100%">
-            {/* <Text>Line Chart Data</Text> */}
-          </IncomeLineChartCard>
-        </GridItem>
-        <GridItem colSpan={9}>
-          <ExpenseLineChartCard w="100%" h="100%">
-            {/* <Text>More Data Here</Text> */}
-          </ExpenseLineChartCard>
-        </GridItem>
-        <GridItem colSpan={3}>
-          <RecentRecordsCard w="100%" h="100%" exchanges={exchanges}>
-            {/* <Text>Additional Info</Text> */}
-          </RecentRecordsCard>
-        </GridItem>
-      </Grid>
-      <FloatWindow />
-    </Box>
+        <Box bg="rgba(255, 255, 255, 0.5)" backdropFilter="blur(10px)">
+          <Grid
+            templateColumns="repeat(12, 1fr)" // Creates three columns
+            gap={4} // Sets gap between grid items
+            p={8} // Padding around the grid
+          >
+            <GridItem colSpan={3} ml={45} mr={79}>
+              <ProfileCard
+                w="100%"
+                h="100%"
+                username={username}
+                baseCurrency={baseCurrency}
+              />
+            </GridItem>
+            <GridItem colSpan={9}>
+              <IncomeLineChartCard w="100%" h="100%">
+                {/* <Text>Line Chart Data</Text> */}
+              </IncomeLineChartCard>
+            </GridItem>
+            <GridItem colSpan={9}>
+              <ExpenseLineChartCard w="100%" h="100%">
+                {/* <Text>More Data Here</Text> */}
+              </ExpenseLineChartCard>
+            </GridItem>
+            <GridItem colSpan={3}>
+              <RecentRecordsCard w="100%" h="100%" exchanges={exchanges}>
+                {/* <Text>Additional Info</Text> */}
+              </RecentRecordsCard>
+            </GridItem>
+            <FloatWindow />
+          </Grid>
+        </Box>
+      </Box>
+    </>
   );
 };
 

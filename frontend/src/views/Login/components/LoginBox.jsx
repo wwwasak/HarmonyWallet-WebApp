@@ -20,7 +20,7 @@ const LoginBox = (props) => {
   return (
     <Box>
       <Flex justifyContent="center">
-        <Card h="100%" w="50%">
+        <Card h="100%" w="400px">
           <CardBody>
             <Stack spacing={6}>
               <Input
@@ -30,6 +30,7 @@ const LoginBox = (props) => {
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
+                type="password"
                 variant="filled"
                 placeholder="Password"
                 size="lg"

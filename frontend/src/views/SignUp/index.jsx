@@ -94,8 +94,21 @@ const Signup = () => {
   };
 
   return (
-    <Box w="100%" h="100vh" bg="pink.100">
-      <Flex justifyContent="center" alignItems="center" h="100vh">
+    <Box
+      w="100%"
+      h="100vh"
+      backgroundImage="url('./pictures/background.jpg')"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
+    >
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        h="100vh"
+        bg="rgba(255, 255, 255, 0.5)"
+        backdropFilter="blur(10px)"
+      >
         <Card p={8} w="500px" h="400px" mx="auto">
           <Stack spacing={6}>{renderStep()}</Stack>
         </Card>

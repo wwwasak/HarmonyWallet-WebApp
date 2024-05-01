@@ -39,14 +39,27 @@ const Login = () => {
   };
 
   return (
-    <Grid templateColumns={"1.5fr 2fr"} gap={0}>
-      <GridItem w="100%" h="100vh" bg="yellow.100" alignContent={"center"}>
+    <Grid
+      templateColumns={"1.5fr 2fr"}
+      gap={0}
+      backgroundImage="url('./pictures/background.jpg')"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
+    >
+      <GridItem
+        w="100%"
+        h="100vh"
+        alignContent={"center"}
+        bg="rgba(255, 255, 255, 0.5)"
+        backdropFilter="blur(10px)"
+      >
         <Center>
           <AppInfo></AppInfo>
         </Center>
       </GridItem>
 
-      <GridItem w="100%" h="100vh" bg="orange.200" alignContent={"center"}>
+      <GridItem w="100%" h="100vh" alignContent={"center"}>
         <LoginBox
           handleLogin={handleLogin}
           setUsername={setUsername}
