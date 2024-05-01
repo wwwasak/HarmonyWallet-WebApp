@@ -167,12 +167,12 @@ const RecordingPage = () => {
           />
         </GridItem>
         <GridItem colSpan={9}>
-          <IncomeLineChartCard w="100%" h="100%" data={data}>
+          <IncomeLineChartCard w="100%" h="100%">
             {/* <Text>Line Chart Data</Text> */}
           </IncomeLineChartCard>
         </GridItem>
         <GridItem colSpan={9}>
-          <ExpenseLineChartCard w="100%" h="100%" data={data}>
+          <ExpenseLineChartCard w="100%" h="100%">
             {/* <Text>More Data Here</Text> */}
           </ExpenseLineChartCard>
         </GridItem>
