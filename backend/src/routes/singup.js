@@ -44,8 +44,6 @@ router.post("/", async (req, res) => {
       favourite_currency: favourite_currency,
     });
 
-    console.log(user);
-
     await user.save();
 
     res.status(201).send("create successfully");

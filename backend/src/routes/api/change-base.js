@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { username, base_currency } = req.body;
-  console.log(req.body);
 
   try {
     const user = await User.findOne({

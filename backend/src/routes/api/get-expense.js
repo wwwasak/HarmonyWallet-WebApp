@@ -1,34 +1,63 @@
 import express from "express";
-// import User from "../../models/user-schema";
-// import Expense from "../../models/expense-schema.js";
+import { authenticateToken } from "../../middleware/authenticateToken.js";
+import User from "../../models/user-schema.js";
+import Currency from "../../models/currency-schema.js";
+import Expense from "../../models/expense-schema.js";
+import Income from "../../models/income-schema.js";
+import { getExchangeRate } from "../../services/getExchangeRate.js";
+import { parseISO } from "date-fns";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  const period = req.params;
-  const { username } = req.body.username;
+router.post("/", authenticateToken, async (req, res) => {
+  const { fromDate, currency } = req.body;
+  const upperCasedCurrency = currency.toUpperCase();
 
   try {
-    const user = await User.findOne({
-      username: username,
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).send({ message: "User not found" });
+
+    const currencyData = await Currency.findOne({
+      currency: upperCasedCurrency,
     });
-    if (!user) {
-      return res.status(401).send({ message: "User does not exists" });
+
+    if (!currencyData)
+      return res.status(404).send({ message: "Currency is invalid" });
+
+    if (!fromDate) {
+      return res.status(400).send({ messgae: "fromDate is required" });
     }
 
-    //   const result = await User.findOneAndUpdate(
-    //     { _id: user._id },
-    //     { $set: { password: hashedPassword } },
-    //     { new: true }
-    //   );
+    const fromDateObj = parseISO(fromDate);
 
-    //   if (result) {
-    //     return res.status(200).send({ message: "Password updated successfully" });
-    //   } else {
-    //     return res.status(400).send({ message: "Password update failed" });
-    //   }
+    const expenses = await Expense.find({
+      user: userId,
+      date: { $gte: fromDateObj },
+    }).populate({ path: "currency", select: "currency" });
+
+    const convertedExpenses = await Promise.all(
+      expenses.map(async (expense) => {
+        const rate = await getExchangeRate(
+          expense.currency.currency,
+          upperCasedCurrency,
+          expense.date
+        );
+        return {
+          ...expense._doc,
+          convertedAmount: expense.amount * rate,
+          convertedCurrency: upperCasedCurrency,
+        };
+      })
+    );
+
+    console.log(convertedExpenses);
+
+    res.status(200).json(convertedExpenses);
   } catch (error) {
-    //   return res.status(500).send({ message: "Server error" });
+    res.status(500).send({ message: "Server error" });
   }
 });
 

@@ -29,7 +29,6 @@ const getUserInfo = async () => {
   };
   try {
     const response = await axios.post(url, body, config);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching user info:", error);
@@ -57,11 +56,56 @@ const getExchanges = async (n) => {
   }
 };
 
+const getIncomes = async (fromDate, currency) => {
+  const url = import.meta.env.VITE_GET_INCOMES_URL;
+  const authToken = localStorage.getItem("authToken");
+  const body = {
+    fromDate: fromDate,
+    currency: currency,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
+};
+
+const getExpenses = async (fromDate, currency) => {
+  const url = import.meta.env.VITE_GET_EXPENSES_URL;
+  const authToken = localStorage.getItem("authToken");
+  const body = {
+    fromDate: fromDate,
+    currency: currency,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
+};
+
 const RecordingPage = () => {
   const bgColor = useColorModeValue("gray.100", "gray.700");
   const [username, setUsername] = useState("");
   const [baseCurrency, setBaseCurrency] = useState("");
   const [exchanges, setExchanges] = useState([]);
+  const [incomes, setIncomes] = useState([]); //incomes data here
+  const [expenses, setExpenses] = useState([]); //expenses data here
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -76,8 +120,26 @@ const RecordingPage = () => {
 
     const fetchExchanges = async () => {
       try {
-        const exchanges = await getExchanges(5);
-        setExchanges(exchanges);
+        const fetchedExchanges = await getExchanges(5);
+        setExchanges(fetchedExchanges);
+      } catch (error) {
+        console.error("Failed to fetch exchanges:", error);
+      }
+    };
+
+    const fetchIncomes = async () => {
+      try {
+        const fetchedIncomes = await getIncomes("2024-03-30", baseCurrency); //change period here
+        setIncomes(fetchedIncomes);
+      } catch (error) {
+        console.error("Failed to fetch exchanges:", error);
+      }
+    };
+
+    const fetchExpenses = async () => {
+      try {
+        const fetchedExpenses = await getExpenses("2024-03-30", baseCurrency); //change period here
+        setIncomes(fetchedExpenses);
       } catch (error) {
         console.error("Failed to fetch exchanges:", error);
       }
@@ -85,7 +147,9 @@ const RecordingPage = () => {
 
     fetchUserInfo();
     fetchExchanges();
-  }, []);
+    fetchIncomes();
+    fetchExpenses();
+  }, [baseCurrency]);
 
   return (
     <Box bg={bgColor} p={5}>

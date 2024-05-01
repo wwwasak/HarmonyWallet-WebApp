@@ -1,34 +1,62 @@
 import express from "express";
+import { authenticateToken } from "../../middleware/authenticateToken.js";
 import User from "../../models/user-schema.js";
-import bcrypt from "bcryptjs";
+import Currency from "../../models/currency-schema.js";
+import Expense from "../../models/expense-schema.js";
+import Income from "../../models/income-schema.js";
+import { getExchangeRate } from "../../services/getExchangeRate.js";
+import { parseISO } from "date-fns";
+import dotenv from "dotenv";
+dotenv.config();
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
-  // const { username, password, security_question, question_answer } = req.body;
-  // try {
-  //   const user = await User.findOne({
-  //     username: username,
-  //     security_question: security_question,
-  //     question_answer: question_answer,
-  //   });
-  //   if (!user) {
-  //     return res.status(401).send({ message: "Security info does not match" });
-  //   }
-  //   const hashedPassword = await bcrypt.hash(password, 10);
-  //   const result = await User.findOneAndUpdate(
-  //     { _id: user._id },
-  //     { $set: { password: hashedPassword } },
-  //     { new: true }
-  //   );
-  //   if (result) {
-  //     return res.status(200).send({ message: "Password updated successfully" });
-  //   } else {
-  //     return res.status(400).send({ message: "Password update failed" });
-  //   }
-  // } catch (error) {
-  //   return res.status(500).send({ message: "Server error" });
-  // }
+router.post("/", authenticateToken, async (req, res) => {
+  const { fromDate, currency } = req.body;
+  const upperCasedCurrency = currency.toUpperCase();
+
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).send({ message: "User not found" });
+
+    const currencyData = await Currency.findOne({
+      currency: upperCasedCurrency,
+    });
+
+    if (!currencyData)
+      return res.status(404).send({ message: "Currency is invalid" });
+
+    if (!fromDate) {
+      return res.status(400).send({ messgae: "fromDate is required" });
+    }
+
+    const fromDateObj = parseISO(fromDate);
+
+    const incomes = await Income.find({
+      user: userId,
+      date: { $gte: fromDateObj },
+    }).populate({ path: "currency", select: "currency" });
+
+    const convertedIncomes = await Promise.all(
+      incomes.map(async (income) => {
+        const rate = await getExchangeRate(
+          income.currency.currency,
+          upperCasedCurrency,
+          income.date
+        );
+        return {
+          ...income._doc,
+          convertedAmount: income.amount * rate,
+          convertedCurrency: upperCasedCurrency,
+        };
+      })
+    );
+
+    res.status(200).json(convertedIncomes);
+  } catch (error) {
+    res.status(500).send({ message: "Server error" });
+  }
 });
 
 export default router;

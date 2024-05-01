@@ -11,7 +11,7 @@ import {
 import { parseISO, format } from "date-fns";
 
 const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
-  const formattedExchanges = exchanges.map((exchange) => ({
+  const formattedExchanges = exchanges?.map((exchange) => ({
     ...exchange,
     date: format(parseISO(exchange.date), "MM-dd-yyyy"),
   }));

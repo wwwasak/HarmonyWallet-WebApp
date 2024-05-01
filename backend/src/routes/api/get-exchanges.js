@@ -9,10 +9,10 @@ const router = express.Router();
 
 router.post("/", authenticateToken, async (req, res) => {
   const { day } = req.body;
-  console.log(req.body);
+
   try {
     const userId = req.user.userId;
-    console.log(userId);
+
     const user = await User.findById(userId);
     if (!user) return res.status(404).send({ message: "User not found" });
 
@@ -42,7 +42,7 @@ router.post("/", authenticateToken, async (req, res) => {
       toAmount: expense.toAmount,
       toCurrency: expense.toCurrency.currency,
     }));
-    console.log(filteredExchanges);
+
     res.status(200).json(filteredExchanges);
   } catch (error) {
     return res.status(500).send({ message: "Server error" });

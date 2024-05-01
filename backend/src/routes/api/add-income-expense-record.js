@@ -11,13 +11,12 @@ dotenv.config();
 const router = express.Router();
 
 router.post("/", authenticateToken, async (req, res) => {
-  console.log(req.body);
   const { date, type, amount, unit, fromAmount, fromUnit, toAmount, toUnit } =
     req.body;
 
   try {
     const userId = req.user.userId;
-    console.log(userId);
+
     const user = await User.findById(userId);
     if (!user) return res.status(404).send({ message: "User not found" });
 

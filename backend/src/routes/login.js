@@ -9,8 +9,6 @@ const router = express.Router();
 
 const secretKey = process.env.JWT_SECRET_KEY;
 
-console.log(secretKey);
-
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
