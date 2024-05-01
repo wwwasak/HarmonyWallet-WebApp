@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const API_BASE_URL = process.env.RELATED_CURRENCY_STRING;
-const fromDate = getNDaysAgoFormatted(800);
+const fromDate = getNDaysAgoFormatted(1000);
 
 function getNDaysAgoFormatted(n) {
   const nDaysAgo = subDays(new Date(), n);
