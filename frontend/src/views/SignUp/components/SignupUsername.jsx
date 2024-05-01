@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function SignupUsername({ username, nextStep, handleChange }) {
-  const [isExisted, setIsExisted] = useState(false);
+  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const enterUsername = username.length > 0;
   const [message, setMessage] = useState("");
@@ -11,6 +11,7 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
   const checkUsername = async () => {
     setIsLoading(true);
     setMessage("");
+    setError(false);
     try {
       const response = await axios.post(
         "http://localhost:3000/api/check-username",
@@ -19,18 +20,17 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
         }
       );
       if (response.data.exists) {
-        setIsExisted(true);
+        setError(true);
         setMessage("Username already exists.");
       } else {
-        setIsExisted(false);
         setMessage("Username is available.");
       }
     } catch (error) {
+      setError(true);
       if (error.response && error.response.status === 409) {
-        setIsExisted(true);
         setMessage("Username already exists.");
       } else {
-        setMessage("Something wrong, please try again later.");
+        setMessage("Can't connect to the server.");
       }
     } finally {
       setIsLoading(false);
@@ -41,7 +41,7 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
     if (e.target.value.length > 0) {
       checkUsername();
     } else {
-      setIsExisted(false);
+      setError(false);
       setMessage("");
     }
   };
@@ -49,6 +49,7 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
   const handleUsername = (e) => {
     handleChange("username")(e);
     setMessage("");
+    setError(false);
   };
 
   return (
@@ -67,7 +68,7 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
         />
         <Box h="50px">
           {enterUsername && (
-            <Text color={isExisted ? "red.300" : "green.500"}>{message}</Text>
+            <Text color={error ? "red.300" : "green.500"}>{message}</Text>
           )}
         </Box>
 
@@ -75,7 +76,7 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
           colorScheme="blue"
           size="lg"
           onClick={nextStep}
-          isDisabled={!enterUsername || isExisted || isLoading}
+          isDisabled={!enterUsername || error || isLoading}
         >
           Next
         </Button>
