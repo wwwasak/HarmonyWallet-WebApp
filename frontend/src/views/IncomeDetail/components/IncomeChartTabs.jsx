@@ -70,7 +70,7 @@ export default function IncomeChartTabs({
             height="100%"
           >
             <LeftIncomeChart datePeriod={weeklyIncomes} />
-            <RightChart />
+            <RightChart chartData={weeklyIncomes} />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -80,7 +80,7 @@ export default function IncomeChartTabs({
             height="100%"
           >
             <LeftIncomeChart datePeriod={fortnightlyIncomes} />
-            <RightChart />
+            <RightChart chartData={fortnightlyIncomes} />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -90,7 +90,7 @@ export default function IncomeChartTabs({
             height="100%"
           >
             <LeftIncomeChart datePeriod={monthlyIncomes} />
-            <RightChart />
+            <RightChart chartData={monthlyIncomes} />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -100,7 +100,7 @@ export default function IncomeChartTabs({
             height="100%"
           >
             <LeftIncomeChart datePeriod={yearlyIncomes} />
-            <RightChart />
+            <RightChart chartData={yearlyIncomes} />
           </TabPanel>
         </TabPanels>
       </Tabs>

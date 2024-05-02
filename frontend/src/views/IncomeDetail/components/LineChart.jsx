@@ -39,8 +39,14 @@ export default function LineChart({ xAxis, seriesData, currency }) {
     },
   ];
   return (
-    <Box m={10} bg="green.200" borderRadius="16px" height="400px" width="50%">
-      LineChart
+    <Box
+      m={10}
+      bg="green.200"
+      borderRadius="16px"
+      height="400px"
+      minW="50%"
+      alignContent="center"
+    >
       <Chart
         options={options}
         series={series}
