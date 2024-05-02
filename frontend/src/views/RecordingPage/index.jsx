@@ -161,13 +161,17 @@ const RecordingPage = () => {
     <>
       <Box
         bg={bgColor}
-        m={5}
         backgroundImage="url('./pictures/IMG_2143.JPG')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
+        borderRadius={20}
       >
-        <Box bg="rgba(255, 255, 255, 0.5)" backdropFilter="blur(10px)">
+        <Box
+          bg="rgba(255, 255, 255, 0.5)"
+          backdropFilter="blur(10px)"
+          borderRadius={20}
+        >
           <Grid
             templateColumns="repeat(12, 1fr)" // Creates three columns
             gap={4} // Sets gap between grid items
