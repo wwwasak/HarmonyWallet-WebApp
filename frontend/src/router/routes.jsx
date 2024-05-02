@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "income-detail/:datePeriod/:currency",
+        path: "income-detail",
         element: (
           <RequireAuth>
             <IncomeDetail />

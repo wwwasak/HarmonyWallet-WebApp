@@ -2,20 +2,19 @@
 // It accepts various parameters such as title, data for the x-axis and y-axis, visual map settings,
 // and series data to configure the line chart.
 
-import React, { useEffect, useRef } from 'react';
-import * as echarts from 'echarts/core';
+import React, { useEffect, useRef } from "react";
+import * as echarts from "echarts/core";
 import {
   TitleComponent,
   ToolboxComponent,
   TooltipComponent,
   GridComponent,
   VisualMapComponent,
-  MarkAreaComponent
-} from 'echarts/components';
-import { LineChart } from 'echarts/charts';
-import { UniversalTransition } from 'echarts/features';
-import { CanvasRenderer } from 'echarts/renderers';
-
+  MarkAreaComponent,
+} from "echarts/components";
+import { LineChart } from "echarts/charts";
+import { UniversalTransition } from "echarts/features";
+import { CanvasRenderer } from "echarts/renderers";
 
 const generatePieces = (highlightedZone, yAxisValueCount) => {
   const pieces = [];
@@ -29,27 +28,27 @@ const generatePieces = (highlightedZone, yAxisValueCount) => {
     // Adopt a black style of the line when any start number equals to end number in one zone
     if (zone.start === zone.end) {
       pieces.length = 0;
-      pieces.push({ lte: 0, color: 'black' });
-      pieces.push({ lte: yAxisValueCount - 1, color: 'black' });
+      pieces.push({ lte: 0, color: "black" });
+      pieces.push({ lte: yAxisValueCount - 1, color: "black" });
       return pieces;
-    };
+    }
 
     if (zone.start === current && current === 0) {
-      pieces.push({ gt: zone.start, lte: zone.end, color: 'red' });
+      pieces.push({ gt: zone.start, lte: zone.end, color: "red" });
     } else if (zone.start === current && current > 0) {
       // UPDAGE THE LATEST ELEMENT IN THE ARRAY pieces with only modifying 'lte' as 'zone.end'
       pieces[pieces.length - 1].lte = zone.end;
     } else if (zone.start > current && current === 0) {
-      pieces.push({ lte: zone.start, color: 'green' });
-      pieces.push({ gt: zone.start, lte: zone.end, color: 'red' });
+      pieces.push({ lte: zone.start, color: "green" });
+      pieces.push({ gt: zone.start, lte: zone.end, color: "red" });
     } else if (zone.start > current && current > 0) {
-      pieces.push({ gt: current, lte: zone.start, color: 'green' });
-      pieces.push({ gt: zone.start, lte: zone.end, color: 'red' });
-    };
+      pieces.push({ gt: current, lte: zone.start, color: "green" });
+      pieces.push({ gt: zone.start, lte: zone.end, color: "red" });
+    }
 
-    if (current < yAxisValueCount - 1 && index == highlightedZone.length - 1) {
-      pieces.push({ gt: zone.end, color: 'green' });
-    };
+    if (current < yAxisValueCount - 1 && index === highlightedZone.length - 1) {
+      pieces.push({ gt: zone.end, color: "green" });
+    }
 
     current = zone.end;
     index += 1;
@@ -58,37 +57,41 @@ const generatePieces = (highlightedZone, yAxisValueCount) => {
   return pieces;
 };
 
-
-export default function LineChartComponent({ title, xAxisData, yAxisLabel, highlightedZone, seriesData }) {
-
-  console.log('seriesData.length::' + seriesData.length);
+export default function LineChartComponent({
+  title,
+  xAxisData,
+  yAxisLabel,
+  highlightedZone,
+  seriesData,
+}) {
+  //console.log('seriesData.length::' + seriesData.length);
 
   const option = {
     title: {
-      text: title
+      text: title,
     },
     xAxis: {
-      type: 'category',
+      type: "category",
       boundaryGap: false,
-      data: xAxisData
+      data: xAxisData,
     },
     yAxis: {
-      type: 'value',
+      type: "value",
       axisLabel: {
-        formatter: yAxisLabel
-      }
+        formatter: yAxisLabel,
+      },
     },
     visualMap: {
       show: false,
       dimension: 0,
-      pieces: generatePieces(highlightedZone, seriesData.length)
+      pieces: generatePieces(highlightedZone, seriesData.length),
     },
     series: [
       {
-        type: 'line',
-        data: seriesData
-      }
-    ]
+        type: "line",
+        data: seriesData,
+      },
+    ],
   };
 
   echarts.use([
@@ -100,7 +103,7 @@ export default function LineChartComponent({ title, xAxisData, yAxisLabel, highl
     MarkAreaComponent,
     LineChart,
     CanvasRenderer,
-    UniversalTransition
+    UniversalTransition,
   ]);
 
   const chartRef = useRef(null);
@@ -116,10 +119,12 @@ export default function LineChartComponent({ title, xAxisData, yAxisLabel, highl
 
   useEffect(() => {
     if (option) {
-      const chart = echarts.init(chartRef.current);
-      chart.setOption(option);
+      const chart = echarts.getInstanceByDom(chartRef.current);
+      if (chart) {
+        chart.setOption(option);
+      }
     }
   }, [option]);
 
-  return (<div ref={chartRef} style={{ width: '100%', height: '400px' }} />);
-};
+  return <div ref={chartRef} style={{ width: "100%", height: "400px" }} />;
+}
