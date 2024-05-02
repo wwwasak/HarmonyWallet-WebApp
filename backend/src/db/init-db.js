@@ -4,10 +4,11 @@ dotenv.config();
 import mongoose from "mongoose";
 
 import User from "../models/user-schema.js";
-import News from "../models/news-schema.js";
 import Currency from "../models/currency-schema.js";
+import Expense from "../models/expense-schema.js";
+import Income from "../models/income-schema.js";
+import Exchange from "../models/exchange-schema.js";
 
-import { getRelatedNews } from "../services/getRelatedNews.js";
 import { initCurrencyDatabase } from "../services/initCurrencyDatabase.js";
 import { fillMissingRates } from "../services/fillMissingRates.js";
 
@@ -16,7 +17,11 @@ async function run() {
   console.log("Connecting to database...");
   await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 
+  await Expense.deleteMany();
+  await Income.deleteMany();
+  await Exchange.deleteMany();
   await User.deleteMany();
+
   await Currency.deleteMany();
 
   await initCurrencyDatabase();
