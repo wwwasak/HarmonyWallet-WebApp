@@ -13,7 +13,7 @@ import RatesDetailPage from "../views/Detail/RatesDetailPage";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
 import ForgotPassword from "../views/ForgotPassword/index";
 import RequireAuth from "./components/RequireAuth.jsx";
-
+console.log("Router setup loaded");
 const router = createBrowserRouter([
   {
     path: "/",

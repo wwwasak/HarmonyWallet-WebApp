@@ -108,11 +108,7 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
         variant="outline"
       />
       <MenuList>
-      <Link to="/ChangePassword">
-        <MenuItem>
-          Change Password
-        </MenuItem>
-        </Link>
+      <Link href="/forgot-password" ml={3}>Change Password</Link>
         <MenuItem onClick={() => openModal('avatar')}>Change Avatar</MenuItem>
         <MenuItem onClick={() => openModal('currency')}>Change Base Currency</MenuItem>
       </MenuList>
