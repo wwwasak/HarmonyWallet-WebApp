@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "income-detail",
+        path: "income",
         element: (
           <RequireAuth>
             <IncomeDetail />
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "expense-detail",
+        path: "expense",
         element: (
           <RequireAuth>
             <ExpenseDetail />

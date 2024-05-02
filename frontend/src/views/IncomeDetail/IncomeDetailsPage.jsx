@@ -57,11 +57,6 @@ export default function IncomeDetailsPage() {
       return null;
     }
   };
-  const handleChange = (event) => {
-    const newCurrency = event.target.value;
-    setSelectedOption(newCurrency);
-    window.location.href = `/income-detail/7/${newCurrency}`;
-  };
 
   const fetchUserInfo = async () => {
     try {
