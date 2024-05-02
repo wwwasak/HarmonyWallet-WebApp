@@ -22,50 +22,50 @@ export default function IncomeChartTabs({
     <>
       <Tabs variant="soft-rounded" colorScheme="green">
         <TabList padding="20px" justifyContent="space-around">
-          <Link to={`/income-detail/7/${currency}`}>
-            <Tab
-              _selected={{
-                bg: "green.500",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Recent 7 days
-            </Tab>
-          </Link>
-          <Link to={`/income-detail/14/${currency}`}>
-            <Tab
-              _selected={{
-                bg: "green.500",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Recent 14 days
-            </Tab>
-          </Link>
-          <Link to={`/income-detail/30/${currency}`}>
-            <Tab
-              _selected={{
-                bg: "green.500",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Recent 30 days
-            </Tab>
-          </Link>
-          <Link to={`/income-detail/365/${currency}`}>
-            <Tab
-              _selected={{
-                bg: "green.500",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Recent 1 year
-            </Tab>
-          </Link>
+          {/* <Link to={`/income-detail/7/${currency}`}> */}
+          <Tab
+            _selected={{
+              bg: "green.500",
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            Recent 7 days
+          </Tab>
+          {/* </Link> */}
+          {/* <Link to={`/income-detail/14/${currency}`}> */}
+          <Tab
+            _selected={{
+              bg: "green.500",
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            Recent 14 days
+          </Tab>
+          {/* </Link> */}
+          {/* <Link to={`/income-detail/30/${currency}`}> */}
+          <Tab
+            _selected={{
+              bg: "green.500",
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            Recent 30 days
+          </Tab>
+          {/* </Link> */}
+          {/* <Link to={`/income-detail/365/${currency}`}> */}
+          <Tab
+            _selected={{
+              bg: "green.500",
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            Recent 1 year
+          </Tab>
+          {/* </Link> */}
         </TabList>
         <TabPanels
           bg="green.100"

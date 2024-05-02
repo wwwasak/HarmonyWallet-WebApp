@@ -7,15 +7,23 @@ import LineChart from "./LineChart";
 export default function LeftIncomeChart({ datePeriod, currency }) {
   const [xAxis, setXAxis] = useState([]);
   const [seriesData, setSeriesData] = useState([]);
-  console.log(datePeriod);
+  //console.log(JSON.stringify(datePeriod));
 
   useEffect(() => {
     if (datePeriod && datePeriod.length > 0) {
-      //console.log(datePeriod.length);
-      datePeriod.map((item) => {
-        setXAxis([...xAxis, item.date]);
-        setSeriesData([...seriesData, item.amount]);
-      });
+      //console.log(datePeriod);
+      const sortedData = [...datePeriod].sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
+      // const dates = sortedData.map((item) => item.date);
+      // const amounts = datePeriod.map((item) => item.amount);
+      const dates = sortedData.map((item) =>
+        new Date(item.date).toISOString().substring(0, 10)
+      );
+      const amounts = sortedData.map((item) => item.convertedAmount);
+
+      setXAxis(dates);
+      setSeriesData(amounts);
     }
   }, [datePeriod]);
   //console.log("xAxis:" + xAxis);
