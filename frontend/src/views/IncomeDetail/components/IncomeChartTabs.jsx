@@ -1,4 +1,12 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 import LeftIncomeChart from "./LeftIncomeChart";
 import RightChart from "./RightIncomeChart";
 import { Link } from "react-router-dom";
@@ -6,6 +14,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useIncome from "../../../hooks/useIncome";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function IncomeChartTabs({
   weeklyIncomes,
@@ -13,8 +22,25 @@ export default function IncomeChartTabs({
   monthlyIncomes,
   yearlyIncomes,
 }) {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate("/");
+  };
+
   return (
-    <>
+    <Box position="relative">
+      <Button
+        position="absolute"
+        top="-60px"
+        left="20px"
+        bg="blue.500"
+        color="white"
+        fontWeight="bold"
+        _hover={{ bg: "blue.600" }}
+        onClick={handleButtonClick}
+      >
+        Go back to my home page
+      </Button>
       <Tabs variant="soft-rounded" colorScheme="green">
         <TabList padding="20px" justifyContent="space-around">
           <Tab
@@ -104,6 +130,6 @@ export default function IncomeChartTabs({
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </Box>
   );
 }

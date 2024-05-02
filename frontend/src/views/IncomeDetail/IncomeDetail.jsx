@@ -1,11 +1,10 @@
-import { Text, Box, Center, Button, Flex } from "@chakra-ui/react";
-import IncomeChartTabs from "./components/IncomeChartTabs";
+import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
+import IncomeChartTabs from "./components/IncomeChartTabs.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import IncomeSelector from "./components/IncomeSelector";
+import IncomeSelector from "./components/IncomeSelector.jsx";
 import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
-import { useNavigate } from "react-router-dom";
 
 const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
@@ -24,8 +23,6 @@ export default function IncomeDetailsPage() {
   const [fortnightlyIncomes, setFortnightlyIncomes] = useState([]);
   const [monthlyIncomes, setMonthlyIncomes] = useState([]);
   const [yearlyIncomes, setYearlyIncomes] = useState([]);
-
-  const navigate = useNavigate();
 
   const getIncomes = async (fromDate, currency) => {
     const url = import.meta.env.VITE_GET_INCOMES_URL;
@@ -83,10 +80,6 @@ export default function IncomeDetailsPage() {
     fetchIncomes();
   }, [filteredCurrency]);
 
-  const handleBack = () => {
-    navigate("/");
-  };
-
   return (
     <Box>
       <Center>
@@ -95,8 +88,7 @@ export default function IncomeDetailsPage() {
         </Text>
       </Center>
 
-      <Flex justifyContent="space-between">
-        <Button onClick={handleBack}>Back</Button>
+      <Flex justifyContent="flex-end">
         <IncomeSelector
           selected={filteredCurrency}
           onSelect={setFilteredCurrency}
