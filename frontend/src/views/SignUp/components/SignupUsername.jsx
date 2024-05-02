@@ -3,9 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function SignupUsername({ username, nextStep, handleChange }) {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const enterUsername = username.length > 0;
+  const [enterUsername, setEnterUsername] = useState(false);
   const [message, setMessage] = useState("");
 
   const checkUsername = async () => {
@@ -39,6 +39,7 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
 
   const changeUsername = (e) => {
     if (e.target.value.length > 0) {
+      setEnterUsername(true);
       checkUsername();
     } else {
       setError(false);
@@ -54,8 +55,8 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
 
   return (
     <Box p={8} maxW="400px" mx="auto">
-      <Stack spacing={6}>
-        <Text>Enter Username</Text>
+      <Stack spacing={6} textAlign="center">
+        <Text fontSize="2xl">Enter Username</Text>
         <Input
           variant="filled"
           placeholder="Username"
@@ -66,20 +67,25 @@ export default function SignupUsername({ username, nextStep, handleChange }) {
           onBlur={changeUsername}
           isDisabled={isLoading}
         />
-        <Box h="50px">
-          {enterUsername && (
-            <Text color={error ? "red.300" : "green.500"}>{message}</Text>
-          )}
-        </Box>
+        <Box>
+          <Box h="30px">
+            {enterUsername && (
+              <Text color={error ? "red.300" : "green.500"}>{message}</Text>
+            )}
+          </Box>
 
-        <Button
-          colorScheme="blue"
-          size="lg"
-          onClick={nextStep}
-          isDisabled={!enterUsername || error || isLoading}
-        >
-          Next
-        </Button>
+          <Button
+            colorScheme="blue"
+            size="lg"
+            onClick={() => {
+              nextStep();
+              setError(true);
+            }}
+            isDisabled={!enterUsername || error || isLoading}
+          >
+            Next
+          </Button>
+        </Box>
       </Stack>
     </Box>
   );

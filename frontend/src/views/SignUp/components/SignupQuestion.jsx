@@ -28,8 +28,8 @@ export default function SignupQuestion(props) {
 
   return (
     <Box p={8} maxW="400px" mx="auto">
-      <Stack spacing={6}>
-        <Text>Select Security Question</Text>
+      <Stack spacing={6} textAlign="center">
+        <Text fontSize="2xl">Select Security Question</Text>
         <Select
           placeholder="Security Questions"
           size="lg"

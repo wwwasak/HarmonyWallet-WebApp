@@ -46,8 +46,8 @@ export default function SignupResult(props) {
 
   return (
     <Box p={8} maxW="400px" mx="auto">
-      <Stack spacing={6}>
-        <Text>Sign Up Result</Text>
+      <Stack spacing={6} textAlign="center">
+        <Text fontSize="2xl">Sign Up Result</Text>
         <Box>
           {isResponded ? <Text>{message}</Text> : <Text>Registering...</Text>}
         </Box>

@@ -19,8 +19,8 @@ export default function SignupPassword(props) {
 
   return (
     <Box p={8} maxW="400px" mx="auto">
-      <Stack spacing={6}>
-        <Text>Enter Password</Text>
+      <Stack spacing={6} textAlign="center">
+        <Text fontSize="2xl">Enter Password</Text>
         <Input
           variant="filled"
           placeholder="Enter password"
@@ -37,28 +37,30 @@ export default function SignupPassword(props) {
           value={confirmPassword}
           onChange={changeConfirmPassword}
         />
-        {bothFilled ? (
-          passwordsMatch ? (
-            <Text>Two passwords match</Text>
+        <Stack spacing={2}>
+          {bothFilled ? (
+            passwordsMatch ? (
+              <Text>Two passwords match</Text>
+            ) : (
+              <Text color="red.300">Two passwords do not match</Text>
+            )
           ) : (
-            <Text color="red.300">Two passwords do not match</Text>
-          )
-        ) : (
-          <Text opacity="0">true</Text>
-        )}
-        <Flex justify="space-between">
-          <Button colorScheme="gray" size="lg" onClick={props.prevStep}>
-            Back
-          </Button>
-          <Button
-            colorScheme="blue"
-            size="lg"
-            onClick={props.nextStep}
-            isDisabled={!bothFilled || !passwordsMatch}
-          >
-            Next
-          </Button>
-        </Flex>
+            <Text opacity="0">true</Text>
+          )}
+          <Flex justify="space-between">
+            <Button colorScheme="gray" size="lg" onClick={props.prevStep}>
+              Back
+            </Button>
+            <Button
+              colorScheme="blue"
+              size="lg"
+              onClick={props.nextStep}
+              isDisabled={!bothFilled || !passwordsMatch}
+            >
+              Next
+            </Button>
+          </Flex>
+        </Stack>
       </Stack>
     </Box>
   );

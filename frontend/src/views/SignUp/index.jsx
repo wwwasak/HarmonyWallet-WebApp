@@ -109,7 +109,7 @@ const Signup = () => {
         bg="rgba(255, 255, 255, 0.5)"
         backdropFilter="blur(10px)"
       >
-        <Card p={8} w="500px" h="400px" mx="auto">
+        <Card p={8} w="500px" h="400px" mx="auto" justifyContent="center">
           <Stack spacing={6}>{renderStep()}</Stack>
         </Card>
       </Flex>

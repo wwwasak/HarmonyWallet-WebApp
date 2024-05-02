@@ -7,8 +7,8 @@ export default function SignupCurrency(props) {
   const [isSelected, setIsSelected] = useState(false);
   return (
     <Box p={8} w="300px" mx="auto">
-      <Stack spacing={6}>
-        <Text>Select Your Currency</Text>
+      <Stack spacing={6} textAlign="center">
+        <Text fontSize="2xl">Select Your Currency</Text>
         <SingupCurrenciesSelector
           handleChange={props.handleChange}
           setIsSelected={setIsSelected}
