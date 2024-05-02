@@ -15,9 +15,6 @@ export default function IncomeChartTabs({
   monthlyIncomes,
   yearlyIncomes,
 }) {
-  //const { datePeriod, currency } = useParams();
-  const [username, setUsername] = useState("");
-  //console.log(monthlyIncomes);
   return (
     <>
       <Tabs variant="soft-rounded" colorScheme="green">
@@ -32,8 +29,7 @@ export default function IncomeChartTabs({
           >
             Recent 7 days
           </Tab>
-          {/* </Link> */}
-          {/* <Link to={`/income-detail/14/${currency}`}> */}
+
           <Tab
             _selected={{
               bg: "green.500",
@@ -43,8 +39,7 @@ export default function IncomeChartTabs({
           >
             Recent 14 days
           </Tab>
-          {/* </Link> */}
-          {/* <Link to={`/income-detail/30/${currency}`}> */}
+
           <Tab
             _selected={{
               bg: "green.500",
@@ -54,8 +49,6 @@ export default function IncomeChartTabs({
           >
             Recent 30 days
           </Tab>
-          {/* </Link> */}
-          {/* <Link to={`/income-detail/365/${currency}`}> */}
           <Tab
             _selected={{
               bg: "green.500",
@@ -65,7 +58,6 @@ export default function IncomeChartTabs({
           >
             Recent 1 year
           </Tab>
-          {/* </Link> */}
         </TabList>
         <TabPanels
           bg="green.100"

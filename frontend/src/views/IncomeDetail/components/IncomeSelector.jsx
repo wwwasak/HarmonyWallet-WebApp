@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const IncomeSelector = ({ selected, onSelect }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCurrency, setSelectedCurrency] = useState("");
+  const [selectedCurrency, setSelectedCurrency] = useState(selected);
 
   const filteredCurrencies = CURRENCIES.filter((currency) =>
     currency.toLowerCase().includes(searchTerm.toLowerCase())
