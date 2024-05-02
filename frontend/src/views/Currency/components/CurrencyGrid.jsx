@@ -11,7 +11,6 @@ import { DATE_RANGES } from "../../../data/DATE_RANGES.js";
 
 const CurrencyGrid = () => {
   const { baseCurrency } = useCurrency();
-  console.log(baseCurrency);
   const { data, isLoading, error } = useLatestRates(baseCurrency);
   const { data: weeklyData } = useRates(baseCurrency, DATE_RANGES["weekly"]);
 

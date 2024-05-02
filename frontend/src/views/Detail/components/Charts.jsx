@@ -21,7 +21,6 @@ const Charts = ({ baseCurrency, selectedCurrency }) => {
   );
   const { data: oneYearData } = useRates(baseCurrency, DATE_RANGES["monthly"]);
   const { data: twoYearData } = useRates(baseCurrency, DATE_RANGES["yearly"]);
-  console.log(weeklyData);
 
   return (
     <Box alignItems="center">
