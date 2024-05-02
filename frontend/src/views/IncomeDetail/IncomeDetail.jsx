@@ -1,8 +1,8 @@
 import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
-import IncomeChartTabs from "./components/IncomeChartTabs";
+import IncomeChartTabs from "./components/IncomeChartTabs.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import IncomeSelector from "./components/IncomeSelector";
+import IncomeSelector from "./components/IncomeSelector.jsx";
 import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
 
