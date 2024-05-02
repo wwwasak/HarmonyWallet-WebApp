@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { DATE_RANGES } from "../../data/DATE_RANGES";
+import IncomeSelector from "./components/IncomeSelector";
 
 export default function IncomeDetailsPage() {
   const { currency } = useParams();
@@ -131,7 +132,7 @@ export default function IncomeDetailsPage() {
       </Center>
 
       <Flex justifyContent="flex-end">
-        <Select
+        {/* <Select
           width="auto"
           minWidth="120px"
           maxWidth="200px"
@@ -143,7 +144,8 @@ export default function IncomeDetailsPage() {
           <option value="AUD">AUD</option>
           <option value="NZD">NZD</option>
           <option value="CNY">CNY</option>
-        </Select>
+        </Select> */}
+        <IncomeSelector />
       </Flex>
 
       <IncomeChartTabs
