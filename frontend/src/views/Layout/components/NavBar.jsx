@@ -2,11 +2,12 @@ import { Grid, GridItem, HStack, Image, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.webp";
 import React from "react";
-import userImage from "../../../assets/userImage.webp";
 import { useNavigate } from "react-router-dom";
+import { useLoginStatus } from "../../../stores/RequireAuthContext";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const { loginStatus } = useLoginStatus();
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     alert("Logout successfully");
@@ -54,10 +55,11 @@ const NavBar = () => {
         </GridItem>
 
         <GridItem area="right" justifySelf="end">
-          <Button onClick={handleLogout}>
-            {/* <Image src={userImage} boxSize="60px" objectFit="cover" /> */}
-            Logout
-          </Button>
+          {loginStatus ? (
+            <Button onClick={handleLogout}>Logout</Button>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </GridItem>
       </Grid>
     </>
