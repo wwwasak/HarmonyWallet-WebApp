@@ -30,7 +30,7 @@ import {
   Link
 } from "@chakra-ui/react";
 import { HamburgerIcon } from '@chakra-ui/icons';
-
+import SignupCurrenciesSelector from "../../SignUp/components/SignupCurrenciesSelector";
 const ProfileCard = ({ gridArea, baseCurrency, username }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -93,6 +93,11 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
   }
 };
 
+const handleCurrencyChange = (newCurrency) => {
+  // Update state or send update to server
+  console.log("Selected currency:", newCurrency);
+};
+
   return (
     <Card gridArea={gridArea}>
       <CardHeader>
@@ -148,7 +153,7 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
               {modalContent === 'currency' && (
                 <FormControl>
                   <FormLabel>Base Currency</FormLabel>
-                  <Input type="text" name="basecurrency" placeholder="Change Base Currency" />
+                  <SignupCurrenciesSelector handleChange={handleCurrencyChange} setIsSelected={() => {}} />
                 </FormControl>
               )}
             </ModalBody>
