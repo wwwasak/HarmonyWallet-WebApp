@@ -36,7 +36,9 @@ const LoginBox = (props) => {
                 size="lg"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Link href="/forgot-password">forgot password</Link>
+              <Link href="/forgot-password" ml={3} color={"red.300"}>
+                forgot password?
+              </Link>
               <ButtonGroup gap="20">
                 <Button h="50px" w="180px" onClick={() => navigate("/signup")}>
                   Sign Up
