@@ -1,16 +1,28 @@
-import { eachDayOfInterval, format, addDays } from "date-fns";
+import {
+  eachDayOfInterval,
+  format,
+  addDays,
+  startOfDay,
+  addHours,
+} from "date-fns";
 import Currency from "../models/currency-schema.js";
 
 async function fillMissingRates() {
   try {
     const currencies = await Currency.find();
+    const today = startOfDay(new Date());
 
     const updatePromises = currencies.map(async (currency) => {
-      const { start_date, end_date, rates } = currency;
-      const extendedEndDate = addDays(end_date, 1);
+      const { start_date, rates } = currency;
+      let end_date = currency.end_date;
+
+      if (end_date < today) {
+        end_date = today;
+      }
+
       const dateRange = eachDayOfInterval({
         start: start_date,
-        end: extendedEndDate,
+        end: end_date,
       });
 
       let lastAvailableRate = {};
@@ -27,7 +39,7 @@ async function fillMissingRates() {
       }
 
       if (isUpdated) {
-        currency.end_date = extendedEndDate;
+        currency.end_date = addHours(end_date, 12);
         return currency.save();
       }
     });

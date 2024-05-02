@@ -16,7 +16,7 @@ async function getExchangeRate(fromCurrency, toCurrency, date) {
     const currencyData = await Currency.findOne({
       currency: upperCasedFromCurrency,
       start_date: { $lte: date },
-      end_date: { $gte: date },
+      // end_date: { $gte: date },
     });
 
     if (!currencyData) {
