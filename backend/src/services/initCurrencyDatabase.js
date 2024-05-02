@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CURRENCIES } from "../db/CURRENCIES.js";
 import Currency from "../models/currency-schema.js";
-import { format, subDays } from "date-fns";
+import { format, subDays, parseISO } from "date-fns";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -30,8 +30,8 @@ async function initCurrencyDatabase() {
     const currenciesData = results.map((data, index) => ({
       currency: CURRENCIES[index],
       amount: data.amount,
-      start_date: new Date(data.start_date),
-      end_date: new Date(data.end_date),
+      start_date: parseISO(data.start_date),
+      end_date: parseISO(data.end_date),
       rates: data.rates,
     }));
 

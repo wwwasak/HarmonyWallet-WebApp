@@ -19,7 +19,7 @@ const twoWeeksAgo = format(subDays(new Date(), 13), "yyyy-MM-dd");
 
 const oneMonthAgo = format(subMonths(new Date(), 1), "yyyy-MM-dd");
 
-const oneYearAgo = format(subYears(new Date(), 1), "yyyy-MM-dd");
+const oneYearAgo = format(subDays(new Date(), 364), "yyyy-MM-dd");
 
 const Charts = ({ baseCurrency, selectedCurrency }) => {
   const { data: weeklyData } = useRates(baseCurrency, oneWeekAgo);
