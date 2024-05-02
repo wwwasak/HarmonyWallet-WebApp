@@ -32,12 +32,14 @@ const NavBar = () => {
         rowGap={5}
       >
         <GridItem area="left">
-          <HStack>
-            <Image src={logo} boxSize="60px" objectFit="cover" />
-            <Text fontSize="xl" fontWeight="bold">
-              Exchange Flow
-            </Text>
-          </HStack>
+          <Link to="/">
+            <HStack>
+              <Image src={logo} boxSize="60px" objectFit="cover" />
+              <Text fontSize="xl" fontWeight="bold">
+                Exchange Flow
+              </Text>
+            </HStack>
+          </Link>
         </GridItem>
 
         <GridItem area="middle">
