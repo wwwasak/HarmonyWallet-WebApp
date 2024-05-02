@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios, { CanceledError } from "axios";
 
 const useLatestRates = (base) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
