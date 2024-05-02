@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 
 export default function LineChart({ xAxis, seriesData, currency }) {
   const dataPeriod = xAxis;
-  console.log(xAxis);
+  // console.log(xAxis);
   var options = {
     chart: {
       toolbar: {

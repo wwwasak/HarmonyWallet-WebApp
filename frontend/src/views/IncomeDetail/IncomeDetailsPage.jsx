@@ -2,9 +2,17 @@ import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
 import IncomeChartTabs from "./components/IncomeChartTabs";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { DATE_RANGES } from "../../data/DATE_RANGES";
 import IncomeSelector from "./components/IncomeSelector";
 import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
+import { subDays, subMonths, subYears, format } from "date-fns";
+
+const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
+
+const twoWeeksAgo = format(subDays(new Date(), 13), "yyyy-MM-dd");
+
+const oneMonthAgo = format(subMonths(new Date(), 1), "yyyy-MM-dd");
+
+const oneYearAgo = format(subYears(new Date(), 1), "yyyy-MM-dd");
 
 export default function IncomeDetailsPage() {
   const { baseCurrency } = useCurrency();
@@ -40,25 +48,26 @@ export default function IncomeDetailsPage() {
   const fetchIncomes = async () => {
     try {
       const fetchedWeeklyIncomes = await getIncomes(
-        DATE_RANGES["weekly"],
+        oneWeekAgo,
         filteredCurrency
       ); //change period here
+      console.log(fetchedWeeklyIncomes);
       setWeeklyIncomes(fetchedWeeklyIncomes);
 
       const fetchedFortnightlyIncomes = await getIncomes(
-        DATE_RANGES["fortnightly"],
+        twoWeeksAgo,
         filteredCurrency
       ); //change period here
       setFortnightlyIncomes(fetchedFortnightlyIncomes);
 
       const fetchedMonthlyIncomes = await getIncomes(
-        DATE_RANGES["monthly"],
+        oneMonthAgo,
         filteredCurrency
       ); //change period here
       setMonthlyIncomes(fetchedMonthlyIncomes);
 
       const fetchedYearlyIncomes = await getIncomes(
-        DATE_RANGES["yearly"],
+        oneYearAgo,
         filteredCurrency
       ); //change period here
       setYearlyIncomes(fetchedYearlyIncomes);
@@ -87,7 +96,6 @@ export default function IncomeDetailsPage() {
       </Flex>
 
       <IncomeChartTabs
-        currency={filteredCurrency}
         weeklyIncomes={weeklyIncomes}
         fortnightlyIncomes={fortnightlyIncomes}
         monthlyIncomes={monthlyIncomes}

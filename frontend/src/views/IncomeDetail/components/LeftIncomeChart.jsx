@@ -3,45 +3,52 @@ import DefaultIncomeLineChart from "./DefaultIncomeLineChart";
 import LineChartComponent from "../../../modules/charts/LineChartComponent";
 import { useState, useEffect } from "react";
 import LineChart from "./LineChart";
+import { parseISO, format } from "date-fns";
 
-export default function LeftIncomeChart({ datePeriod, currency }) {
+export default function LeftIncomeChart({ datePeriod }) {
   const [xAxis, setXAxis] = useState([]);
   const [seriesData, setSeriesData] = useState([]);
-  //console.log(JSON.stringify(datePeriod));
+  console.log(datePeriod);
 
   useEffect(() => {
     if (datePeriod && datePeriod.length > 0) {
-      //console.log(datePeriod);
-      const sortedData = [...datePeriod].sort(
-        (a, b) => new Date(a.date) - new Date(b.date)
-      );
-      // const dates = sortedData.map((item) => item.date);
-      // const amounts = datePeriod.map((item) => item.amount);
-      const dates = sortedData.map((item) =>
-        new Date(item.date).toISOString().substring(0, 10)
-      );
+      const sortedData = [...datePeriod].sort((a, b) => b.date - a.date);
+      const dates = sortedData.map((item) => format(item.date, "yyyy-MM-dd"));
       const amounts = sortedData.map((item) => item.convertedAmount);
 
-      setXAxis(dates);
-      setSeriesData(amounts);
+      setXAxis(dates.reverse());
+      setSeriesData(amounts.reverse());
     }
   }, [datePeriod]);
-  //console.log("xAxis:" + xAxis);
-  // const dataRange = {
-  //   //title: "Expense Records in Recent One Week",
-  //   //xAxisData: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  //   xAxisData: xAxis,
-  //   yAxisLabel: `${currency}`,
-  //   highlightedZone: [
-  //     { start: 1, end: 3 },
-  //     { start: 5, end: 6 },
-  //   ],
-  //   seriesData: seriesData,
-  // };
+
+  // useEffect(() => {
+  //   if (datePeriod && datePeriod.length > 0) {
+  //     const dateAmountMap = {};
+  //     datePeriod.forEach((item) => {
+  //       console.log(item);
+  //       const date = format(item.date, "yyyy-MM-dd");
+  //       const amount = item.convertedAmount;
+  //       if (dateAmountMap[date]) {
+  //         dateAmountMap[date] += amount;
+  //       } else {
+  //         dateAmountMap[date] = amount;
+  //       }
+  //     });
+
+  //     const sortedDates = Object.keys(dateAmountMap).sort();
+  //     const dates = sortedDates.map((date) =>
+  //       format(parseISO(date), "yyyy-MM-dd")
+  //     );
+  //     const amounts = sortedDates.map((date) => dateAmountMap[date]);
+
+  //     setXAxis(dates);
+  //     setSeriesData(amounts);
+  //   }
+  // }, [datePeriod]);
+
   return (
     <Box>
-      {/* <LineChartComponent {...dataRange} /> */}
-      <LineChart xAxis={xAxis} seriesData={seriesData} currency={currency} />
+      <LineChart xAxis={xAxis} seriesData={seriesData} />
     </Box>
   );
 }

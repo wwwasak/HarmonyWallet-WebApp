@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useIncome from "../../../hooks/useIncome";
-import { DATE_RANGES } from "../../../data/DATE_RANGES";
 import axios from "axios";
 
 export default function IncomeChartTabs({
-  currency,
   weeklyIncomes,
   fortnightlyIncomes,
   monthlyIncomes,
@@ -19,7 +17,6 @@ export default function IncomeChartTabs({
     <>
       <Tabs variant="soft-rounded" colorScheme="green">
         <TabList padding="20px" justifyContent="space-around">
-          {/* <Link to={`/income-detail/7/${currency}`}> */}
           <Tab
             _selected={{
               bg: "green.500",
@@ -72,7 +69,7 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={weeklyIncomes} currency={currency} />
+            <LeftIncomeChart datePeriod={weeklyIncomes} />
             <RightChart />
           </TabPanel>
           <TabPanel
@@ -82,10 +79,7 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart
-              datePeriod={fortnightlyIncomes}
-              currency={currency}
-            />
+            <LeftIncomeChart datePeriod={fortnightlyIncomes} />
             <RightChart />
           </TabPanel>
           <TabPanel
@@ -95,7 +89,7 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={monthlyIncomes} currency={currency} />
+            <LeftIncomeChart datePeriod={monthlyIncomes} />
             <RightChart />
           </TabPanel>
           <TabPanel
@@ -105,7 +99,7 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={yearlyIncomes} currency={currency} />
+            <LeftIncomeChart datePeriod={yearlyIncomes} />
             <RightChart />
           </TabPanel>
         </TabPanels>

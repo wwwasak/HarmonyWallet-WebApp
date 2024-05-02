@@ -10,17 +10,22 @@ import {
 } from "@chakra-ui/react";
 import useRates from "../../../hooks/useRates";
 import DetailRatesChart from "./DetailRatesChart";
-import { DATE_RANGES } from "../../../data/DATE_RANGES";
 import RatesStatistics from "./RatesStatistics";
+import { subDays, subMonths, subYears, format } from "date-fns";
+
+const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
+
+const twoWeeksAgo = format(subDays(new Date(), 13), "yyyy-MM-dd");
+
+const oneMonthAgo = format(subMonths(new Date(), 1), "yyyy-MM-dd");
+
+const oneYearAgo = format(subYears(new Date(), 1), "yyyy-MM-dd");
 
 const Charts = ({ baseCurrency, selectedCurrency }) => {
-  const { data: weeklyData } = useRates(baseCurrency, DATE_RANGES["weekly"]);
-  const { data: monthlyData } = useRates(
-    baseCurrency,
-    DATE_RANGES["fortnightly"]
-  );
-  const { data: oneYearData } = useRates(baseCurrency, DATE_RANGES["monthly"]);
-  const { data: twoYearData } = useRates(baseCurrency, DATE_RANGES["yearly"]);
+  const { data: weeklyData } = useRates(baseCurrency, oneWeekAgo);
+  const { data: monthlyData } = useRates(baseCurrency, twoWeeksAgo);
+  const { data: oneYearData } = useRates(baseCurrency, oneMonthAgo);
+  const { data: twoYearData } = useRates(baseCurrency, oneYearAgo);
 
   return (
     <Box alignItems="center">
