@@ -1,15 +1,21 @@
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const RequireAuth = ({ children }) => {
-  const authToken = localStorage.getItem("authToken");
+  const navigate = useNavigate();
   const location = useLocation();
+  const authToken = localStorage.getItem("authToken");
 
-  if (!authToken) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
+  useEffect(() => {
+    if (!authToken) {
+      setTimeout(() => {
+        alert("Please log in to access this page.");
+        navigate("/login", { state: { from: location }, replace: true });
+      }, 500);
+    }
+  }, [authToken, navigate, location]);
 
-  return children;
+  return authToken ? children : null;
 };
 
 export default RequireAuth;
