@@ -11,7 +11,12 @@ const useRates = (base, date) => {
 
     setLoading(true);
     axios
-      .get(`https://api.frankfurter.app/${date}..?from=${base}`)
+      .get("http://localhost:3000/api/get-currency-rate", {
+        params: {
+          fromDate: date,
+          currency: base,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -25,49 +30,6 @@ const useRates = (base, date) => {
   }, [base, date]);
 
   return { data, error, isLoading };
-
-  //   const fetchDataForDate = async (date) => {
-  //     try {
-  //       const res = await axios.get(
-  //         `https://api.frankfurter.app/${date}..?from=${base}`
-  //       );
-  //       return res.data;
-  //     } catch (err) {
-  //       throw err;
-  //     }
-  //   };
-
-  //   const fetch7DaysData = async () => {
-  //     setLoading(true);
-
-  //     const newData = [];
-  //     try {
-  //       const startDate = new Date("2024-04-19");
-  //       const endDate = new Date("2024-04-25");
-  //       let currentDate = new Date(startDate);
-
-  //       while (currentDate <= endDate) {
-  //         const formattedDate = currentDate.toISOString().split("T")[0];
-  //         const fetchedData = await fetchDataForDate(formattedDate);
-  //         newData.push({ date: formattedDate, data: fetchedData });
-  //         currentDate.setDate(currentDate.getDate() + 1);
-  //       }
-  //       setData(newData);
-  //       setLoading(false);
-  //     } catch (err) {
-  //       if (axios.isCancel(err)) return;
-  //       setError(err.message);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   const controller = new AbortController();
-  //   fetch7DaysData();
-
-  //   return () => controller.abort();
-  // }, [base]);
-
-  // return { data, error, isLoading }
 };
 
 export default useRates;

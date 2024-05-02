@@ -16,6 +16,8 @@ const RatesChart = ({ data, currency }) => {
     rate: data.rates[date][currency],
   }));
 
+  currencyData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   return (
     <ResponsiveContainer width="95%" height={200}>
       <LineChart data={currencyData}>

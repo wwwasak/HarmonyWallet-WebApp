@@ -15,19 +15,21 @@ import RatesStatistics from "./RatesStatistics";
 
 const Charts = ({ baseCurrency, selectedCurrency }) => {
   const { data: weeklyData } = useRates(baseCurrency, DATE_RANGES["weekly"]);
-  const { data: monthlyData } = useRates(baseCurrency, DATE_RANGES["monthly"]);
-  const { data: oneYearData } = useRates(baseCurrency, DATE_RANGES["yearly"]);
-  const { data: twoYearData } = useRates(baseCurrency, DATE_RANGES["twoYears"]);
-  console.log(weeklyData);
+  const { data: monthlyData } = useRates(
+    baseCurrency,
+    DATE_RANGES["fortnightly"]
+  );
+  const { data: oneYearData } = useRates(baseCurrency, DATE_RANGES["monthly"]);
+  const { data: twoYearData } = useRates(baseCurrency, DATE_RANGES["yearly"]);
 
   return (
     <Box alignItems="center">
       <Tabs variant="soft-rounded" colorScheme="green" isFitted="true">
         <TabList marginX={2}>
           <Tab>7 DAYS</Tab>
+          <Tab>2 WEEKS</Tab>
           <Tab>1 MONTH</Tab>
           <Tab>1 YEAR</Tab>
-          <Tab>2 YEARS</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
