@@ -115,6 +115,7 @@ const RecordingPage = () => {
         setBaseCurrency(userInfo.base_currency);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
+        window.location = "/login";
       }
     };
 

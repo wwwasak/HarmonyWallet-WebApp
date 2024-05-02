@@ -10,28 +10,40 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const url = import.meta.env.VITE_LOGIN_SERVER_URL;
-  const body = {
-    username: username,
-    password: password,
-  };
+  const loginUrl = import.meta.env.VITE_LOGIN_SERVER_URL;
+  const validateTokenUrl = import.meta.env.VITE_GET_USER_INFO_URL;
+  const authToken = localStorage.getItem("authToken");
 
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    if (authToken) {
-      navigate("/");
-    }
+    const validateToken = async () => {
+      if (!authToken) return;
+      try {
+        await axios.post(
+          validateTokenUrl,
+          {},
+          {
+            headers: { Authorization: `Bearer ${authToken}` },
+          }
+        );
+        navigate("/");
+      } catch (error) {
+        console.error("Token validation error:", error);
+        localStorage.removeItem("authToken");
+      }
+    };
+
+    validateToken();
   }, [navigate]);
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(url, body);
+      const response = await axios.post(loginUrl, { username, password });
 
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("authToken", token);
 
-        alert("Login successfully ");
+        // alert("Login successfully ");
         navigate("/");
       }
     } catch (error) {
