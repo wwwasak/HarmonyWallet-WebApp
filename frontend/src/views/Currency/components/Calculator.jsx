@@ -96,7 +96,7 @@ const Calculator = () => {
                   </Text>
                 </>
               )}
-            {fromCurrency === toCurrency && (
+            {fromCurrency === toCurrency && fromCurrency && toCurrency && (
               <>
                 <Text mt={4}>
                   {input} {fromCurrency} =
