@@ -1,31 +1,23 @@
 import { useState, useEffect } from "react";
-import axios, { CanceledError } from "axios";
+import axios from "axios";
 
-const useIncome = (currency, datePeriod) => {
-  const [data, setData] = useState([]);
-  // const [error, setError] = useState("");
-  // const [isLoading, setLoading] = useState(false);
+/**
+ * A custom hook which fetches data from the given URL. Includes functionality to determine
+ * whether the data is still being loaded or not.
+ */
+export default function useIncome(url, initialState = null) {
+  const [data, setData] = useState(initialState);
+  const [isLoading, setLoading] = useState(false);
 
-   useEffect(() => {
-     const controller = new AbortController();
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const response = await axios.get(url);
+      setData(response.data);
+      setLoading(false);
+    }
+    fetchData();
+  }, [url]);
 
-  //   setLoading(true);
-  //   axios
-  //     .get(`https://api.frankfurter.app/latest?from=${base}`)
-  //     .then((res) => {
-  //       setData(res.data);
-  //       setLoading(false);
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       if (err instanceof CanceledError) return;
-  //       setError(err.message);
-  //       setLoading(false);
-  //     });
-    return () => controller.abort();
-  }, [currency, datePeriod]);
-
-  return { data };
-};
-
-export default useIncome;
+  return { data, isLoading };
+}

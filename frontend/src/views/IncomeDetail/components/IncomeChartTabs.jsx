@@ -1,21 +1,23 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import LeftChart from "./LeftIncomeChart";
+import LeftIncomeChart from "./LeftIncomeChart";
 import RightChart from "./RightIncomeChart";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useIncome from "../../../hooks/useIncome";
 import { DATE_RANGES } from "../../../data/DATE_RANGES";
+import axios from "axios";
 
-export default function IncomeChartTabs({ currency }) {
-  //console.log(currency);
+export default function IncomeChartTabs({
+  currency,
+  weeklyIncomes,
+  fortnightlyIncomes,
+  monthlyIncomes,
+  yearlyIncomes,
+}) {
   //const { datePeriod, currency } = useParams();
-  const { data: weeklyData } = useIncome(currency, DATE_RANGES["weekly"]);
-  const { data: fortnightlyData } = useIncome(
-    currency,
-    DATE_RANGES["fortnightly"]
-  );
-  const { data: monthlyData } = useIncome(currency, DATE_RANGES["monthly"]);
-  const { data: oneYearData } = useIncome(currency, DATE_RANGES["yearly"]);
+  const [username, setUsername] = useState("");
+  //console.log(monthlyIncomes);
   return (
     <>
       <Tabs variant="soft-rounded" colorScheme="green">
@@ -78,7 +80,7 @@ export default function IncomeChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LeftChart datePeriod={weeklyData} currency={currency} />
+            <LeftIncomeChart datePeriod={weeklyIncomes} currency={currency} />
             <RightChart />
           </TabPanel>
           <TabPanel
@@ -88,7 +90,10 @@ export default function IncomeChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LeftChart datePeriod={fortnightlyData} currency={currency} />
+            <LeftIncomeChart
+              datePeriod={fortnightlyIncomes}
+              currency={currency}
+            />
             <RightChart />
           </TabPanel>
           <TabPanel
@@ -98,7 +103,7 @@ export default function IncomeChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LeftChart datePeriod={monthlyData} currency={currency} />
+            <LeftIncomeChart datePeriod={monthlyIncomes} currency={currency} />
             <RightChart />
           </TabPanel>
           <TabPanel
@@ -108,7 +113,7 @@ export default function IncomeChartTabs({ currency }) {
             alignItems="center"
             height="100%"
           >
-            <LeftChart datePeriod={oneYearData} currency={currency} />
+            <LeftIncomeChart datePeriod={yearlyIncomes} currency={currency} />
             <RightChart />
           </TabPanel>
         </TabPanels>
