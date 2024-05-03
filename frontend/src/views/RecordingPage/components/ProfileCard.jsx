@@ -34,8 +34,7 @@ import SignupCurrenciesSelector from "../../SignUp/components/SignupCurrenciesSe
 const ProfileCard = ({ gridArea, baseCurrency, username }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [avatar, setAvatar] = useState("./src/assets/DefaultAvatar.svg"); 
-  const [avatarFile, setAvatarFile] = useState(null);
+  const avatar = "./src/assets/DefaultAvatar.svg"; 
   const [modalContent, setModalContent] = useState(""); // Track which form to show
 
   const openModal = (content) => {
@@ -43,23 +42,6 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
     onOpen();
   };
   
-  const handleAvatarError = (e) => {
-    e.target.onerror = null;
-    e.target.src = "https://bit.ly/sage-adebayo"; // Fallback avatar if error
-  };
-  
-  const handleAvatarChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setAvatarFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatar(reader.result);// Display a preview of the image
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userId = localStorage.getItem('userId');
@@ -68,9 +50,6 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
       return;
     }
     const formData = new FormData(event.currentTarget); 
-    if (avatarFile) {
-      formData.append('avatar', avatarFile);
-    }
 
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
@@ -114,7 +93,6 @@ const handleCurrencyChange = (newCurrency) => {
       />
       <MenuList>
       <Link href="/forgot-password" ml={3}>Change Password</Link>
-        <MenuItem onClick={() => openModal('avatar')}>Change Avatar</MenuItem>
         <MenuItem onClick={() => openModal('currency')}>Change Base Currency</MenuItem>
       </MenuList>
     </Menu>
@@ -122,8 +100,6 @@ const handleCurrencyChange = (newCurrency) => {
         <Flex align="center">
           <Avatar
             src={avatar}
-            onError={handleAvatarError}
-            onClick={() => openModal('avatar')}
           />
           <Text ml={3}>{username}</Text>  
         </Flex>
@@ -144,12 +120,6 @@ const handleCurrencyChange = (newCurrency) => {
           <ModalCloseButton />
           <form onSubmit={handleSubmit}>
           <ModalBody pb={6}>
-              {modalContent === 'avatar' && (
-                <FormControl>
-                  <FormLabel>Avatar</FormLabel>
-                  <Input type="file" name="avatar" accept="image/*" onChange={handleAvatarChange} />
-                </FormControl>
-              )}
               {modalContent === 'currency' && (
                 <FormControl>
                   <FormLabel>Base Currency</FormLabel>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -9,28 +9,63 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import SignupCurrenciesSelector from "../../SignUp/components/SignupCurrenciesSelector";
-import { incomeData } from "../../../data/IncomeData.js";
+import IncomeSelector from "../../IncomeDetail/components/IncomeSelector.jsx";
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
+import axios from 'axios';
+import { format } from "date-fns";
 
 const IncomeLineChartCard = () => {
-  const [selectedCurrency, setSelectedCurrency] = useState("");
+  const [selectedCurrency, setSelectedCurrency] = useState("USD"); 
+  const [incomeData, setIncomeData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const url = import.meta.env.VITE_GET_INCOMES_URL;
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.post(url, {
+                fromDate: '2022-01-01', 
+                currency: selectedCurrency,
+            }, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` }
+            });
+
+            if (response.status === 200) {
+                const formattedData = response.data.map(item => ({
+                    ...item,
+                    Date: format(new Date(item.date), 'yyyy-MM-dd') 
+                }));
+                setIncomeData(formattedData);
+            } else {
+                console.error('Failed to fetch data:', response.status);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchData();
+}, [selectedCurrency]);
+
 
   const handleCurrencyChange = (currency) => {
     setSelectedCurrency(currency);
   };
 
-  const navigate = useNavigate();
   const handleCardClick = () => {
     navigate("/income");
   };
 
-  const filteredData = selectedCurrency
-    ? incomeData.filter((item) => item.currency === selectedCurrency)
-    : incomeData;
+  const handleSelectorClick = (e) => {
+      e.stopPropagation();  // Stop the click event from propagating to the parent elements
+    };
 
-    const getOption = () => ({
+  const getOption = () => ({
       title: {
         text: 'Income Records in Recent One Week',
         left: 'center',
@@ -52,7 +87,7 @@ const IncomeLineChartCard = () => {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: filteredData.map(item => item.Date),
+        data: incomeData.map(item => item.Date),
         axisTick: {
           alignWithLabel: true
         },
@@ -86,7 +121,7 @@ const IncomeLineChartCard = () => {
         containLabel: true
       },
       series: [{
-        name: 'Expense',
+        name: 'Income',
         type: 'line',
         smooth: true,
         symbol: 'circle',
@@ -94,34 +129,35 @@ const IncomeLineChartCard = () => {
         showSymbol: false,
         lineStyle: {
           width: 3,
-          shadowColor: 'rgba(0,0,0,0.1)',
+          color: '#1e90ff', 
+          shadowColor: 'rgba(30, 144, 255, 0.4)', 
           shadowBlur: 10,
           shadowOffsetY: 10
         },
         itemStyle: {
-          color: '#10ac84',
-          borderColor: '#10ac84',
+          color: '#1e90ff', 
+          borderColor: '#1e90ff', 
           borderWidth: 2
         },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
             offset: 0,
-            color: 'rgba(16, 172, 132, 0.4)'
+            color: 'rgba(30, 144, 255, 0.4)' 
           }, {
             offset: 1,
-            color: 'rgba(16, 172, 132, 0.1)'
+            color: 'rgba(30, 144, 255, 0.1)'
           }])
         },
-        data: filteredData.map(item => item.amount)
+        data: incomeData.map(item => item.amount)
       }]
     });
     
   return (
     <Card onClick={handleCardClick} cursor="pointer">
       <CardHeader>
-        <Flex justifyContent="space-between" alignItems="center" w="100%">
+      <Flex justifyContent="space-between" alignItems="center" w="100%" onClick={handleSelectorClick}>
           <Heading size="sm" textTransform="uppercase">Income Records</Heading>
-          <SignupCurrenciesSelector handleChange={handleCurrencyChange} setIsSelected={() => {}} />
+          <IncomeSelector selected={selectedCurrency} onSelect={handleCurrencyChange} />
         </Flex>
         <Divider my={2} />
       </CardHeader>
