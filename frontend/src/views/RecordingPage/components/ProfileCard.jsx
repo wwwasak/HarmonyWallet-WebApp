@@ -39,6 +39,31 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
   const [modalContent, setModalContent] = useState(""); // Track which form to show
   const url = import.meta.env.VITE_CHANGE_BASE_URL;
   const [currentBaseCurrency, setCurrentBaseCurrency] = useState(baseCurrency);
+  const [password, setPassword] = useState('');
+  const [securityQuestion, setSecurityQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleSecurityQuestionChange = (e) => setSecurityQuestion(e.target.value);
+  const handleAnswerChange = (e) => setAnswer(e.target.value);
+  const handleSubmitPasswordChange = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/api/change-password', {
+        username,
+        password,
+        security_question: securityQuestion,
+        question_answer: answer
+      });
+      if (response.data) {
+        alert('Password updated successfully');
+        onClose();
+      }
+    } catch (error) {
+      console.error('Failed to update password:', error);
+      alert('Failed to update password: ' + error.message);
+    }
+  };
 
   const openModal = (content) => {
     setModalContent(content);
@@ -88,10 +113,14 @@ const handleCurrencyChange = async (currentBaseCurrency) => {
         icon={<HamburgerIcon />}
         variant="outline"
       />
-      <MenuList>
+      {/* <MenuList>
       <Link href="/forgot-password" ml={3}>Change Password</Link>
         <MenuItem onClick={() => openModal('currency')}>Change Base Currency</MenuItem>
-      </MenuList>
+      </MenuList> */}
+      <MenuList>
+              <MenuItem onClick={() => openModal('currency')}>Change Base Currency</MenuItem>
+              <MenuItem onClick={() => openModal('password')}>Change Password</MenuItem>
+            </MenuList>
     </Menu>
         </Flex >
         <Flex align="center">
@@ -115,7 +144,7 @@ const handleCurrencyChange = async (currentBaseCurrency) => {
         <ModalContent>
           <ModalHeader>Update Profile</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
+          {/* <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Base Currency</FormLabel>
               <SignupCurrenciesSelector
@@ -129,7 +158,35 @@ const handleCurrencyChange = async (currentBaseCurrency) => {
                 Save Changes
               </Button>
               <Button variant="ghost" onClick={onClose}>Cancel</Button>
-            </ModalFooter>
+            </ModalFooter> */}
+            <ModalBody pb={6}>
+            {modalContent === 'currency' && (
+              <FormControl>
+                <FormLabel>Base Currency</FormLabel>
+                <SignupCurrenciesSelector handleChange={handleCurrencyChange} setIsSelected={() => {}} />
+              </FormControl>
+            )}
+            {modalContent === 'password' && (
+              <form onSubmit={handleSubmitPasswordChange}>
+                <FormControl>
+                  <FormLabel>Password</FormLabel>
+                  <Input type="password" value={password} onChange={handlePasswordChange} placeholder="New password" />
+                </FormControl>
+                <FormControl mt={4}>
+                  <FormLabel>Security Question</FormLabel>
+                  <Input type="text" value={securityQuestion} onChange={handleSecurityQuestionChange} placeholder="Security Question" />
+                </FormControl>
+                <FormControl mt={4}>
+                  <FormLabel>Answer</FormLabel>
+                  <Input type="text" value={answer} onChange={handleAnswerChange} placeholder="Answer" />
+                </FormControl>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3} type="submit">Save Changes</Button>
+                  <Button variant="ghost" onClick={onClose}>Cancel</Button>
+                </ModalFooter>
+              </form>
+            )}
+          </ModalBody>
         </ModalContent>
       </Modal>
     </Card>
