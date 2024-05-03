@@ -9,6 +9,7 @@ export default function ExchangeRecordDetail() {
   const [fortnightlyData, setFortnightlyData] = useState(null);
   const [monthlyData, setMonthlyData] = useState(null);
   const [yearlyData, setYearlyData] = useState(null);
+  const [chartData, setChartData] = useState(weeklyData);
   const [isLoading, setIsLoading] = useState(false);
 
   const oneWeekAgo = useMemo(
@@ -57,6 +58,8 @@ export default function ExchangeRecordDetail() {
     console.log(weeklyData);
     if (weeklyData === null) {
       fetchData(oneWeekAgo, setWeeklyData);
+    } else {
+      setChartData(weeklyData);
     }
   };
 
@@ -64,6 +67,8 @@ export default function ExchangeRecordDetail() {
     console.log(fortnightlyData);
     if (fortnightlyData === null) {
       fetchData(twoWeeksAgo, setFortnightlyData);
+    } else {
+      setChartData(fortnightlyData);
     }
   };
 
@@ -71,6 +76,8 @@ export default function ExchangeRecordDetail() {
     console.log(monthlyData);
     if (monthlyData === null) {
       fetchData(oneMonthAgo, setMonthlyData);
+    } else {
+      setChartData(monthlyData);
     }
   };
 
@@ -78,6 +85,8 @@ export default function ExchangeRecordDetail() {
     console.log(yearlyData);
     if (yearlyData === null) {
       fetchData(oneYearAgo, setYearlyData);
+    } else {
+      setChartData(yearlyData);
     }
   };
 
@@ -105,12 +114,7 @@ export default function ExchangeRecordDetail() {
           </Center>
         ) : (
           <Box bg="green.200" minH={400} minW={500}>
-            <ExchangeRecordChart
-              weeklyData={weeklyData}
-              fortnightlyData={fortnightlyData}
-              monthlyData={monthlyData}
-              yearlyData={yearlyData}
-            />
+            <ExchangeRecordChart chartData={chartData} />
           </Box>
         )}
       </Box>
