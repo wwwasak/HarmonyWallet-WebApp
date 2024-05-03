@@ -45,7 +45,7 @@ const NavBar = () => {
         margin={3}
         rowGap={5}
       >
-        <GridItem area="left">
+        <GridItem area="left" ml={10}>
           <Link to="/">
             <HStack>
               <Image src={logo} boxSize="60px" objectFit="cover" />
@@ -87,10 +87,12 @@ const NavBar = () => {
 
         <GridItem area="right" justifySelf="end">
           {loginStatus ? (
-            <Button onClick={handleLogout}>Logout</Button>
+            <Button onClick={handleLogout} mr={10}>
+              Logout
+            </Button>
           ) : (
             <Link to="/login">
-              <Button>Login</Button>
+              <Button mr={10}>Login</Button>
             </Link>
           )}
         </GridItem>

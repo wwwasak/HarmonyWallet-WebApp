@@ -28,16 +28,7 @@ export default function IncomeChartTabs({
   };
 
   return (
-    <Box position="relative">
-      <Button
-        position="absolute"
-        top="-60px"
-        left="20px"
-        fontWeight="bold"
-        onClick={handleButtonClick}
-      >
-        Back
-      </Button>
+    <Box>
       <Tabs variant="soft-rounded" colorScheme="green">
         <TabList padding="20px" justifyContent="space-around">
           <Tab
@@ -80,7 +71,9 @@ export default function IncomeChartTabs({
           </Tab>
         </TabList>
         <TabPanels
-          bg="green.100"
+          bg="rgba(255, 255, 255, 0.5)"
+          backdropFilter="blur(10px)"
+          borderRadius={20}
           padding="20px"
           minHeight="500px"
           borderRadius="16px"

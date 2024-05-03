@@ -109,10 +109,23 @@ export default function ExchangeRecordDetail() {
   };
 
   return (
-    <>
-      <Box p={5}>
+    <Box
+      backgroundImage="url('./pictures/IMG_2144.jpg')"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
+      borderRadius={20}
+      minH="100vh"
+    >
+      <Box
+        p={5}
+        bg="rgba(255, 255, 255, 0.5)"
+        backdropFilter="blur(5px)"
+        borderRadius={20}
+        minH="100vh"
+      >
         <Center>
-          <Text fontSize="2xl" fontWeight="bold">
+          <Text fontSize="2xl" fontWeight="bold" m={5}>
             Exchange Record
           </Text>
         </Center>
@@ -122,8 +135,8 @@ export default function ExchangeRecordDetail() {
           </Link>
         </Flex>
 
-        <Box>
-          <Flex justifyContent="space-around" m={5}>
+        <Center textAlign="center">
+          <Flex justifyContent="space-around" m={5} minW={800}>
             <Button
               onClick={handleClickWeekly}
               colorScheme={currentRange === "one week" ? "blue" : "gray"}
@@ -149,7 +162,7 @@ export default function ExchangeRecordDetail() {
               One Year
             </Button>
           </Flex>
-        </Box>
+        </Center>
 
         {isLoading ? (
           <Center height="400px">
@@ -157,12 +170,18 @@ export default function ExchangeRecordDetail() {
           </Center>
         ) : (
           <Center>
-            <Box bg="red.100" maxH={800} maxW={1200}>
+            <Box
+              bg="rgba(255, 255, 255, 0.5)"
+              backdropFilter="blur(10px)"
+              borderRadius={20}
+              maxH={800}
+              maxW={1200}
+            >
               <ExchangeRecordChart chartData={chartData} />
             </Box>
           </Center>
         )}
       </Box>
-    </>
+    </Box>
   );
 }

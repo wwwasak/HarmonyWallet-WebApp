@@ -56,10 +56,14 @@ export default function RightIncomeChart({ chartData }) {
   return (
     <Box
       m={10}
-      bg="green.200"
+      // bg="green.200"
       borderRadius="16px"
       height="400px"
       alignContent="center"
+      border="1px"
+      borderColor="gray.300"
+      borderWidth="2px"
+      borderStyle="dashed"
     >
       <Chart
         options={options}
