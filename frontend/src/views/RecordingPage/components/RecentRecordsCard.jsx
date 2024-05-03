@@ -23,7 +23,7 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
           <Heading size="sm" textTransform="uppercase">
             Exchange Records
           </Heading>
-          <Link>More</Link>
+          <Link href="/exchange">More</Link>
         </Flex>
         <Divider my={2} />
       </CardHeader>

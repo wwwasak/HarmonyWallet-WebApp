@@ -1,50 +1,56 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Flex,
+} from "@chakra-ui/react";
+import LineChart from "../../IncomeDetail/components/LineChart";
 
 export default function ExchangeRecordChart() {
   return (
     <>
       <Tabs variant="soft-rounded" colorScheme="green">
-        <TabList padding="20px" justifyContent="space-around">
-          <Tab
-            _selected={{ bg: "green.500", color: "white", fontWeight: "bold" }}
+        <Flex>
+          <TabList
+            padding="20px"
+            justifyContent="space-around"
+            flexDirection="column"
           >
-            One Week
-          </Tab>
-          <Tab
-            _selected={{ bg: "green.500", color: "white", fontWeight: "bold" }}
+            <Tab
+              _selected={{
+                bg: "green.500",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              1111
+            </Tab>
+            <Tab
+              _selected={{
+                bg: "green.500",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              222
+            </Tab>
+          </TabList>
+          <TabPanels
+            bg="green.100"
+            padding="20px"
+            minHeight="500px"
+            borderRadius="16px"
           >
-            Two Weeks
-          </Tab>
-          <Tab
-            _selected={{ bg: "green.500", color: "white", fontWeight: "bold" }}
-          >
-            One Month
-          </Tab>
-          <Tab
-            _selected={{ bg: "green.500", color: "white", fontWeight: "bold" }}
-          >
-            So Far
-          </Tab>
-        </TabList>
-        <TabPanels
-          bg="green.200"
-          padding="20px"
-          minHeight="500px"
-          borderRadius="16px"
-        >
-          <TabPanel>
-            <p>one!</p>
-          </TabPanel>
-          <TabPanel>
-            <p>two!</p>
-          </TabPanel>
-          <TabPanel>
-            <p>One Month</p>
-          </TabPanel>
-          <TabPanel>
-            <p>So Far</p>
-          </TabPanel>
-        </TabPanels>
+            <TabPanel bg="red.200">
+              <LineChart></LineChart>
+            </TabPanel>
+            <TabPanel>
+              <LineChart></LineChart>
+            </TabPanel>
+          </TabPanels>
+        </Flex>
       </Tabs>
     </>
   );
