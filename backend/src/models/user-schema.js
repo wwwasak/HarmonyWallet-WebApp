@@ -9,15 +9,6 @@ const userSchema = new Schema({
   security_question: String,
   question_answer: String,
   base_currency: { type: Schema.Types.ObjectId, ref: "Currency" },
-  notification: [
-    {
-      base_currency: { type: Schema.Types.ObjectId, ref: "Currency" },
-      target_currency: { type: Schema.Types.ObjectId, ref: "Currency" },
-      target_rate: Number,
-      time_stamp: String,
-    },
-  ],
-  favourite_currency: [{ type: Schema.Types.ObjectId, ref: "Currency" }],
 });
 
 const User = mongoose.model("User", userSchema);
