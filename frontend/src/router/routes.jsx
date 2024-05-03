@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
 import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
-import IncomeDetail from "../views/IncomeDetail/IncomeDetailsPage";
+import IncomeDetail from "../views/IncomeDetail/IncomeDetail";
 import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
@@ -12,15 +12,17 @@ import RecordingPage from "../views/RecordingPage";
 import RatesDetailPage from "../views/Detail/RatesDetailPage";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
 import ForgotPassword from "../views/ForgotPassword/index";
-import RequireAuth from "./components/RequireAuth.jsx";
+import { RequireAuthProvider } from "../stores/RequireAuthContext.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <BaseCurrencyProvider>
-        <Layout />
-      </BaseCurrencyProvider>
+      <RequireAuthProvider>
+        <BaseCurrencyProvider>
+          <Layout />
+        </BaseCurrencyProvider>
+      </RequireAuthProvider>
     ),
     errorElement: <ErrorPage />,
 
@@ -28,44 +30,24 @@ const router = createBrowserRouter([
       { path: "exchangeoverview", element: <RatesOverviewPage /> },
       {
         path: "ratesDetail/:baseCurrency/:selectedCurrency",
-        element: (
-          <RequireAuth>
-            <RatesDetailPage />
-          </RequireAuth>
-        ),
+        element: <RatesDetailPage />,
       },
 
       {
         path: "/",
-        element: (
-          <RequireAuth>
-            <RecordingPage />
-          </RequireAuth>
-        ),
+        element: <RecordingPage />,
       },
       {
         path: "exchange-record",
-        element: (
-          <RequireAuth>
-            <ExchangeRecordDetail />
-          </RequireAuth>
-        ),
+        element: <ExchangeRecordDetail />,
       },
       {
         path: "income",
-        element: (
-          <RequireAuth>
-            <IncomeDetail />
-          </RequireAuth>
-        ),
+        element: <IncomeDetail />,
       },
       {
         path: "expense",
-        element: (
-          <RequireAuth>
-            <ExpenseDetail />
-          </RequireAuth>
-        ),
+        element: <ExpenseDetail />,
       },
     ],
   },
@@ -85,9 +67,9 @@ const router = createBrowserRouter([
   {
     path: "/changePassword",
     element: (
-      <RequireAuth>
+      <RequireAuthProvider>
         <ChangePassword />
-      </RequireAuth>
+      </RequireAuthProvider>
     ),
   },
 ]);

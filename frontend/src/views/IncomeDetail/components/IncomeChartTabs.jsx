@@ -1,28 +1,48 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 import LeftIncomeChart from "./LeftIncomeChart";
 import RightChart from "./RightIncomeChart";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useIncome from "../../../hooks/useIncome";
-import { DATE_RANGES } from "../../../data/DATE_RANGES";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function IncomeChartTabs({
-  currency,
   weeklyIncomes,
   fortnightlyIncomes,
   monthlyIncomes,
   yearlyIncomes,
 }) {
-  //const { datePeriod, currency } = useParams();
-  const [username, setUsername] = useState("");
-  //console.log(monthlyIncomes);
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate("/");
+  };
+
   return (
-    <>
+    <Box position="relative">
+      <Button
+        position="absolute"
+        top="-60px"
+        left="20px"
+        bg="blue.500"
+        color="white"
+        fontWeight="bold"
+        _hover={{ bg: "blue.600" }}
+        onClick={handleButtonClick}
+      >
+        Go back to my home page
+      </Button>
       <Tabs variant="soft-rounded" colorScheme="green">
         <TabList padding="20px" justifyContent="space-around">
-          {/* <Link to={`/income-detail/7/${currency}`}> */}
           <Tab
             _selected={{
               bg: "green.500",
@@ -32,8 +52,7 @@ export default function IncomeChartTabs({
           >
             Recent 7 days
           </Tab>
-          {/* </Link> */}
-          {/* <Link to={`/income-detail/14/${currency}`}> */}
+
           <Tab
             _selected={{
               bg: "green.500",
@@ -43,8 +62,7 @@ export default function IncomeChartTabs({
           >
             Recent 14 days
           </Tab>
-          {/* </Link> */}
-          {/* <Link to={`/income-detail/30/${currency}`}> */}
+
           <Tab
             _selected={{
               bg: "green.500",
@@ -54,8 +72,6 @@ export default function IncomeChartTabs({
           >
             Recent 30 days
           </Tab>
-          {/* </Link> */}
-          {/* <Link to={`/income-detail/365/${currency}`}> */}
           <Tab
             _selected={{
               bg: "green.500",
@@ -65,7 +81,6 @@ export default function IncomeChartTabs({
           >
             Recent 1 year
           </Tab>
-          {/* </Link> */}
         </TabList>
         <TabPanels
           bg="green.100"
@@ -80,8 +95,8 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={weeklyIncomes} currency={currency} />
-            <RightChart />
+            <LeftIncomeChart datePeriod={weeklyIncomes} />
+            <RightChart chartData={weeklyIncomes} />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -90,11 +105,8 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart
-              datePeriod={fortnightlyIncomes}
-              currency={currency}
-            />
-            <RightChart />
+            <LeftIncomeChart datePeriod={fortnightlyIncomes} />
+            <RightChart chartData={fortnightlyIncomes} />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -103,8 +115,8 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={monthlyIncomes} currency={currency} />
-            <RightChart />
+            <LeftIncomeChart datePeriod={monthlyIncomes} />
+            <RightChart chartData={monthlyIncomes} />
           </TabPanel>
           <TabPanel
             display="flex"
@@ -113,11 +125,11 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={yearlyIncomes} currency={currency} />
-            <RightChart />
+            <LeftIncomeChart datePeriod={yearlyIncomes} />
+            <RightChart chartData={yearlyIncomes} />
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </>
+    </Box>
   );
 }

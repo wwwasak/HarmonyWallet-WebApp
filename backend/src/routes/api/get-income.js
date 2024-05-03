@@ -5,7 +5,7 @@ import Currency from "../../models/currency-schema.js";
 import Expense from "../../models/expense-schema.js";
 import Income from "../../models/income-schema.js";
 import { getExchangeRate } from "../../services/getExchangeRate.js";
-import { parseISO } from "date-fns";
+import { parseISO, format } from "date-fns";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -13,7 +13,9 @@ const router = express.Router();
 
 router.post("/", authenticateToken, async (req, res) => {
   const { fromDate, currency } = req.body;
+
   const upperCasedCurrency = currency.toUpperCase();
+  console.log(fromDate);
 
   try {
     const userId = req.user.userId;
@@ -32,6 +34,8 @@ router.post("/", authenticateToken, async (req, res) => {
     }
 
     const fromDateObj = parseISO(fromDate);
+    console.log(fromDateObj);
+    console.log(format(fromDateObj, "yyyy-MM-dd"));
 
     const incomes = await Income.find({
       user: userId,

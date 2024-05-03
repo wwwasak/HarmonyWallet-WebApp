@@ -1,12 +1,32 @@
-import { Text, Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Chart from "react-apexcharts";
 
-import React, { useState, useEffect, useCallback } from "react";
+export default function RightIncomeChart({ chartData }) {
+  const labelAmountMap = {};
+  const showedLabelMap = {};
+  chartData.forEach((dataItem) => {
+    const label = dataItem.currency.currency;
+    const amount = dataItem.convertedAmount;
+    const realAmount = dataItem.amount;
+    if (labelAmountMap[label]) {
+      labelAmountMap[label] += amount;
+    } else {
+      labelAmountMap[label] = amount;
+    }
+    if (showedLabelMap[label]) {
+      showedLabelMap[label] += realAmount;
+    } else {
+      showedLabelMap[label] = realAmount;
+    }
+  });
 
-export default function RightIncomeChart({ datePeriod, currency }) {
-  const dataPeriod = ["23/Apr", "24/Apr", "25/Apr", "26/Apr", "26/Apr"];
-  var options = {
-    labels: dataPeriod,
+  const labels = Object.keys(labelAmountMap);
+  const series = Object.values(labelAmountMap);
+
+  const showedAmount = Object.values(showedLabelMap);
+
+  const options = {
+    labels: labels,
     responsive: [
       {
         breakpoint: 480,
@@ -14,24 +34,39 @@ export default function RightIncomeChart({ datePeriod, currency }) {
           chart: {
             width: 200,
           },
-          legend: {
-            position: "bottom",
-          },
         },
       },
     ],
+    legend: false,
+    dataLabels: {
+      formatter(val, opts) {
+        const name = opts.w.globals.labels[opts.seriesIndex];
+        return [name, val.toFixed(1) + "%"];
+      },
+    },
+    tooltip: {
+      custom: function ({ seriesIndex, dataPointIndex, w }) {
+        const label = w.globals.labels[seriesIndex];
+        const amount = showedAmount[seriesIndex];
+        return label + ": " + amount;
+      },
+    },
   };
-  const series = [500, 600, 100, 500, 1000];
 
   return (
-    <Box m={10} bg="green.200" borderRadius="16px" height="400px" width="50%">
-      <Text>PieChart</Text>
+    <Box
+      m={10}
+      bg="green.200"
+      borderRadius="16px"
+      height="400px"
+      alignContent="center"
+    >
       <Chart
         options={options}
         series={series}
         type="pie"
         height={300}
-        width={600}
+        width={400}
       />
     </Box>
   );

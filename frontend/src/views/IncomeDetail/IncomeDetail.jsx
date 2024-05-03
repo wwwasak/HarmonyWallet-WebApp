@@ -1,8 +1,8 @@
 import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
-import ExpenseChartTabs from "../../views/IncomeDetail/components/IncomeChartTabs.jsx";
+import IncomeChartTabs from "./components/IncomeChartTabs.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import ExpenseSelector from "../../views/IncomeDetail/components/IncomeSelector.jsx";
+import IncomeSelector from "./components/IncomeSelector.jsx";
 import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
 
@@ -14,17 +14,18 @@ const oneMonthAgo = format(subMonths(new Date(), 1), "yyyy-MM-dd");
 
 const oneYearAgo = format(subYears(new Date(), 1), "yyyy-MM-dd");
 
-export default function ExpenseDetail() {
+export default function IncomeDetailsPage() {
   const { baseCurrency } = useCurrency();
+  console.log(baseCurrency);
   const [filteredCurrency, setFilteredCurrency] = useState(baseCurrency);
 
-  const [weeklyExpense, setWeeklyExpense] = useState([]);
-  const [fortnightlyExpense, setFortnightlyExpense] = useState([]);
-  const [monthlyExpense, setMonthlyExpense] = useState([]);
-  const [yearlyExpense, setYearlyExpense] = useState([]);
+  const [weeklyIncomes, setWeeklyIncomes] = useState([]);
+  const [fortnightlyIncomes, setFortnightlyIncomes] = useState([]);
+  const [monthlyIncomes, setMonthlyIncomes] = useState([]);
+  const [yearlyIncomes, setYearlyIncomes] = useState([]);
 
-  const getExpense = async (fromDate, currency) => {
-    const url = import.meta.env.VITE_GET_EXPENSES_URL;
+  const getIncomes = async (fromDate, currency) => {
+    const url = import.meta.env.VITE_GET_INCOMES_URL;
     const authToken = localStorage.getItem("authToken");
     const body = {
       fromDate: fromDate,
@@ -44,61 +45,61 @@ export default function ExpenseDetail() {
     }
   };
 
-  const fetchExpense = async () => {
+  const fetchIncomes = async () => {
     try {
-      const fetchedWeeklyExpense = await getExpense(
+      const fetchedWeeklyIncomes = await getIncomes(
         oneWeekAgo,
         filteredCurrency
       ); //change period here
-      //console.log(fetchedWeeklyIncomes);
-      setWeeklyExpense(fetchedWeeklyExpense);
+      console.log(fetchedWeeklyIncomes);
+      setWeeklyIncomes(fetchedWeeklyIncomes);
 
-      const fetchedFortnightlyExpense = await getExpense(
+      const fetchedFortnightlyIncomes = await getIncomes(
         twoWeeksAgo,
         filteredCurrency
       ); //change period here
-      setFortnightlyExpense(fetchedFortnightlyExpense);
+      setFortnightlyIncomes(fetchedFortnightlyIncomes);
 
-      const fetchedMonthlyExpense = await getExpense(
+      const fetchedMonthlyIncomes = await getIncomes(
         oneMonthAgo,
         filteredCurrency
       ); //change period here
-      setMonthlyExpense(fetchedMonthlyExpense);
+      setMonthlyIncomes(fetchedMonthlyIncomes);
 
-      const fetchedYearlyExpense = await getExpense(
+      const fetchedYearlyIncomes = await getIncomes(
         oneYearAgo,
         filteredCurrency
       ); //change period here
-      setYearlyExpense(fetchedYearlyExpense);
+      setYearlyIncomes(fetchedYearlyIncomes);
     } catch (error) {
       console.error("Failed to fetch exchanges:", error);
     }
   };
 
   useEffect(() => {
-    fetchExpense();
+    fetchIncomes();
   }, [filteredCurrency]);
 
   return (
     <Box>
       <Center>
         <Text fontSize="2xl" fontWeight="bold">
-          My Expense Details
+          My Income Details
         </Text>
       </Center>
 
       <Flex justifyContent="flex-end">
-        <ExpenseSelector
+        <IncomeSelector
           selected={filteredCurrency}
           onSelect={setFilteredCurrency}
         />
       </Flex>
 
-      <ExpenseChartTabs
-        weeklyIncomes={weeklyExpense}
-        fortnightlyIncomes={fortnightlyExpense}
-        monthlyIncomes={monthlyExpense}
-        yearlyIncomes={yearlyExpense}
+      <IncomeChartTabs
+        weeklyIncomes={weeklyIncomes}
+        fortnightlyIncomes={fortnightlyIncomes}
+        monthlyIncomes={monthlyIncomes}
+        yearlyIncomes={yearlyIncomes}
       />
     </Box>
   );

@@ -7,12 +7,14 @@ import React from "react";
 import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import useLatestRates from "../../../hooks/useLatestRates";
 import useRates from "../../../hooks/useRates.jsx";
-import { DATE_RANGES } from "../../../data/DATE_RANGES.js";
+import { subDays, subMonths, subYears, format } from "date-fns";
+
+const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
 const CurrencyGrid = () => {
   const { baseCurrency } = useCurrency();
   const { data, isLoading, error } = useLatestRates(baseCurrency);
-  const { data: weeklyData } = useRates(baseCurrency, DATE_RANGES["weekly"]);
+  const { data: weeklyData } = useRates(baseCurrency, oneWeekAgo);
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
