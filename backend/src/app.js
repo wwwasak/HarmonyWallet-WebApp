@@ -8,6 +8,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import cron from "node-cron";
 import { updateAllCurrenciesData } from "./services/updateAllCurrenciesData.js";
+import { fillMissingRates } from "./services/fillMissingRates.js";
 
 const PORT = process.env.PORT ?? 3000;
 
@@ -25,6 +26,7 @@ await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 
 cron.schedule("0 0 * * *", async () => {
   await updateAllCurrenciesData();
+  await fillMissingRates();
 });
 
 app.listen(PORT, () => console.log(`App server listening on port ${PORT}!`));
