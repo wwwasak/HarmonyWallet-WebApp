@@ -33,6 +33,10 @@ export default function ExchangeRecordDetail() {
     fetchData(oneWeekAgo, setWeeklyData);
   }, [oneWeekAgo]);
 
+  useEffect(() => {
+    setChartData(weeklyData);
+  }, [weeklyData]);
+
   const fetchData = async (fromDate, setData) => {
     setIsLoading(true);
     const url = import.meta.env.VITE_GET_EXCHANGES_URL;
@@ -50,8 +54,9 @@ export default function ExchangeRecordDetail() {
       setData(response.data);
     } catch (error) {
       console.error("Error fetching user info:", error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const handleClickWeekly = () => {
@@ -113,9 +118,11 @@ export default function ExchangeRecordDetail() {
             <Spinner size="xl" />
           </Center>
         ) : (
-          <Box bg="green.200" minH={400} minW={500}>
-            <ExchangeRecordChart chartData={chartData} />
-          </Box>
+          <Center>
+            <Box bg="red.100" maxH={800} maxW={1200}>
+              <ExchangeRecordChart chartData={chartData} />
+            </Box>
+          </Center>
         )}
       </Box>
     </>

@@ -39,11 +39,12 @@ export default function LineChart({ xAxis, seriesData }) {
   return (
     <Box
       m={10}
-      bg="green.200"
+      bg="green.100"
       borderRadius="16px"
       height="400px"
-      minW="50%"
+      minW="200px"
       alignContent="center"
+      justifyContent="center"
     >
       <Chart
         options={options}
