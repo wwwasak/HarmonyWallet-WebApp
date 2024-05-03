@@ -1,5 +1,4 @@
 import express from "express";
-import dailyRates from "./dailyRates.js";
 import checkUsername from "./check-username.js";
 import checkUsernameQuestion from "./check-username-question.js";
 import changePassowrd from "./change-password.js";
@@ -13,7 +12,6 @@ import getUserInfo from "./get-user-info.js";
 
 const router = express.Router();
 
-router.use("/dailyRates", dailyRates);
 router.use("/check-username", checkUsername);
 router.use("/check-username-question", checkUsernameQuestion);
 router.use("/change-password", changePassowrd);
