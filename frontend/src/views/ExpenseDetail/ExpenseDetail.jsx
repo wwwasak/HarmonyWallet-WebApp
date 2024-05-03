@@ -1,10 +1,11 @@
-import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
+import { Text, Box, Center, Button, Flex } from "@chakra-ui/react";
 import ExpenseChartTabs from "../../views/IncomeDetail/components/IncomeChartTabs.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ExpenseSelector from "../../views/IncomeDetail/components/IncomeSelector.jsx";
 import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
@@ -22,6 +23,8 @@ export default function ExpenseDetail() {
   const [fortnightlyExpense, setFortnightlyExpense] = useState([]);
   const [monthlyExpense, setMonthlyExpense] = useState([]);
   const [yearlyExpense, setYearlyExpense] = useState([]);
+
+  const navigate = useNavigate();
 
   const getExpense = async (fromDate, currency) => {
     const url = import.meta.env.VITE_GET_EXPENSES_URL;
@@ -49,26 +52,25 @@ export default function ExpenseDetail() {
       const fetchedWeeklyExpense = await getExpense(
         oneWeekAgo,
         filteredCurrency
-      ); //change period here
-      //console.log(fetchedWeeklyIncomes);
+      );
       setWeeklyExpense(fetchedWeeklyExpense);
 
       const fetchedFortnightlyExpense = await getExpense(
         twoWeeksAgo,
         filteredCurrency
-      ); //change period here
+      );
       setFortnightlyExpense(fetchedFortnightlyExpense);
 
       const fetchedMonthlyExpense = await getExpense(
         oneMonthAgo,
         filteredCurrency
-      ); //change period here
+      );
       setMonthlyExpense(fetchedMonthlyExpense);
 
       const fetchedYearlyExpense = await getExpense(
         oneYearAgo,
         filteredCurrency
-      ); //change period here
+      );
       setYearlyExpense(fetchedYearlyExpense);
     } catch (error) {
       console.error("Failed to fetch exchanges:", error);
@@ -80,26 +82,46 @@ export default function ExpenseDetail() {
   }, [filteredCurrency]);
 
   return (
-    <Box>
-      <Center>
-        <Text fontSize="2xl" fontWeight="bold">
-          My Expense Details
-        </Text>
-      </Center>
+    <Box
+      backgroundImage="url('./pictures/IMG_2138.jpg')"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
+      borderRadius={20}
+      minH="100vh"
+    >
+      <Box
+        bg="rgba(255, 255, 255, 0.5)"
+        backdropFilter="blur(5px)"
+        borderRadius={20}
+        minH="100vh"
+      >
+        <Center>
+          <Text fontSize="2xl" fontWeight="bold" m={10}>
+            My Expense Details
+          </Text>
+        </Center>
 
-      <Flex justifyContent="flex-end">
-        <ExpenseSelector
-          selected={filteredCurrency}
-          onSelect={setFilteredCurrency}
-        />
-      </Flex>
-
-      <ExpenseChartTabs
-        weeklyIncomes={weeklyExpense}
-        fortnightlyIncomes={fortnightlyExpense}
-        monthlyIncomes={monthlyExpense}
-        yearlyIncomes={yearlyExpense}
-      />
+        <Flex justifyContent="space-between">
+          <Button onClick={() => navigate("/")} ml={10}>
+            Back
+          </Button>
+          <Box mr={10}>
+            <ExpenseSelector
+              selected={filteredCurrency}
+              onSelect={setFilteredCurrency}
+            />
+          </Box>
+        </Flex>
+        <Center mb={10}>
+          <ExpenseChartTabs
+            weeklyIncomes={weeklyExpense}
+            fortnightlyIncomes={fortnightlyExpense}
+            monthlyIncomes={monthlyExpense}
+            yearlyIncomes={yearlyExpense}
+          />
+        </Center>
+      </Box>
     </Box>
   );
 }

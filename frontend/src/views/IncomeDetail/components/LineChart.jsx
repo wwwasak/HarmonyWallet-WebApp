@@ -1,10 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import Chart from "react-apexcharts";
-import React, { useState, useEffect, useCallback } from "react";
 
-export default function LineChart({ xAxis, seriesData, currency }) {
+export default function LineChart({ xAxis, seriesData }) {
   const dataPeriod = xAxis;
-  // console.log(xAxis);
   var options = {
     chart: {
       toolbar: {
@@ -41,11 +39,16 @@ export default function LineChart({ xAxis, seriesData, currency }) {
   return (
     <Box
       m={10}
-      bg="green.200"
+      // bg="green.100"
       borderRadius="16px"
       height="400px"
-      minW="50%"
+      minW="200px"
       alignContent="center"
+      justifyContent="center"
+      border="1px"
+      borderColor="gray.300"
+      borderWidth="2px"
+      borderStyle="dashed"
     >
       <Chart
         options={options}
