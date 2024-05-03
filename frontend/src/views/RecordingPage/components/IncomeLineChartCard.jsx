@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import { useState,useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -16,7 +16,7 @@ import IncomeSelector from "../../IncomeDetail/components/IncomeSelector.jsx";
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
 import axios from 'axios';
-import { format, parseISO, subDays } from "date-fns";
+import { format, subDays } from "date-fns";
 import { useCurrency } from "../../../stores/BaseCurrencyContext.jsx";
 
 const IncomeLineChartCard = () => {
@@ -42,14 +42,6 @@ useEffect(() => {
                 headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` }
             });
 
-            // if (response.status === 200) {
-            //     const formattedData = response.data.map(item => ({
-            //         //...item,
-            //         amount: item.amount,
-            //         Date: format(parseISO(item.date), 'yyyy-MM-dd'), 
-            //     }));
-            //     setIncomeData(formattedData);
-            // } 
             if (response.status === 200) {
               const aggregatedData = aggregateDataByDay(response.data);
               setIncomeData(aggregatedData);
@@ -81,7 +73,7 @@ const aggregateDataByDay = (data) => {
   // Create an array from the object, then sort it by date
   return Object.entries(dataByDay)
     .map(([date, amount]) => ({ Date: date, amount }))
-    .sort((a, b) => new Date(a.Date) - new Date(b.Date));  // Sorting by date
+    .sort((a, b) => new Date(a.Date) - new Date(b.Date));  
 };
 
   const handleCurrencyChange = (currency) => {

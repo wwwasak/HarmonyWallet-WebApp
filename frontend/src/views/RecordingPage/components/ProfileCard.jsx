@@ -31,50 +31,47 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from '@chakra-ui/icons';
 import SignupCurrenciesSelector from "../../SignUp/components/SignupCurrenciesSelector";
+
 const ProfileCard = ({ gridArea, baseCurrency, username }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const avatar = "./src/assets/DefaultAvatar.svg"; 
   const [modalContent, setModalContent] = useState(""); // Track which form to show
+  const url = import.meta.env.VITE_CHANGE_BASE_URL;
+  const [currentBaseCurrency, setCurrentBaseCurrency] = useState(baseCurrency);
 
   const openModal = (content) => {
     setModalContent(content);
     onOpen();
   };
   
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      alert('User is not logged in or session expired.');
-      return;
-    }
-    const formData = new FormData(event.currentTarget); 
-
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-  
+const handleCurrencyChange = async (currentBaseCurrency) => {
+  // Ensure this prints a valid token
+  const authToken = localStorage.getItem('authToken');
+  console.log("New currency selected:", baseCurrency);
+  console.log("New currency :", authToken);
+  if (!authToken) {
+    alert('No authorization token found, please login again.');
+    return;
+  }
   try {
-    const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
-      method: 'PUT',
-      body: formData,
+    const response = await axios.post(url, {
+      baseCurrency: currentBaseCurrency
+    }, {
+      headers: { Authorization: `Bearer ${authToken}` }
     });
-
-    if (response.ok) {
-      alert('Profile updated successfully');
-      onClose(); // Close modal after successful update
+    console.log(localStorage.getItem('authToken'));  // Ensure this prints a valid token
+    if (response.status === 200) {
+      alert('Base currency updated successfully');
+      onClose();
     } else {
-      throw new Error('Failed to update profile');
+      console.error('Failed to update base currency:', response.status);
+      alert('Failed to update base currency');
     }
   } catch (error) {
+    console.error('Update error:', error);
     alert('Update error: ' + error.message);
   }
-};
-
-const handleCurrencyChange = (newCurrency) => {
-  // Update state or send update to server
-  console.log("Selected currency:", newCurrency);
 };
 
   return (
@@ -118,14 +115,14 @@ const handleCurrencyChange = (newCurrency) => {
         <ModalContent>
           <ModalHeader>Update Profile</ModalHeader>
           <ModalCloseButton />
-          <form onSubmit={handleSubmit}>
           <ModalBody pb={6}>
-              {modalContent === 'currency' && (
-                <FormControl>
-                  <FormLabel>Base Currency</FormLabel>
-                  <SignupCurrenciesSelector handleChange={handleCurrencyChange} setIsSelected={() => {}} />
-                </FormControl>
-              )}
+            <FormControl>
+              <FormLabel>Base Currency</FormLabel>
+              <SignupCurrenciesSelector
+                selected={currentBaseCurrency}
+                onSelect={handleCurrencyChange}
+              />
+            </FormControl>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme="blue" mr={3} type="submit">
@@ -133,7 +130,6 @@ const handleCurrencyChange = (newCurrency) => {
               </Button>
               <Button variant="ghost" onClick={onClose}>Cancel</Button>
             </ModalFooter>
-          </form>
         </ModalContent>
       </Modal>
     </Card>

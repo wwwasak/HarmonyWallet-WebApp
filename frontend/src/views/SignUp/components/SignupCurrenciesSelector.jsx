@@ -12,30 +12,20 @@ import { BsChevronDown } from "react-icons/bs";
 import { CURRENCIES } from "../../../data/CURRENCIES.js";
 import { useState } from "react";
 
-const SingupCurrenciesSelector = (props) => {
+const SignupCurrenciesSelector = ({ selected, onSelect }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCurrency, setSelectedCurrency] = useState("");
-
-  const filteredCurrencies = CURRENCIES.filter((currency) =>
+  const filteredCurrencies = CURRENCIES.filter(currency =>
     currency.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleCurrencyChange = (currency) => () => {
-    setSelectedCurrency(currency);
-    props.setIsSelected(true);
-    const fakeEvent = {
-      target: {
-        name: "base_currency",
-        value: currency,
-      },
-    };
-    props.handleChange("base_currency")(fakeEvent);
+  const handleCurrencyChange = (currency) => {
+    onSelect(currency);
   };
 
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        {selectedCurrency || "Select"}
+        {selected || "Select"}
       </MenuButton>
       <MenuList maxH="250px" overflowY="auto">
         <Box margin={2}>
@@ -46,7 +36,7 @@ const SingupCurrenciesSelector = (props) => {
           />
         </Box>
         {filteredCurrencies.map((currency, index) => (
-          <MenuItem onClick={handleCurrencyChange(currency)} key={index}>
+          <MenuItem onClick={() => handleCurrencyChange(currency)} key={index}>
             <Image
               src={`${currency}.png`}
               marginRight="8px"
@@ -61,4 +51,4 @@ const SingupCurrenciesSelector = (props) => {
   );
 };
 
-export default SingupCurrenciesSelector;
+export default SignupCurrenciesSelector;

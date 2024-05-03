@@ -1,9 +1,7 @@
 import express from "express";
 import User from "../../models/user-schema.js";
-
 const router = express.Router();
 
-router.post("/", async (req, res) => {
   const { username, base_currency } = req.body;
 
   try {
