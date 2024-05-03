@@ -5,7 +5,7 @@ import { authenticateToken } from "../../middleware/authenticateToken.js";
 
 const router = express.Router();
 
-router.post("/update-password", authenticateToken, async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
   const { password } = req.body;
   const userId = req.user.userId;
 
