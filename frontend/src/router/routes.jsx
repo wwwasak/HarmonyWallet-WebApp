@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <RecordingPage />,
       },
       {
-        path: "exchange-record",
+        path: "exchange",
         element: <ExchangeRecordDetail />,
       },
       {

@@ -4,6 +4,7 @@ import IncomeLineChartCard from "./components/IncomeLineChartCard";
 import ExpenseLineChartCard from "./components/ExpenseLineChartCard";
 import RecentRecordsCard from "./components/RecentRecordsCard";
 import FloatWindow from "./components/FloatWindow";
+import { subDays, format } from "date-fns";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -30,7 +31,7 @@ const getExchanges = async (n) => {
   const url = import.meta.env.VITE_GET_EXCHANGES_URL;
   const authToken = localStorage.getItem("authToken");
   const body = {
-    day: n,
+    fromDate: format(subDays(new Date(), 6), "yyyy-MM-dd"),
   };
   const config = {
     headers: {

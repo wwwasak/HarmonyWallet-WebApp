@@ -14,9 +14,11 @@ import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
 import axios from 'axios';
 import { format } from "date-fns";
+import { useCurrency } from "../../../stores/BaseCurrencyContext.jsx";
 
 const ExpenseLineChartCard = () => {
-  const [selectedCurrency, setSelectedCurrency] = useState("USD"); 
+  const { baseCurrency } = useCurrency();
+  const [selectedCurrency, setSelectedCurrency] = useState(baseCurrency); 
   const [expenseData, setExpenseData] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

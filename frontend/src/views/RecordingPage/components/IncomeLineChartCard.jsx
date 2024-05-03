@@ -7,39 +7,54 @@ import {
   Flex,
   Divider,
   Box,
+  Spinner,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import IncomeSelector from "../../IncomeDetail/components/IncomeSelector.jsx";
 import ReactECharts from 'echarts-for-react';
 import * as echarts from 'echarts';
 import axios from 'axios';
-import { format } from "date-fns";
+import { format, parseISO, subDays } from "date-fns";
+import { useCurrency } from "../../../stores/BaseCurrencyContext.jsx";
 
 const IncomeLineChartCard = () => {
-  const [selectedCurrency, setSelectedCurrency] = useState("USD"); 
+  const { baseCurrency } = useCurrency();
+  const [selectedCurrency, setSelectedCurrency] = useState(baseCurrency);
   const [incomeData, setIncomeData] = useState([]);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const url = import.meta.env.VITE_GET_INCOMES_URL;
 
-  useEffect(() => {
-    const fetchData = async () => {
+useEffect(() => {
+ if (!selectedCurrency) return;
+ const fromDate = format(subDays(new Date(), 7), 'yyyy-MM-dd'); // Data from the last 7 days    
+ const fetchData = async () => {
+      setLoading(true);
+      setError(null);
         try {
-            setLoading(true);
             const response = await axios.post(url, {
-                fromDate: '2022-01-01', 
-                currency: selectedCurrency,
+              fromDate: fromDate,
+              currency: selectedCurrency,
             }, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` }
             });
 
+            // if (response.status === 200) {
+            //     const formattedData = response.data.map(item => ({
+            //         //...item,
+            //         amount: item.amount,
+            //         Date: format(parseISO(item.date), 'yyyy-MM-dd'), 
+            //     }));
+            //     setIncomeData(formattedData);
+            // } 
             if (response.status === 200) {
-                const formattedData = response.data.map(item => ({
-                    ...item,
-                    Date: format(new Date(item.date), 'yyyy-MM-dd') 
-                }));
-                setIncomeData(formattedData);
-            } else {
+              const aggregatedData = aggregateDataByDay(response.data);
+              setIncomeData(aggregatedData);
+            }
+            else {
                 console.error('Failed to fetch data:', response.status);
             }
         } catch (error) {
@@ -52,6 +67,22 @@ const IncomeLineChartCard = () => {
     fetchData();
 }, [selectedCurrency]);
 
+// aggregate data by day
+const aggregateDataByDay = (data) => {
+  const dataByDay = {};
+  data.forEach(item => {
+    const date = format(new Date(item.date), 'yyyy-MM-dd');
+    if (dataByDay[date]) {
+      dataByDay[date] += item.amount;
+    } else {
+      dataByDay[date] = item.amount;
+    }
+  });
+  // Create an array from the object, then sort it by date
+  return Object.entries(dataByDay)
+    .map(([date, amount]) => ({ Date: date, amount }))
+    .sort((a, b) => new Date(a.Date) - new Date(b.Date));  // Sorting by date
+};
 
   const handleCurrencyChange = (currency) => {
     setSelectedCurrency(currency);
@@ -155,15 +186,24 @@ const IncomeLineChartCard = () => {
   return (
     <Card onClick={handleCardClick} cursor="pointer">
       <CardHeader>
-      <Flex justifyContent="space-between" alignItems="center" w="100%" onClick={handleSelectorClick}>
-          <Heading size="sm" textTransform="uppercase">Income Records</Heading>
+        <Flex justifyContent="space-between" alignItems="center" onClick={handleSelectorClick}>
+          <Heading size="sm">Income Records</Heading>
           <IncomeSelector selected={selectedCurrency} onSelect={handleCurrencyChange} />
         </Flex>
-        <Divider my={2} />
+        <Divider />
       </CardHeader>
       <CardBody>
-        <Box p={4} boxShadow="base" rounded="md" bg="white" width="100%">
-          <ReactECharts option={getOption()} style={{ height: '300px' }} />
+        <Box p={4} boxShadow="base" rounded="md" bg="white">
+          {loading ? (
+            <Spinner />
+          ) : error ? (
+            <Alert status="error">
+              <AlertIcon />
+              {error}
+            </Alert>
+          ) : (
+            <ReactECharts option={getOption()} style={{ height: '300px' }} />
+          )}
         </Box>
       </CardBody>
     </Card>
