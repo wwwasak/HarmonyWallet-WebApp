@@ -10,6 +10,7 @@ import addIncomeExpenseRecord from "./add-income-expense-record.js";
 import getCurrencyRate from "./get-currency-rate.js";
 import getExchanges from "./get-exchanges.js";
 import getUserInfo from "./get-user-info.js";
+import changePassword from "./change-password.js";
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.use("/add-record", addIncomeExpenseRecord);
 router.use("/get-currency-rate", getCurrencyRate);
 router.use("/get-exchanges", getExchanges);
 router.use("/get-user-info", getUserInfo);
+router.use("/change-password", changePassword);
 
 export default router;
