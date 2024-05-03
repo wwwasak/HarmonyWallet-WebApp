@@ -1,18 +1,31 @@
 import { Grid, GridItem, HStack, Image, Text, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../../../assets/logo.webp";
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useLoginStatus } from "../../../stores/RequireAuthContext";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { loginStatus } = useLoginStatus();
+
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     alert("Logout successfully");
     navigate("/login");
   };
+
+  const isActive = (paths) => {
+    return paths.some((path) => {
+      if (path === "/") {
+        return location.pathname === path;
+      } else {
+        return (
+          location.pathname.startsWith(path + "/") || location.pathname === path
+        );
+      }
+    });
+  };
+
   return (
     <>
       <Grid
@@ -32,7 +45,7 @@ const NavBar = () => {
         margin={3}
         rowGap={5}
       >
-        <GridItem area="left">
+        <GridItem area="left" ml={10}>
           <Link to="/">
             <HStack>
               <Image src={logo} boxSize="60px" objectFit="cover" />
@@ -46,19 +59,41 @@ const NavBar = () => {
         <GridItem area="middle">
           <HStack justifyContent="center">
             <Link to="/">
-              <Button fontSize="lg">Record</Button>
+              <Button
+                fontSize="lg"
+                colorScheme={
+                  isActive(["/", "/income", "/expense", "/exchange"])
+                    ? "blue"
+                    : "gray"
+                }
+              >
+                Record
+              </Button>
             </Link>
             <Link to="/exchangeoverview">
-              <Button fontSize="lg">Currency</Button>
+              <Button
+                fontSize="lg"
+                colorScheme={
+                  isActive(["/exchangeoverview", "/ratesDetail"])
+                    ? "blue"
+                    : "gray"
+                }
+              >
+                Currency
+              </Button>
             </Link>
           </HStack>
         </GridItem>
 
         <GridItem area="right" justifySelf="end">
           {loginStatus ? (
-            <Button onClick={handleLogout}>Logout</Button>
+            <Button onClick={handleLogout} mr={10}>
+              Logout
+            </Button>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login">
+              <Button mr={10}>Login</Button>
+            </Link>
           )}
         </GridItem>
       </Grid>

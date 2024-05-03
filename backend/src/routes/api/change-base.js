@@ -1,19 +1,17 @@
 import express from "express";
 import User from "../../models/user-schema.js";
+
+import { authenticateToken } from "../../middleware/authenticateToken.js";
+
 const router = express.Router();
 
-  const { username, base_currency } = req.body;
+router.post("/", authenticateToken, async (req, res) => {
+  const { base_currency } = req.body;
+  const userId = req.user.userId;
 
   try {
-    const user = await User.findOne({
-      username: username,
-    });
-    if (!user) {
-      return res.status(401).send({ message: "No user exists" });
-    }
-
     const result = await User.findOneAndUpdate(
-      { _id: user._id },
+      { _id: userId },
       { $set: { base_currency: base_currency } },
       { new: true }
     );
@@ -21,11 +19,15 @@ const router = express.Router();
     if (result) {
       return res
         .status(200)
-        .send({ message: "Base currency updated successfully" });
+        .send({
+          message: "Base currency updated successfully",
+          baseCurrency: result.base_currency,
+        });
     } else {
-      return res.status(400).send({ message: "Base currency update failed" });
+      return res.status(404).send({ message: "User not found" });
     }
   } catch (error) {
+    console.error("Failed to update base currency:", error);
     return res.status(500).send({ message: "Server error" });
   }
 });

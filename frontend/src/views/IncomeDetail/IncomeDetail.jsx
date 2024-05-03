@@ -1,10 +1,11 @@
-import { Text, Box, Center, Select, Flex } from "@chakra-ui/react";
+import { Text, Box, Center, Button, Flex } from "@chakra-ui/react";
 import IncomeChartTabs from "./components/IncomeChartTabs.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import IncomeSelector from "./components/IncomeSelector.jsx";
 import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
@@ -23,6 +24,8 @@ export default function IncomeDetailsPage() {
   const [fortnightlyIncomes, setFortnightlyIncomes] = useState([]);
   const [monthlyIncomes, setMonthlyIncomes] = useState([]);
   const [yearlyIncomes, setYearlyIncomes] = useState([]);
+
+  const navigate = useNavigate();
 
   const getIncomes = async (fromDate, currency) => {
     const url = import.meta.env.VITE_GET_INCOMES_URL;
@@ -50,26 +53,26 @@ export default function IncomeDetailsPage() {
       const fetchedWeeklyIncomes = await getIncomes(
         oneWeekAgo,
         filteredCurrency
-      ); //change period here
+      );
       console.log(fetchedWeeklyIncomes);
       setWeeklyIncomes(fetchedWeeklyIncomes);
 
       const fetchedFortnightlyIncomes = await getIncomes(
         twoWeeksAgo,
         filteredCurrency
-      ); //change period here
+      );
       setFortnightlyIncomes(fetchedFortnightlyIncomes);
 
       const fetchedMonthlyIncomes = await getIncomes(
         oneMonthAgo,
         filteredCurrency
-      ); //change period here
+      );
       setMonthlyIncomes(fetchedMonthlyIncomes);
 
       const fetchedYearlyIncomes = await getIncomes(
         oneYearAgo,
         filteredCurrency
-      ); //change period here
+      );
       setYearlyIncomes(fetchedYearlyIncomes);
     } catch (error) {
       console.error("Failed to fetch exchanges:", error);
@@ -81,26 +84,46 @@ export default function IncomeDetailsPage() {
   }, [filteredCurrency]);
 
   return (
-    <Box>
-      <Center>
-        <Text fontSize="2xl" fontWeight="bold">
-          My Income Details
-        </Text>
-      </Center>
+    <Box
+      backgroundImage="url('./pictures/IMG_2142.jpg')"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
+      borderRadius={20}
+      minH="100vh"
+    >
+      <Box
+        bg="rgba(255, 255, 255, 0.5)"
+        backdropFilter="blur(5px)"
+        borderRadius={20}
+        minH="100vh"
+      >
+        <Center>
+          <Text fontSize="2xl" fontWeight="bold" m={10}>
+            My Income Details
+          </Text>
+        </Center>
 
-      <Flex justifyContent="flex-end">
-        <IncomeSelector
-          selected={filteredCurrency}
-          onSelect={setFilteredCurrency}
-        />
-      </Flex>
-
-      <IncomeChartTabs
-        weeklyIncomes={weeklyIncomes}
-        fortnightlyIncomes={fortnightlyIncomes}
-        monthlyIncomes={monthlyIncomes}
-        yearlyIncomes={yearlyIncomes}
-      />
+        <Flex justifyContent="space-between">
+          <Button onClick={() => navigate("/")} ml={10}>
+            Back
+          </Button>
+          <Box mr={10}>
+            <IncomeSelector
+              selected={filteredCurrency}
+              onSelect={setFilteredCurrency}
+            />
+          </Box>
+        </Flex>
+        <Center mb={10}>
+          <IncomeChartTabs
+            weeklyIncomes={weeklyIncomes}
+            fortnightlyIncomes={fortnightlyIncomes}
+            monthlyIncomes={monthlyIncomes}
+            yearlyIncomes={yearlyIncomes}
+          />
+        </Center>
+      </Box>
     </Box>
   );
 }
