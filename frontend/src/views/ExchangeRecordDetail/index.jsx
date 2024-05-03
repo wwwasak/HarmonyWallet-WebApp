@@ -1,4 +1,12 @@
-import { Box, Text, Center, Button, Flex, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Center,
+  Button,
+  Flex,
+  Spinner,
+  Link,
+} from "@chakra-ui/react";
 import ExchangeRecordChart from "./components/ExchangeRecordChart";
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
@@ -11,6 +19,7 @@ export default function ExchangeRecordDetail() {
   const [yearlyData, setYearlyData] = useState(null);
   const [chartData, setChartData] = useState(weeklyData);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentRange, setCurrentRange] = useState("one week");
 
   const oneWeekAgo = useMemo(
     () => format(subDays(new Date(), 6), "yyyy-MM-dd"),
@@ -66,6 +75,7 @@ export default function ExchangeRecordDetail() {
     } else {
       setChartData(weeklyData);
     }
+    setCurrentRange("one week");
   };
 
   const handleClickFortnightly = () => {
@@ -75,6 +85,7 @@ export default function ExchangeRecordDetail() {
     } else {
       setChartData(fortnightlyData);
     }
+    setCurrentRange("two weeks");
   };
 
   const handleClickMonthly = () => {
@@ -84,6 +95,7 @@ export default function ExchangeRecordDetail() {
     } else {
       setChartData(monthlyData);
     }
+    setCurrentRange("one month");
   };
 
   const handleClickYearly = () => {
@@ -93,6 +105,7 @@ export default function ExchangeRecordDetail() {
     } else {
       setChartData(yearlyData);
     }
+    setCurrentRange("one year");
   };
 
   return (
@@ -103,13 +116,38 @@ export default function ExchangeRecordDetail() {
             Exchange Record
           </Text>
         </Center>
+        <Flex>
+          <Link href="/">
+            <Button>Back</Button>
+          </Link>
+        </Flex>
 
         <Box>
           <Flex justifyContent="space-around" m={5}>
-            <Button onClick={handleClickWeekly}>One Week</Button>
-            <Button onClick={handleClickFortnightly}>Two Weeks</Button>
-            <Button onClick={handleClickMonthly}>One Month</Button>
-            <Button onClick={handleClickYearly}>One Year</Button>
+            <Button
+              onClick={handleClickWeekly}
+              colorScheme={currentRange === "one week" ? "blue" : "gray"}
+            >
+              One Week
+            </Button>
+            <Button
+              onClick={handleClickFortnightly}
+              colorScheme={currentRange === "two weeks" ? "blue" : "gray"}
+            >
+              Two Weeks
+            </Button>
+            <Button
+              onClick={handleClickMonthly}
+              colorScheme={currentRange === "one month" ? "blue" : "gray"}
+            >
+              One Month
+            </Button>
+            <Button
+              onClick={handleClickYearly}
+              colorScheme={currentRange === "one year" ? "blue" : "gray"}
+            >
+              One Year
+            </Button>
           </Flex>
         </Box>
 

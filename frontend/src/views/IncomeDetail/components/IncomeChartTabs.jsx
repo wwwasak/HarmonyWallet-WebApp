@@ -33,13 +33,10 @@ export default function IncomeChartTabs({
         position="absolute"
         top="-60px"
         left="20px"
-        bg="blue.500"
-        color="white"
         fontWeight="bold"
-        _hover={{ bg: "blue.600" }}
         onClick={handleButtonClick}
       >
-        Go back to my home page
+        Back
       </Button>
       <Tabs variant="soft-rounded" colorScheme="green">
         <TabList padding="20px" justifyContent="space-around">

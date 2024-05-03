@@ -50,26 +50,26 @@ export default function IncomeDetailsPage() {
       const fetchedWeeklyIncomes = await getIncomes(
         oneWeekAgo,
         filteredCurrency
-      ); //change period here
+      );
       console.log(fetchedWeeklyIncomes);
       setWeeklyIncomes(fetchedWeeklyIncomes);
 
       const fetchedFortnightlyIncomes = await getIncomes(
         twoWeeksAgo,
         filteredCurrency
-      ); //change period here
+      );
       setFortnightlyIncomes(fetchedFortnightlyIncomes);
 
       const fetchedMonthlyIncomes = await getIncomes(
         oneMonthAgo,
         filteredCurrency
-      ); //change period here
+      );
       setMonthlyIncomes(fetchedMonthlyIncomes);
 
       const fetchedYearlyIncomes = await getIncomes(
         oneYearAgo,
         filteredCurrency
-      ); //change period here
+      );
       setYearlyIncomes(fetchedYearlyIncomes);
     } catch (error) {
       console.error("Failed to fetch exchanges:", error);
