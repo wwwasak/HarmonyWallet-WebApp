@@ -7,7 +7,6 @@ import IncomeDetail from "../views/IncomeDetail/IncomeDetail";
 import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
-import ChangePassword from "../views/SignUp/components/ChangePassword";
 import RecordingPage from "../views/RecordingPage";
 import RatesDetailPage from "../views/Detail/RatesDetailPage";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
@@ -62,15 +61,6 @@ const router = createBrowserRouter([
   {
     path: "/forgot-password",
     element: <ForgotPassword />,
-  },
-
-  {
-    path: "/changePassword",
-    element: (
-      <RequireAuthProvider>
-        <ChangePassword />
-      </RequireAuthProvider>
-    ),
   },
 ]);
 
