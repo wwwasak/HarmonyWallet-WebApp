@@ -42,16 +42,18 @@ const Calculator = () => {
 
   return (
     <>
-      <HStack width={150}>
+      <HStack width={300}>
         <Image
-          src={budget}
+          src="./pictures/calculator.png"
           boxSize="60px"
           objectFit="cover"
           cursor="pointer"
           onClick={onOpen}
         />
 
-        <Text>Exchange Rate Calculator</Text>
+        <Text color="grey" fontWeight="700">
+          Exchange Rate Calculator
+        </Text>
       </HStack>
 
       <Modal

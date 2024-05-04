@@ -114,12 +114,18 @@ export default function ExpenseDetail() {
           </Box>
         </Flex>
         <Center mb={10}>
-          <ExpenseChartTabs
-            weeklyIncomes={weeklyExpense}
-            fortnightlyIncomes={fortnightlyExpense}
-            monthlyIncomes={monthlyExpense}
-            yearlyIncomes={yearlyExpense}
-          />
+          <Box
+            bg="rgba(255, 255, 255, 0.5)"
+            backdropFilter="blur(5px)"
+            borderRadius={20}
+          >
+            <ExpenseChartTabs
+              weeklyIncomes={weeklyExpense}
+              fortnightlyIncomes={fortnightlyExpense}
+              monthlyIncomes={monthlyExpense}
+              yearlyIncomes={yearlyExpense}
+            />
+          </Box>
         </Center>
       </Box>
     </Box>
