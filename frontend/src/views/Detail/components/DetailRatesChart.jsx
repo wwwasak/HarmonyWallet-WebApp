@@ -1,34 +1,56 @@
-import {
-  CartesianGrid,
-  LineChart,
-  Line,
-  Tooltip,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-} from "recharts";
+import ReactApexChart from "react-apexcharts";
+
 const DetailRatesChart = ({ data, currency }) => {
   if (!data || !data.rates) {
     return null;
   }
 
-  const currencyData = Object.keys(data.rates).map((date) => ({
-    date: date,
-    rate: data.rates[date][currency],
-  }));
+  const categories = Object.keys(data.rates).sort(
+    (a, b) => new Date(a) - new Date(b)
+  );
 
-  currencyData.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const series = [
+    {
+      name: currency,
+      data: categories.map((date) => data.rates[date][currency]),
+    },
+  ];
+
+  const options = {
+    chart: {
+      type: "line",
+      zoom: {
+        enabled: false,
+      },
+      toolbar: {
+        show: false,
+      },
+    },
+    xaxis: {
+      categories,
+      tooltip: {
+        enabled: false,
+      },
+      // labels: {
+      //   hideOverlappingLabels: true,
+      //   rotate: 0,
+      // },
+      labels: {
+        show: false,
+      },
+    },
+    stroke: {
+      width: 1.5,
+    },
+  };
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={currencyData}>
-        <XAxis dataKey="date" />
-        <YAxis type="number" domain={["auto", "auto"]} />
-        <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip />
-        <Line type="monotone" dataKey="rate" stroke="#8884d8" dot={false} />
-      </LineChart>
-    </ResponsiveContainer>
+    <ReactApexChart
+      options={options}
+      series={series}
+      type="line"
+      height={200}
+    />
   );
 };
 
