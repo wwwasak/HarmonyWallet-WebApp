@@ -12,6 +12,7 @@ import RatesDetailPage from "../views/Detail/RatesDetailPage";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
 import ForgotPassword from "../views/ForgotPassword/index";
 import { RequireAuthProvider } from "../stores/RequireAuthContext.jsx";
+import { NavigationProvider } from "../stores/RouterNavigationContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,9 @@ const router = createBrowserRouter([
     element: (
       <RequireAuthProvider>
         <BaseCurrencyProvider>
-          <Layout />
+          <NavigationProvider>
+            <Layout />
+          </NavigationProvider>
         </BaseCurrencyProvider>
       </RequireAuthProvider>
     ),

@@ -1,11 +1,12 @@
 import { Text, Box, Center, Button, Flex } from "@chakra-ui/react";
 import ExpenseChartTabs from "../../views/IncomeDetail/components/IncomeChartTabs.jsx";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ExpenseSelector from "../../views/IncomeDetail/components/IncomeSelector.jsx";
-import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
+// import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
+import { BaseCurrencyContext } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../../stores/RouterNavigationContext.jsx";
 
 const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
@@ -16,7 +17,8 @@ const oneMonthAgo = format(subMonths(new Date(), 1), "yyyy-MM-dd");
 const oneYearAgo = format(subYears(new Date(), 1), "yyyy-MM-dd");
 
 export default function ExpenseDetail() {
-  const { baseCurrency } = useCurrency();
+  // const { baseCurrency } = useCurrency();
+  const { baseCurrency } = useContext(BaseCurrencyContext);
   const [filteredCurrency, setFilteredCurrency] = useState(baseCurrency);
 
   const [weeklyExpense, setWeeklyExpense] = useState([]);
@@ -24,7 +26,7 @@ export default function ExpenseDetail() {
   const [monthlyExpense, setMonthlyExpense] = useState([]);
   const [yearlyExpense, setYearlyExpense] = useState([]);
 
-  const navigate = useNavigate();
+  const navigate = useNavigation();
 
   const getExpense = async (fromDate, currency) => {
     const url = import.meta.env.VITE_GET_EXPENSES_URL;
