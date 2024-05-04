@@ -10,7 +10,10 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  Link,
+  useColorModeValue
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import IncomeSelector from "../../IncomeDetail/components/IncomeSelector.jsx";
 import ReactECharts from 'echarts-for-react';
@@ -27,7 +30,7 @@ const ExpenseLineChartCard = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const url = import.meta.env.VITE_GET_EXPENSES_URL;
-
+  const linkColor = useColorModeValue("blue.500", "blue.200");
 useEffect(() => {
  if (!selectedCurrency) return;
  const fromDate = format(subDays(new Date(), 7), 'yyyy-MM-dd');   
@@ -180,6 +183,7 @@ const aggregateDataByDay = (data) => {
       <CardHeader>
         <Flex justifyContent="space-between" alignItems="center" onClick={handleSelectorClick}>
           <Heading size="sm">Expense Records</Heading>
+          <Link as={RouterLink} to="/expense" color={linkColor} textDecoration="underline" _hover={{ textDecoration: "none" }}>More</Link>
           <IncomeSelector selected={selectedCurrency} onSelect={handleCurrencyChange} />
         </Flex>
         <Divider />
