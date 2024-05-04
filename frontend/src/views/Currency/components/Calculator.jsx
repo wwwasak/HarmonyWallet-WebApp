@@ -14,6 +14,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Spinner,
+  HStack,
+  Stack,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -40,13 +42,19 @@ const Calculator = () => {
 
   return (
     <>
-      <Image
-        src={budget}
-        boxSize="60px"
-        objectFit="cover"
-        cursor="pointer"
-        onClick={onOpen}
-      />
+      <HStack width={300}>
+        <Image
+          src="./pictures/calculator.png"
+          boxSize="60px"
+          objectFit="cover"
+          cursor="pointer"
+          onClick={onOpen}
+        />
+
+        <Text color="grey" fontWeight="700">
+          Exchange Rate Calculator
+        </Text>
+      </HStack>
 
       <Modal
         isOpen={isOpen}
@@ -96,7 +104,7 @@ const Calculator = () => {
                   </Text>
                 </>
               )}
-            {fromCurrency === toCurrency && (
+            {fromCurrency === toCurrency && fromCurrency && toCurrency && (
               <>
                 <Text mt={4}>
                   {input} {fromCurrency} =

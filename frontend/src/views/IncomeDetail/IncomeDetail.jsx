@@ -105,10 +105,10 @@ export default function IncomeDetailsPage() {
         </Center>
 
         <Flex justifyContent="space-between">
-          <Button onClick={() => navigate("/")} ml={10}>
+          <Button onClick={() => navigate("/")} mb={10} ml={10}>
             Back
           </Button>
-          <Box mr={10}>
+          <Box mr={10} mb={10}>
             <IncomeSelector
               selected={filteredCurrency}
               onSelect={setFilteredCurrency}
@@ -116,12 +116,18 @@ export default function IncomeDetailsPage() {
           </Box>
         </Flex>
         <Center mb={10}>
-          <IncomeChartTabs
-            weeklyIncomes={weeklyIncomes}
-            fortnightlyIncomes={fortnightlyIncomes}
-            monthlyIncomes={monthlyIncomes}
-            yearlyIncomes={yearlyIncomes}
-          />
+          <Box
+            bg="rgba(255, 255, 255, 0.5)"
+            backdropFilter="blur(5px)"
+            borderRadius={20}
+          >
+            <IncomeChartTabs
+              weeklyIncomes={weeklyIncomes}
+              fortnightlyIncomes={fortnightlyIncomes}
+              monthlyIncomes={monthlyIncomes}
+              yearlyIncomes={yearlyIncomes}
+            />
+          </Box>
         </Center>
       </Box>
     </Box>

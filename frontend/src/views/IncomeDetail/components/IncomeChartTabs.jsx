@@ -76,7 +76,6 @@ export default function IncomeChartTabs({
           borderRadius={20}
           padding="20px"
           minHeight="500px"
-          borderRadius="16px"
         >
           <TabPanel
             display="flex"
