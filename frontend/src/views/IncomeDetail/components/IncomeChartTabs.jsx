@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useIncome from "../../../hooks/useIncome";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../../../stores/RouterNavigationContext";
 
 export default function IncomeChartTabs({
   weeklyIncomes,
@@ -22,7 +22,7 @@ export default function IncomeChartTabs({
   monthlyIncomes,
   yearlyIncomes,
 }) {
-  const navigate = useNavigate();
+  const navigate = useNavigation();
   const handleButtonClick = () => {
     navigate("/");
   };
