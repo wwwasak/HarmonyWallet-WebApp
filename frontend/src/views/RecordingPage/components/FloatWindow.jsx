@@ -148,6 +148,7 @@ export default function FloatWindow() {
                         selected={date}
                         onChange={setDate}
                         customInput={<input />}
+                        maxDate={new Date()}
                       />
                     </Td>
                     <Td>
@@ -193,6 +194,7 @@ export default function FloatWindow() {
                         selected={date}
                         onChange={setDate}
                         customInput={<input />}
+                        maxDate={new Date()}
                       />
                     </Td>
                     <Td>
