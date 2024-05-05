@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from "axios";
 import {
   Box,
@@ -26,71 +26,81 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  IconButton,
-  Link
+  IconButton
 } from "@chakra-ui/react";
 import { HamburgerIcon } from '@chakra-ui/icons';
+import SignupCurrenciesSelector from "../../SignUp/components/SignupCurrenciesSelector";
 
 const ProfileCard = ({ gridArea, baseCurrency, username }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [avatar, setAvatar] = useState("./src/assets/DefaultAvatar.svg"); 
-  const [avatarFile, setAvatarFile] = useState(null);
+  const avatar = "./src/assets/DefaultAvatar.svg"; 
   const [modalContent, setModalContent] = useState(""); // Track which form to show
+  const changeBaseUrl = import.meta.env.VITE_CHANGE_BASE_URL;
+  const changePasswordUrl = import.meta.env.VITE_CHANGE_PASSWORD_URL;
+  const [currentBaseCurrency, setCurrentBaseCurrency] = useState(baseCurrency);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const handleNewPasswordChange = (event) => setNewPassword(event.target.value);
+  const handleConfirmPasswordChange = (event) => setConfirmPassword(event.target.value);
 
-  const openModal = (content) => {
-    setModalContent(content);
-    onOpen();
-  };
-  
-  const handleAvatarError = (e) => {
-    e.target.onerror = null;
-    e.target.src = "https://bit.ly/sage-adebayo"; // Fallback avatar if error
-  };
-  
-  const handleAvatarChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setAvatarFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatar(reader.result);// Display a preview of the image
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      alert('User is not logged in or session expired.');
+  const submitPasswordChange = async () => {
+    if (newPassword !== confirmPassword) {
+      alert("Passwords do not match.");
       return;
     }
-    const formData = new FormData(event.currentTarget); 
-    if (avatarFile) {
-      formData.append('avatar', avatarFile);
+    const authToken = localStorage.getItem('authToken');
+    console.log("Auth Token:", authToken);
+    console.log("username:", username);
+    try {
+      const response = await axios.post(changePasswordUrl, {
+        password: newPassword
+      }, {
+      headers: { Authorization: `Bearer ${authToken}` } // debug token
+      });
+      if (response.status === 200) {
+        alert('Password updated successfully');
+        onClose();
+      } else {
+        alert('Failed to update password');
+      }
+    } catch (error) {
+      alert('Failed to update password: ' + error.message);
     }
+  };
 
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-  
+const handleCurrencyChange = async (currency) => {
+  setCurrentBaseCurrency(currency);
+  const authToken = localStorage.getItem('authToken');
+  console.log("New currency selected:", baseCurrency);
+  console.log("New currency :", authToken);
+  if (!authToken) {
+    alert('No authorization token found, please login again.');
+    return;
+  }
   try {
-    const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
-      method: 'PUT',
-      body: formData,
+    const response = await axios.post(changeBaseUrl, {
+      baseCurrency: currency
+    }, {
+      headers: { Authorization: `Bearer ${authToken}` }
     });
-
-    if (response.ok) {
-      alert('Profile updated successfully');
-      onClose(); // Close modal after successful update
+    console.log(localStorage.getItem('authToken'));  // debug token
+    if (response.status === 200) {
+      alert('Base currency updated successfully');
+      onClose();
     } else {
-      throw new Error('Failed to update profile');
+      console.error('Failed to update base currency:', response.status);
+      alert('Failed to update base currency');
     }
   } catch (error) {
+    console.error('Update error:', error);
     alert('Update error: ' + error.message);
   }
+};
+
+const handleModalContentChange = (content) => {
+  setModalContent(content);
+  onOpen();
 };
 
   return (
@@ -108,21 +118,14 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
         variant="outline"
       />
       <MenuList>
-      <Link to="/ChangePassword">
-        <MenuItem>
-          Change Password
-        </MenuItem>
-        </Link>
-        <MenuItem onClick={() => openModal('avatar')}>Change Avatar</MenuItem>
-        <MenuItem onClick={() => openModal('currency')}>Change Base Currency</MenuItem>
-      </MenuList>
-    </Menu>
+              <MenuItem onClick={() => handleModalContentChange('currency')}>Change Base Currency</MenuItem>
+              <MenuItem onClick={() => handleModalContentChange('password')}>Change Password</MenuItem>
+            </MenuList>
+      </Menu>
         </Flex >
         <Flex align="center">
           <Avatar
             src={avatar}
-            onError={handleAvatarError}
-            onClick={() => openModal('avatar')}
           />
           <Text ml={3}>{username}</Text>  
         </Flex>
@@ -141,28 +144,26 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
         <ModalContent>
           <ModalHeader>Update Profile</ModalHeader>
           <ModalCloseButton />
-          <form onSubmit={handleSubmit}>
           <ModalBody pb={6}>
-              {modalContent === 'avatar' && (
-                <FormControl>
-                  <FormLabel>Avatar</FormLabel>
-                  <Input type="file" name="avatar" accept="image/*" onChange={handleAvatarChange} />
-                </FormControl>
-              )}
-              {modalContent === 'currency' && (
-                <FormControl>
-                  <FormLabel>Base Currency</FormLabel>
-                  <Input type="text" name="basecurrency" placeholder="Change Base Currency" />
-                </FormControl>
-              )}
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} type="submit">
-                Save Changes
-              </Button>
-              <Button variant="ghost" onClick={onClose}>Cancel</Button>
-            </ModalFooter>
-          </form>
+            {modalContent === 'currency' && (
+              <FormControl>
+                <FormLabel>Base Currency</FormLabel>
+                <SignupCurrenciesSelector selected={currentBaseCurrency} onSelect={handleCurrencyChange} />
+              </FormControl>
+            )}
+            {modalContent === 'password' && (
+              <FormControl>
+                <FormLabel>New Password</FormLabel>
+                <Input type="password" value={newPassword} onChange={handleNewPasswordChange} />
+                <FormLabel>Confirm New Password</FormLabel>
+                <Input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
+                <Button mt={4} colorScheme="blue" onClick={submitPasswordChange}>Update Password</Button>
+              </FormControl>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </Card>

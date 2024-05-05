@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../../models/user-schema.js";
+
 import { authenticateToken } from "../../middleware/authenticateToken.js";
 
 const router = express.Router();

@@ -9,16 +9,6 @@ import { subDays, format } from "date-fns";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const data = [
-  { Date: "17/04/2024", currency: 2400, amt: 2400 },
-  { Date: "16/04/2024", currency: 1398, amt: 2210 },
-  { Date: "15/04/2024", currency: 9800, amt: 2290 },
-  { Date: "14/04/2024", currency: 3908, amt: 2000 },
-  { Date: "13/04/2024", currency: 4800, amt: 2181 },
-  { Date: "12/04/2024", currency: 3800, amt: 2500 },
-  { Date: "11/04/2024", currency: 4300, amt: 2100 },
-];
-
 const getUserInfo = async () => {
   const url = import.meta.env.VITE_GET_USER_INFO_URL;
   const authToken = localStorage.getItem("authToken");
@@ -174,7 +164,7 @@ const RecordingPage = () => {
           borderRadius={20}
         >
           <Grid
-            templateColumns="repeat(12, 1fr)" // Creates three columns
+            templateColumns="repeat(12, 1fr)" 
             gap={4} // Sets gap between grid items
             p={8} // Padding around the grid
           >
@@ -188,17 +178,17 @@ const RecordingPage = () => {
             </GridItem>
             <GridItem colSpan={9}>
               <IncomeLineChartCard w="100%" h="100%">
-                {/* <Text>Line Chart Data</Text> */}
+               
               </IncomeLineChartCard>
             </GridItem>
             <GridItem colSpan={9}>
               <ExpenseLineChartCard w="100%" h="100%">
-                {/* <Text>More Data Here</Text> */}
+              
               </ExpenseLineChartCard>
             </GridItem>
             <GridItem colSpan={3}>
               <RecentRecordsCard w="100%" h="100%" exchanges={exchanges}>
-                {/* <Text>Additional Info</Text> */}
+               
               </RecentRecordsCard>
             </GridItem>
             <FloatWindow />
