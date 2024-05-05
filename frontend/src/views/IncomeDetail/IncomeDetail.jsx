@@ -1,11 +1,11 @@
 import { Text, Box, Center, Button, Flex } from "@chakra-ui/react";
 import IncomeChartTabs from "./components/IncomeChartTabs.jsx";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import IncomeSelector from "./components/IncomeSelector.jsx";
-import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
+import { BaseCurrencyContext } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../../stores/RouterNavigationContext.jsx";
 
 const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
@@ -16,8 +16,7 @@ const oneMonthAgo = format(subMonths(new Date(), 1), "yyyy-MM-dd");
 const oneYearAgo = format(subYears(new Date(), 1), "yyyy-MM-dd");
 
 export default function IncomeDetailsPage() {
-  const { baseCurrency } = useCurrency();
-  console.log(baseCurrency);
+  const { baseCurrency } = useContext(BaseCurrencyContext);
   const [filteredCurrency, setFilteredCurrency] = useState(baseCurrency);
 
   const [weeklyIncomes, setWeeklyIncomes] = useState([]);
@@ -25,7 +24,7 @@ export default function IncomeDetailsPage() {
   const [monthlyIncomes, setMonthlyIncomes] = useState([]);
   const [yearlyIncomes, setYearlyIncomes] = useState([]);
 
-  const navigate = useNavigate();
+  const navigate = useNavigation();
 
   const getIncomes = async (fromDate, currency) => {
     const url = import.meta.env.VITE_GET_INCOMES_URL;

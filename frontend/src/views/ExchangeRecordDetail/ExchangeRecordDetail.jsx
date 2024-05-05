@@ -126,7 +126,7 @@ export default function ExchangeRecordDetail() {
       >
         <Center>
           <Text fontSize="2xl" fontWeight="bold" m={5}>
-            Exchange Record
+            My Exchange Records
           </Text>
         </Center>
         <Flex>

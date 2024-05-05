@@ -1,5 +1,6 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import { vi } from "vitest";
+import '@testing-library/jest-dom';
+import { describe, expect, it } from "vitest";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 
@@ -31,16 +32,16 @@ describe("ExpenseDetail component", () => {
             </BaseCurrencyProviderMock>
         );
 
-        expect(getByText("My Expense Details")).toBeDefined();
+        expect(getByText("My Expense Details")).toBeInTheDocument();
 
-        expect(getByRole("button", { name: "Back" })).toBeDefined();
+        expect(getByRole("button", { name: "Back" })).toBeInTheDocument();
 
-        expect(getByRole("button", { name: "Select" })).toBeDefined();
+        expect(getByRole("button", { name: "Select" })).toBeInTheDocument();
 
-        expect(getByRole("tab", { name: "Recent 7 days" })).toBeDefined();
-        expect(getByRole("tab", { name: "Recent 14 days" })).toBeDefined();
-        expect(getByRole("tab", { name: "Recent 30 days" })).toBeDefined();
-        expect(getByRole("tab", { name: "Recent 1 year" })).toBeDefined();
+        expect(getByRole("tab", { name: "Recent 7 days" })).toBeInTheDocument();
+        expect(getByRole("tab", { name: "Recent 14 days" })).toBeInTheDocument();
+        expect(getByRole("tab", { name: "Recent 30 days" })).toBeInTheDocument();
+        expect(getByRole("tab", { name: "Recent 1 year" })).toBeInTheDocument();
 
         fireEvent.click(getByRole("button", { name: "Back" }));
 

@@ -3,7 +3,6 @@ import ExpenseChartTabs from "../../views/IncomeDetail/components/IncomeChartTab
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import ExpenseSelector from "../../views/IncomeDetail/components/IncomeSelector.jsx";
-// import { useCurrency } from "../../stores/BaseCurrencyContext.jsx";
 import { BaseCurrencyContext } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
 import { useNavigation } from "../../stores/RouterNavigationContext.jsx";
@@ -17,7 +16,6 @@ const oneMonthAgo = format(subMonths(new Date(), 1), "yyyy-MM-dd");
 const oneYearAgo = format(subYears(new Date(), 1), "yyyy-MM-dd");
 
 export default function ExpenseDetail() {
-  // const { baseCurrency } = useCurrency();
   const { baseCurrency } = useContext(BaseCurrencyContext);
   const [filteredCurrency, setFilteredCurrency] = useState(baseCurrency);
 

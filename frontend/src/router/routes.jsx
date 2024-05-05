@@ -2,7 +2,7 @@ import { BaseCurrencyProvider } from "../stores/BaseCurrencyContext";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
-import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
+import ExchangeRecordDetail from "../views/ExchangeRecordDetail/ExchangeRecordDetail";
 import IncomeDetail from "../views/IncomeDetail/IncomeDetail";
 import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
