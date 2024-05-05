@@ -20,7 +20,6 @@ const RatesOverviewPage = () => {
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
       borderRadius={20}
-      m={10}
     >
       <Box
         bg="rgba(255, 255, 255, 0.5)"

@@ -7,7 +7,7 @@ import {
   Divider,
   Box,
   Link,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { parseISO, format } from "date-fns";
 import { Link as RouterLink } from "react-router-dom";
@@ -19,13 +19,21 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
   }));
 
   return (
-    <Card gridArea={gridArea}>
+    <Card gridArea={gridArea} h={473}>
       <CardHeader>
         <Flex justifyContent="space-around" alignItems="center">
           <Heading size="sm" textTransform="uppercase">
             Exchange Records
           </Heading>
-          <Link as={RouterLink} to="/exchange" color={linkColor} textDecoration="underline" _hover={{ textDecoration: "none" }}>More</Link>
+          <Link
+            as={RouterLink}
+            to="/exchange"
+            color={linkColor}
+            textDecoration="underline"
+            _hover={{ textDecoration: "none" }}
+          >
+            More
+          </Link>
         </Flex>
         <Divider my={2} />
       </CardHeader>

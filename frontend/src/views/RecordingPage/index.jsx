@@ -27,7 +27,7 @@ const getUserInfo = async () => {
   }
 };
 
-const getExchanges = async (n) => {
+const getExchanges = async () => {
   const url = import.meta.env.VITE_GET_EXCHANGES_URL;
   const authToken = localStorage.getItem("authToken");
   const body = {
@@ -91,7 +91,7 @@ const getExpenses = async (fromDate, currency) => {
 };
 
 const RecordingPage = () => {
-  const bgColor = useColorModeValue("gray.100", "gray.700");
+  // const bgColor = useColorModeValue("gray.100", "gray.700");
   const [username, setUsername] = useState("");
   const [baseCurrency, setBaseCurrency] = useState("");
   const [exchanges, setExchanges] = useState([]);
@@ -151,47 +151,52 @@ const RecordingPage = () => {
   return (
     <>
       <Box
-        bg={bgColor}
         backgroundImage="url('./pictures/IMG_2143.JPG')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         borderRadius={20}
+        minH="80vh"
+        // pl={30}
+        // pr={30}
       >
+        <FloatWindow />
         <Box
           bg="rgba(255, 255, 255, 0.5)"
           backdropFilter="blur(10px)"
           borderRadius={20}
+          minH="80vh"
+          p={10}
         >
           <Grid
-            templateColumns="repeat(12, 1fr)" 
-            gap={4} // Sets gap between grid items
-            p={8} // Padding around the grid
+            minH="100vh"
+            templateColumns="repeat(5, 1fr)"
+            templateRows="repeat(2, 1fr)"
+            gap={20}
+            p={20}
+            pr={20}
+            pl={20}
+            gridTemplateAreas={`
+               "profile income income income income"
+               "expense expense expense expense records"
+             `}
           >
-            <GridItem colSpan={3} ml={45} mr={79}>
-              <ProfileCard
+            <GridItem gridArea="profile">
+              <ProfileCard username={username} baseCurrency={baseCurrency} />
+            </GridItem>
+            <GridItem gridArea="income">
+              <IncomeLineChartCard w="100%" h="100%"></IncomeLineChartCard>
+            </GridItem>
+            <GridItem gridArea="expense">
+              <ExpenseLineChartCard w="100%" h="100%"></ExpenseLineChartCard>
+            </GridItem>
+            <GridItem gridArea="records">
+              <RecentRecordsCard
                 w="100%"
                 h="100%"
-                username={username}
-                baseCurrency={baseCurrency}
-              />
+                exchanges={exchanges}
+              ></RecentRecordsCard>
             </GridItem>
-            <GridItem colSpan={9}>
-              <IncomeLineChartCard w="100%" h="100%">
-               
-              </IncomeLineChartCard>
-            </GridItem>
-            <GridItem colSpan={9}>
-              <ExpenseLineChartCard w="100%" h="100%">
-              
-              </ExpenseLineChartCard>
-            </GridItem>
-            <GridItem colSpan={3}>
-              <RecentRecordsCard w="100%" h="100%" exchanges={exchanges}>
-               
-              </RecentRecordsCard>
-            </GridItem>
-            <FloatWindow />
           </Grid>
         </Box>
       </Box>

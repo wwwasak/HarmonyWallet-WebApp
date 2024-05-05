@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -21,114 +21,141 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  useDisclosure, 
+  useDisclosure,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  IconButton
+  IconButton,
+  Center,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { HamburgerIcon } from "@chakra-ui/icons";
 import SignupCurrenciesSelector from "../../SignUp/components/SignupCurrenciesSelector";
 
 const ProfileCard = ({ gridArea, baseCurrency, username }) => {
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const avatar = "./src/assets/DefaultAvatar.svg"; 
+  const avatar = "./src/assets/DefaultAvatar.svg";
   const [modalContent, setModalContent] = useState(""); // Track which form to show
   const changeBaseUrl = import.meta.env.VITE_CHANGE_BASE_URL;
   const changePasswordUrl = import.meta.env.VITE_CHANGE_PASSWORD_URL;
   const [currentBaseCurrency, setCurrentBaseCurrency] = useState(baseCurrency);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const handleNewPasswordChange = (event) => setNewPassword(event.target.value);
-  const handleConfirmPasswordChange = (event) => setConfirmPassword(event.target.value);
+  const handleConfirmPasswordChange = (event) =>
+    setConfirmPassword(event.target.value);
 
   const submitPasswordChange = async () => {
     if (newPassword !== confirmPassword) {
       alert("Passwords do not match.");
       return;
     }
-    const authToken = localStorage.getItem('authToken');
+    const authToken = localStorage.getItem("authToken");
     console.log("Auth Token:", authToken);
     console.log("username:", username);
     try {
-      const response = await axios.post(changePasswordUrl, {
-        password: newPassword
-      }, {
-      headers: { Authorization: `Bearer ${authToken}` } // debug token
-      });
+      const response = await axios.post(
+        changePasswordUrl,
+        {
+          password: newPassword,
+        },
+        {
+          headers: { Authorization: `Bearer ${authToken}` }, // debug token
+        }
+      );
       if (response.status === 200) {
-        alert('Password updated successfully');
+        alert("Password updated successfully");
         onClose();
       } else {
-        alert('Failed to update password');
+        alert("Failed to update password");
       }
     } catch (error) {
-      alert('Failed to update password: ' + error.message);
+      alert("Failed to update password: " + error.message);
     }
   };
 
-const handleCurrencyChange = async (currency) => {
-  setCurrentBaseCurrency(currency);
-  const authToken = localStorage.getItem('authToken');
-  console.log("New currency selected:", baseCurrency);
-  console.log("New currency :", authToken);
-  if (!authToken) {
-    alert('No authorization token found, please login again.');
-    return;
-  }
-  try {
-    const response = await axios.post(changeBaseUrl, {
-      baseCurrency: currency
-    }, {
-      headers: { Authorization: `Bearer ${authToken}` }
-    });
-    console.log(localStorage.getItem('authToken'));  // debug token
-    if (response.status === 200) {
-      alert('Base currency updated successfully');
-      onClose();
-    } else {
-      console.error('Failed to update base currency:', response.status);
-      alert('Failed to update base currency');
+  const handleCurrencyChange = async (currency) => {
+    setCurrentBaseCurrency(currency);
+    const authToken = localStorage.getItem("authToken");
+    console.log("New currency selected:", baseCurrency);
+    console.log("New currency :", authToken);
+    if (!authToken) {
+      alert("No authorization token found, please login again.");
+      return;
     }
-  } catch (error) {
-    console.error('Update error:', error);
-    alert('Update error: ' + error.message);
-  }
-};
+    try {
+      const response = await axios.post(
+        changeBaseUrl,
+        {
+          baseCurrency: currency,
+        },
+        {
+          headers: { Authorization: `Bearer ${authToken}` },
+        }
+      );
+      console.log(localStorage.getItem("authToken")); // debug token
+      if (response.status === 200) {
+        alert("Base currency updated successfully");
+        onClose();
+      } else {
+        console.error("Failed to update base currency:", response.status);
+        alert("Failed to update base currency");
+      }
+    } catch (error) {
+      console.error("Update error:", error);
+      alert("Update error: " + error.message);
+    }
+  };
 
-const handleModalContentChange = (content) => {
-  setModalContent(content);
-  onOpen();
-};
+  const handleModalContentChange = (content) => {
+    setModalContent(content);
+    onOpen();
+  };
 
   return (
-    <Card gridArea={gridArea}>
+    <Card gridArea={gridArea} h={473}>
       <CardHeader>
         <Flex justify="space-between" align="center">
           <Heading size="sm" textTransform="uppercase">
             Profile
           </Heading>
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        aria-label="Options"
-        icon={<HamburgerIcon />}
-        variant="outline"
-      />
-      <MenuList>
-              <MenuItem onClick={() => handleModalContentChange('currency')}>Change Base Currency</MenuItem>
-              <MenuItem onClick={() => handleModalContentChange('password')}>Change Password</MenuItem>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              variant="outline"
+            />
+            <MenuList>
+              <MenuItem onClick={() => handleModalContentChange("currency")}>
+                Change Base Currency
+              </MenuItem>
+              <MenuItem onClick={() => handleModalContentChange("password")}>
+                Change Password
+              </MenuItem>
             </MenuList>
-      </Menu>
-        </Flex >
-        <Flex align="center">
-          <Avatar
-            src={avatar}
-          />
-          <Text ml={3}>{username}</Text>  
+          </Menu>
         </Flex>
+        <Center align="center">
+          <Box>
+            <Box
+              w="150px"
+              h="150px"
+              justifyContent="center"
+              alignContent="center"
+              borderRadius="full"
+              border="1px"
+              borderStyle="solid"
+              borderColor="gray.200"
+              m={10}
+            >
+              <Avatar src={avatar} />
+            </Box>
+            <Text fontSize={20} fontWeight={700}>
+              {username}
+            </Text>
+          </Box>
+        </Center>
         <Divider my={2} />
       </CardHeader>
       <CardBody>
@@ -145,24 +172,43 @@ const handleModalContentChange = (content) => {
           <ModalHeader>Update Profile</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            {modalContent === 'currency' && (
+            {modalContent === "currency" && (
               <FormControl>
                 <FormLabel>Base Currency</FormLabel>
-                <SignupCurrenciesSelector selected={currentBaseCurrency} onSelect={handleCurrencyChange} />
+                <SignupCurrenciesSelector
+                  selected={currentBaseCurrency}
+                  onSelect={handleCurrencyChange}
+                />
               </FormControl>
             )}
-            {modalContent === 'password' && (
+            {modalContent === "password" && (
               <FormControl>
                 <FormLabel>New Password</FormLabel>
-                <Input type="password" value={newPassword} onChange={handleNewPasswordChange} />
+                <Input
+                  type="password"
+                  value={newPassword}
+                  onChange={handleNewPasswordChange}
+                />
                 <FormLabel>Confirm New Password</FormLabel>
-                <Input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
-                <Button mt={4} colorScheme="blue" onClick={submitPasswordChange}>Update Password</Button>
+                <Input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                />
+                <Button
+                  mt={4}
+                  colorScheme="blue"
+                  onClick={submitPasswordChange}
+                >
+                  Update Password
+                </Button>
               </FormControl>
             )}
           </ModalBody>
           <ModalFooter>
-            <Button variant="ghost" onClick={onClose}>Cancel</Button>
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
