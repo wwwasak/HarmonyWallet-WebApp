@@ -8,6 +8,7 @@ import Currency from "../models/currency-schema.js";
 import Expense from "../models/expense-schema.js";
 import Income from "../models/income-schema.js";
 import Exchange from "../models/exchange-schema.js";
+import { initDummyDatabase } from "../services/dummyDatabase.js";
 
 import { initCurrencyDatabase } from "../services/initCurrencyDatabase.js";
 import { fillMissingRates } from "../services/fillMissingRates.js";
@@ -27,7 +28,7 @@ async function run() {
   await initCurrencyDatabase();
 
   await fillMissingRates();
-
+  await initDummyDatabase();
   await mongoose.disconnect();
   console.log("Done!");
 }
