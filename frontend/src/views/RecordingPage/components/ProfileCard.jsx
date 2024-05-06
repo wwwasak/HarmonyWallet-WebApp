@@ -30,7 +30,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import SignupCurrenciesSelector from "../../SignUp/components/SignupCurrenciesSelector";
+import SignupCurrenciesSelector from "./CurrenciesSelector";
 
 const ProfileCard = ({ gridArea, baseCurrency, username }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
