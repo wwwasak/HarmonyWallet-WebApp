@@ -23,19 +23,18 @@ const CurrencyGrid = () => {
   }
 
   const favoriteCurrencies = [];
-  const unfavoriteCurrencies = [];
+  const unFavoriteCurrencies = [];
 
   CURRENCIES.forEach((currency) => {
-    if (data.rates && data.rates[currency]) {
-      if (localStorage.getItem(currency) === "true") {
-        favoriteCurrencies.push(currency);
-      } else {
-        unfavoriteCurrencies.push(currency);
-      }
+    const isFavorite = localStorage.getItem(currency) === "true";
+    if (isFavorite) {
+      favoriteCurrencies.push(currency);
+    } else {
+      unFavoriteCurrencies.push(currency);
     }
   });
 
-  const sortedCurrencies = [...favoriteCurrencies, ...unfavoriteCurrencies];
+  const sortedCurrencies = [...favoriteCurrencies, ...unFavoriteCurrencies];
 
   return (
     <SimpleGrid
@@ -49,17 +48,19 @@ const CurrencyGrid = () => {
             <CurrencyCardSkeleton />
           </CurrencyCardContainer>
         ))}
-      {sortedCurrencies.map((currency, index) => (
-        <CurrencyCardContainer key={index}>
-          {data.rates && data.rates[currency] && (
-            <CurrencyCard
-              currency={currency}
-              rate={data.rates[currency]}
-              rates={weeklyData}
-            />
-          )}
-        </CurrencyCardContainer>
-      ))}
+      {sortedCurrencies.map(
+        (currency, index) =>
+          data.rates &&
+          data.rates[currency] && (
+            <CurrencyCardContainer key={index}>
+              <CurrencyCard
+                currency={currency}
+                rate={data.rates[currency]}
+                rates={weeklyData}
+              />
+            </CurrencyCardContainer>
+          )
+      )}
     </SimpleGrid>
   );
 };
