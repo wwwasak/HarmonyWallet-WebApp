@@ -2,7 +2,7 @@ import { BaseCurrencyProvider } from "../stores/BaseCurrencyContext";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
-import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
+import ExchangeRecordDetail from "../views/ExchangeRecordDetail/ExchangeRecordDetail";
 import IncomeDetail from "../views/IncomeDetail/IncomeDetail";
 import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
@@ -12,6 +12,7 @@ import RatesDetailPage from "../views/Detail/RatesDetailPage";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
 import ForgotPassword from "../views/ForgotPassword/index";
 import { RequireAuthProvider } from "../stores/RequireAuthContext.jsx";
+import { NavigationProvider } from "../stores/RouterNavigationContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,9 @@ const router = createBrowserRouter([
     element: (
       <RequireAuthProvider>
         <BaseCurrencyProvider>
-          <Layout />
+          <NavigationProvider>
+            <Layout />
+          </NavigationProvider>
         </BaseCurrencyProvider>
       </RequireAuthProvider>
     ),

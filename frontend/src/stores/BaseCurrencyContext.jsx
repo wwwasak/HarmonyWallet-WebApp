@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-const BaseCurrencyContext = React.createContext();
+export const BaseCurrencyContext = React.createContext({});
 
 export const useCurrency = () => useContext(BaseCurrencyContext);
 
