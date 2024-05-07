@@ -1,6 +1,6 @@
 import { Grid, GridItem, HStack, Image, Text, Button } from "@chakra-ui/react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import logo from "../../../assets/logo.webp";
+import wallet from "/pictures/wallet.webp";
 import { useLoginStatus } from "../../../stores/RequireAuthContext";
 
 const NavBar = () => {
@@ -48,9 +48,14 @@ const NavBar = () => {
         <GridItem area="left" ml={10}>
           <Link to="/">
             <HStack>
-              <Image src={logo} boxSize="60px" objectFit="cover" />
-              <Text fontSize="xl" fontWeight="bold">
-                Exchange Flow
+              <Image src={wallet} boxSize="50px" objectFit="cover" />
+              <Text
+                fontSize="xl"
+                fontWeight="bold"
+                bgGradient="linear(to-l, #7928CA, #FF0080)"
+                bgClip="text"
+              >
+                Harmony Wallet
               </Text>
             </HStack>
           </Link>
