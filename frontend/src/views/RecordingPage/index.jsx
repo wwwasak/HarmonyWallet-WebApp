@@ -178,7 +178,7 @@ const RecordingPage = () => {
             pl={20}
             gridTemplateAreas={`
                "profile income income income income"
-               "expense expense expense expense records"
+               "records expense expense expense expense "
              `}
           >
             <GridItem gridArea="profile">
