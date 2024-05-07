@@ -84,8 +84,14 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={weeklyIncomes} />
-            <RightChart chartData={weeklyIncomes} />
+            {weeklyIncomes.length > 0 ? (
+              <>
+                <LeftIncomeChart datePeriod={weeklyIncomes} />
+                <RightChart chartData={weeklyIncomes} />
+              </>
+            ) : (
+              <p>No records in recent 7 days.</p>
+            )}
           </TabPanel>
           <TabPanel
             display="flex"
@@ -94,8 +100,14 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={fortnightlyIncomes} />
-            <RightChart chartData={fortnightlyIncomes} />
+            {fortnightlyIncomes.length > 0 ? (
+              <>
+                <LeftIncomeChart datePeriod={fortnightlyIncomes} />
+                <RightChart chartData={fortnightlyIncomes} />
+              </>
+            ) : (
+              <p>No records in recent 14 days</p>
+            )}
           </TabPanel>
           <TabPanel
             display="flex"
@@ -104,8 +116,14 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={monthlyIncomes} />
-            <RightChart chartData={monthlyIncomes} />
+            {monthlyIncomes.length > 0 ? (
+              <>
+                <LeftIncomeChart datePeriod={monthlyIncomes} />
+                <RightChart chartData={monthlyIncomes} />
+              </>
+            ) : (
+              <p>No records in recent 30 days</p>
+            )}
           </TabPanel>
           <TabPanel
             display="flex"
@@ -114,8 +132,14 @@ export default function IncomeChartTabs({
             alignItems="center"
             height="100%"
           >
-            <LeftIncomeChart datePeriod={yearlyIncomes} />
-            <RightChart chartData={yearlyIncomes} />
+            {yearlyIncomes.length > 0 ? (
+              <>
+                <LeftIncomeChart datePeriod={yearlyIncomes} />
+                <RightChart chartData={yearlyIncomes} />
+              </>
+            ) : (
+              <p>No records in recent 1 year</p>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -40,7 +40,7 @@ export default function SignupPassword(props) {
         <Stack spacing={2}>
           {bothFilled ? (
             passwordsMatch ? (
-              <Text>Two passwords match</Text>
+              <Text color="green.300">Two passwords match</Text>
             ) : (
               <Text color="red.300">Two passwords do not match</Text>
             )
