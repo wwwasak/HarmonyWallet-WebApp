@@ -55,7 +55,7 @@ const NavBar = () => {
                 bgGradient="linear(to-r, green.600, yellow.800)"
                 bgClip="text"
               >
-                Harmony Wallet
+                HarmonyWallet
               </Text>
             </HStack>
           </Link>

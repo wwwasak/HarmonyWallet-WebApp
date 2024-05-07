@@ -22,7 +22,7 @@ const AppInfo = () => {
               bgGradient="linear(to-r, green.600, yellow.800)"
               bgClip="text"
             >
-              Harmony Wallet
+              HarmonyWallet
             </Heading>
           </Flex>
           <Container w="300px" h="150px">
