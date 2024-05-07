@@ -56,19 +56,19 @@ export default function FloatWindow() {
     const data =
       tableType === "incomeExpense"
         ? {
-            date,
-            type: incomeType,
-            amount,
-            unit,
-          }
+          date,
+          type: incomeType,
+          amount,
+          unit,
+        }
         : {
-            date,
-            type: "Exchange",
-            fromAmount,
-            fromUnit,
-            toAmount,
-            toUnit,
-          };
+          date,
+          type: "Exchange",
+          fromAmount,
+          fromUnit,
+          toAmount,
+          toUnit,
+        };
 
     const config = {
       headers: {
@@ -110,7 +110,7 @@ export default function FloatWindow() {
         <ModalOverlay />
 
         <ModalContent w="950px">
-          <ModalHeader>Editor</ModalHeader>
+          <ModalHeader>Add Record</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex justify="center" mb={4}>
@@ -231,7 +231,7 @@ export default function FloatWindow() {
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+              Cancel
             </Button>
             <Button
               variant="ghost"

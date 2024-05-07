@@ -3,7 +3,7 @@ import ProfileCard from "./components/ProfileCard";
 import IncomeLineChartCard from "./components/IncomeLineChartCard";
 import ExpenseLineChartCard from "./components/ExpenseLineChartCard";
 import RecentRecordsCard from "./components/RecentRecordsCard";
-import FloatWindow from "./components/FloatWindow";
+import FloatWindow from "./components/AddRecord";
 import { subDays, format } from "date-fns";
 
 import axios from "axios";
