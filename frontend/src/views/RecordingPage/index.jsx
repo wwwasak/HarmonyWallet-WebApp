@@ -8,6 +8,7 @@ import { subDays, format } from "date-fns";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
 const getUserInfo = async () => {
   const url = import.meta.env.VITE_GET_USER_INFO_URL;
@@ -61,7 +62,6 @@ const getIncomes = async (fromDate, currency) => {
   };
   try {
     const response = await axios.post(url, body, config);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching user info:", error);
@@ -91,13 +91,12 @@ const getExpenses = async (fromDate, currency) => {
 };
 
 const RecordingPage = () => {
-  // const bgColor = useColorModeValue("gray.100", "gray.700");
   const [username, setUsername] = useState("");
   const [baseCurrency, setBaseCurrency] = useState("");
   const [exchanges, setExchanges] = useState([]);
-  const [incomes, setIncomes] = useState([]); //incomes data here
-  const [expenses, setExpenses] = useState([]); //expenses data here
-
+  const [incomes, setIncomes] = useState([]); 
+  const [expenses, setExpenses] = useState([]); 
+  
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -121,17 +120,21 @@ const RecordingPage = () => {
 
     const fetchIncomes = async () => {
       try {
-        const fetchedIncomes = await getIncomes("2024-03-30", baseCurrency); //change period here
+        const fetchedIncomes = await getIncomes(
+          oneWeekAgo, baseCurrency
+        ); 
         setIncomes(fetchedIncomes);
       } catch (error) {
-        console.error("Failed to fetch exchanges:", error);
+        console.error("Failed to fetch incomes:", error);
       }
     };
 
     const fetchExpenses = async () => {
       try {
-        const fetchedExpenses = await getExpenses("2024-03-30", baseCurrency); //change period here
-        setIncomes(fetchedExpenses);
+        const fetchedExpenses = await getExpenses(
+          oneWeekAgo, baseCurrency
+        ); 
+        setExpenses(fetchedExpenses);
       } catch (error) {
         console.error("Failed to fetch exchanges:", error);
       }
@@ -146,7 +149,7 @@ const RecordingPage = () => {
       }
     };
     fetchData();
-  }, [username]);
+  }, [baseCurrency, username]);
 
   return (
     <>
@@ -185,10 +188,15 @@ const RecordingPage = () => {
               <ProfileCard username={username} baseCurrency={baseCurrency} />
             </GridItem>
             <GridItem gridArea="income">
-              <IncomeLineChartCard w="100%" h="100%"></IncomeLineChartCard>
+              <IncomeLineChartCard w="100%" h="100%"  
+              incomes={incomes}
+            >
+            </IncomeLineChartCard>
             </GridItem>
             <GridItem gridArea="expense">
-              <ExpenseLineChartCard w="100%" h="100%"></ExpenseLineChartCard>
+              <ExpenseLineChartCard w="100%" h="100%"
+              expenses={expenses}
+              ></ExpenseLineChartCard>
             </GridItem>
             <GridItem gridArea="records">
               <RecentRecordsCard

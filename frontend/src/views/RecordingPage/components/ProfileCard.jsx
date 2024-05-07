@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import axios from "axios";
 import {
   Box,
@@ -28,9 +28,11 @@ import {
   MenuItem,
   IconButton,
   Center,
+  VStack
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import SignupCurrenciesSelector from "./CurrenciesSelector";
+import BaseCurrencySelector from "./BaseCurrencySelector.jsx";
+
 
 const ProfileCard = ({ gridArea, baseCurrency, username }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,9 +43,9 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
   const [currentBaseCurrency, setCurrentBaseCurrency] = useState(baseCurrency);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const handleNewPasswordChange = (event) => setNewPassword(event.target.value);
-  const handleConfirmPasswordChange = (event) =>
-    setConfirmPassword(event.target.value);
+  const handleConfirmPasswordChange = (event) => setConfirmPassword(event.target.value);
 
   const submitPasswordChange = async () => {
     if (newPassword !== confirmPassword) {
@@ -51,8 +53,6 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
       return;
     }
     const authToken = localStorage.getItem("authToken");
-    console.log("Auth Token:", authToken);
-    console.log("username:", username);
     try {
       const response = await axios.post(
         changePasswordUrl,
@@ -60,7 +60,7 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
           password: newPassword,
         },
         {
-          headers: { Authorization: `Bearer ${authToken}` }, // debug token
+          headers: { Authorization: `Bearer ${authToken}` }, 
         }
       );
       if (response.status === 200) {
@@ -74,11 +74,13 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
     }
   };
 
-  const handleCurrencyChange = async (currency) => {
-    setCurrentBaseCurrency(currency);
+  const handleModalContentChange = (content) => {
+    setModalContent(content);
+    onOpen();
+  };
+
+  const handleCurrencyChange = async (currencyCode) => {
     const authToken = localStorage.getItem("authToken");
-    console.log("New currency selected:", baseCurrency);
-    console.log("New currency :", authToken);
     if (!authToken) {
       alert("No authorization token found, please login again.");
       return;
@@ -86,30 +88,21 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
     try {
       const response = await axios.post(
         changeBaseUrl,
-        {
-          baseCurrency: currency,
-        },
-        {
-          headers: { Authorization: `Bearer ${authToken}` },
-        }
+        { base_currency_code: currencyCode },
+        { headers: { Authorization: `Bearer ${authToken}` } }
       );
-      console.log(localStorage.getItem("authToken")); // debug token
       if (response.status === 200) {
+        // Update state to reflect the user's choice
+        setCurrentBaseCurrency(currencyCode);
         alert("Base currency updated successfully");
+        window.location.reload(); // refatch data
         onClose();
       } else {
-        console.error("Failed to update base currency:", response.status);
-        alert("Failed to update base currency");
+        alert("Failed to update base currency: " + response.statusText);
       }
     } catch (error) {
-      console.error("Update error:", error);
       alert("Update error: " + error.message);
     }
-  };
-
-  const handleModalContentChange = (content) => {
-    setModalContent(content);
-    onOpen();
   };
 
   return (
@@ -171,17 +164,9 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
         <ModalContent>
           <ModalHeader>Update Profile</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
-            {modalContent === "currency" && (
-              <FormControl>
-                <FormLabel>Base Currency</FormLabel>
-                <SignupCurrenciesSelector
-                  selected={currentBaseCurrency}
-                  onSelect={handleCurrencyChange}
-                />
-              </FormControl>
-            )}
-            {modalContent === "password" && (
+             <ModalBody>
+            <VStack spacing={4} align="stretch">
+              {modalContent === "password" && (
               <FormControl>
                 <FormLabel>New Password</FormLabel>
                 <Input
@@ -204,6 +189,15 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
                 </Button>
               </FormControl>
             )}
+            </VStack>
+            {modalContent === "currency" && (
+              <Flex direction="column" mt="auto" p={4}>
+                <FormControl mb={4}>
+                  <FormLabel>Base Currency</FormLabel>
+                  <BaseCurrencySelector onSelect={handleCurrencyChange} selectedCurrency={currentBaseCurrency} />
+                </FormControl>
+              </Flex>
+            )}
           </ModalBody>
           <ModalFooter>
             <Button variant="ghost" onClick={onClose}>
@@ -214,6 +208,7 @@ const ProfileCard = ({ gridArea, baseCurrency, username }) => {
       </Modal>
     </Card>
   );
+
 };
 
 export default ProfileCard;

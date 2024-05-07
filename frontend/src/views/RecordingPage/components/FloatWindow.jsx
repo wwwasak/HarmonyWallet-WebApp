@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import CurrencySelector from "./CurrencySelector";
+import CurrencySelector from "./BaseCurrencySelector";
 import {
   Box,
   Button,
@@ -238,6 +238,7 @@ export default function FloatWindow() {
               onClick={() => {
                 handleSaveClick();
                 onClose();
+                window.location.reload();
               }}
             >
               Save

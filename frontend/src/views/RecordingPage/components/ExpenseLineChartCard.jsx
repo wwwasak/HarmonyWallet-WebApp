@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -12,81 +12,39 @@ import {
   AlertIcon,
   Link,
   useColorModeValue,
+  Center,
+  Text
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import IncomeSelector from "../../IncomeDetail/components/IncomeSelector.jsx";
 import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
-import axios from "axios";
-import { format, subDays } from "date-fns";
-import { useCurrency } from "../../../stores/BaseCurrencyContext.jsx";
+import { format, parseISO } from "date-fns";
+import { BaseCurrencyContext } from "../../../stores/BaseCurrencyContext.jsx"
 
-const ExpenseLineChartCard = () => {
-  const { baseCurrency } = useCurrency();
-  const [selectedCurrency, setSelectedCurrency] = useState(baseCurrency);
-  const [expenseData, setExpenseData] = useState([]);
+const ExpenseLineChartCard = ({ expenses = [] }) => {
+  const navigate = useNavigate();
+  const linkColor = useColorModeValue("blue.500", "blue.200");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const url = import.meta.env.VITE_GET_EXPENSES_URL;
-  const linkColor = useColorModeValue("blue.500", "blue.200");
+
+  const [formattedData, setFormattedData] = useState([]);
+  const { baseCurrency } = useContext(BaseCurrencyContext);
+  const [selectedCurrency, setSelectedCurrency] = useState(baseCurrency);
+
   useEffect(() => {
-    if (!selectedCurrency) return;
-    const fromDate = format(subDays(new Date(), 7), "yyyy-MM-dd");
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await axios.post(
-          url,
-          {
-            fromDate: fromDate,
-            currency: selectedCurrency,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          const aggregatedData = aggregateDataByDay(response.data);
-          setExpenseData(aggregatedData);
-        } else {
-          console.error("Failed to fetch data:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [selectedCurrency]);
-
-  // aggregate data by day
-  const aggregateDataByDay = (data) => {
-    const dataByDay = {};
-    data.forEach((item) => {
-      const date = format(new Date(item.date), "yyyy-MM-dd");
-      if (dataByDay[date]) {
-        dataByDay[date] += item.amount;
-      } else {
-        dataByDay[date] = item.amount;
-      }
+    const dateAmountMap = {};
+    expenses.forEach(item => {
+      const date = format(parseISO(item.date), "yyyy-MM-dd");
+      const amount = item.convertedAmount || item.amount; 
+      dateAmountMap[date] = (dateAmountMap[date] || 0) + amount;
     });
-    // Create an array from the object, then sort it by date
-    return Object.entries(dataByDay)
-      .map(([date, amount]) => ({ Date: date, amount }))
-      .sort((a, b) => new Date(a.Date) - new Date(b.Date)); // Sorting by date
-  };
 
-  const handleCurrencyChange = (currency) => {
-    setSelectedCurrency(currency);
-  };
+    const sortedDates = Object.keys(dateAmountMap).sort();
+    const amounts = sortedDates.map(date => parseFloat(dateAmountMap[date]).toFixed(2));
+    setFormattedData({ dates: sortedDates, amounts });
+
+  }, [expenses, selectedCurrency]);
 
   const handleCardClick = () => {
     navigate("/expense");
@@ -96,98 +54,95 @@ const ExpenseLineChartCard = () => {
     e.stopPropagation(); // Stop the click event from propagating to the parent elements
   };
 
-  const getOption = () => ({
-    title: {
-      text: "Expense Records in Recent One Week",
-      left: "center",
-      textStyle: {
-        color: "#333",
-        fontWeight: "bold",
-        fontSize: 16,
-      },
-    },
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "cross",
-        label: {
-          backgroundColor: "#6a7985",
-        },
-      },
-    },
-    xAxis: {
-      type: "category",
-      boundaryGap: false,
-      data: expenseData.map((item) => item.Date),
-      axisTick: {
-        alignWithLabel: true,
-      },
-      axisLine: {
-        lineStyle: {
-          color: "#57606f",
-        },
-      },
-    },
-    yAxis: {
-      type: "value",
-      axisLabel: {
-        formatter: "{value} $",
-      },
-      axisLine: {
-        lineStyle: {
-          color: "#57606f",
-        },
-      },
-      splitLine: {
-        lineStyle: {
-          type: "dashed",
-          color: "#ced6e0",
-        },
-      },
-    },
-    grid: {
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
-      containLabel: true,
-    },
-    series: [
-      {
-        name: "Expense",
-        type: "line",
-        smooth: true,
-        symbol: "circle",
-        symbolSize: 8,
-        showSymbol: false,
-        lineStyle: {
-          width: 3,
-          color: "#1e90ff",
-          shadowColor: "rgba(30, 144, 255, 0.4)",
-          shadowBlur: 10,
-          shadowOffsetY: 10,
-        },
-        itemStyle: {
-          color: "#1e90ff",
-          borderColor: "#1e90ff",
-          borderWidth: 2,
-        },
-        areaStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: "rgba(30, 144, 255, 0.4)",
-            },
-            {
-              offset: 1,
-              color: "rgba(30, 144, 255, 0.1)",
-            },
-          ]),
-        },
-        data: expenseData.map((item) => item.amount),
-      },
-    ],
-  });
+  const getOption = () => {
 
+    return {
+      title: {
+        text: "Expense Records in Recent One Week",
+        left: "center",
+        textStyle: {
+          color: "#333",
+          fontWeight: "bold",
+          fontSize: 16,
+        },
+      },
+      tooltip: {
+        trigger: "axis",
+        axisPointer: {
+          type: "cross",
+          label: {
+            backgroundColor: "#6a7985",
+          },
+        },
+      },
+      xAxis: {
+        type: "category",
+        boundaryGap: false,
+        data: formattedData.dates, // Use sorted dates
+        axisTick: {
+          alignWithLabel: true,
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#57606f",
+          },
+        },
+      },
+      yAxis: {
+        type: "value",
+        axisLabel: {
+          formatter: "{value} $",
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#57606f",
+          },
+        },
+        splitLine: {
+          lineStyle: {
+            type: "dashed",
+            color: "#ced6e0",
+          },
+        },
+      },
+      series: [
+        {
+          name: "Expense",
+          type: "line",
+          smooth: true,
+          symbol: "circle",
+          symbolSize: 8,
+          showSymbol: false,
+          lineStyle: {
+            width: 3,
+            color: "#1e90ff",
+            shadowColor: "rgba(30, 144, 255, 0.4)",
+            shadowBlur: 10,
+            shadowOffsetY: 10,
+          },
+          itemStyle: {
+            color: "#1e90ff",
+            borderColor: "#1e90ff",
+            borderWidth: 2,
+          },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: "rgba(30, 144, 255, 0.4)",
+              },
+              {
+                offset: 1,
+                color: "rgba(30, 144, 255, 0.1)",
+              },
+            ]),
+          },
+          data: formattedData.amounts, // Use aggregated and sorted amounts
+        },
+      ],
+    };
+  };
+  
   return (
     <Card onClick={handleCardClick} cursor="pointer">
       <CardHeader>
@@ -198,10 +153,6 @@ const ExpenseLineChartCard = () => {
           mb={5}
         >
           <Heading size="sm">Expense Records</Heading>
-          <IncomeSelector
-            selected={selectedCurrency}
-            onSelect={handleCurrencyChange}
-          />
           <Link
             as={RouterLink}
             to="/expense"
@@ -215,17 +166,26 @@ const ExpenseLineChartCard = () => {
         <Divider />
       </CardHeader>
       <CardBody>
-        <Box p={4} boxShadow="base" rounded="md" bg="white">
-          {loading ? (
+      <Box p={4} boxShadow="base" rounded="md" bg="white" minH="330px">
+           {loading ? (
             <Spinner />
           ) : error ? (
             <Alert status="error">
               <AlertIcon />
               {error}
             </Alert>
-          ) : (
-            <ReactECharts option={getOption()} style={{ height: "300px" }} />
-          )}
+          ) : expenses.length > 0 ?(
+            <ReactECharts option={getOption(expenses, selectedCurrency)} style={{ height: "300px" }} />
+          ): (
+            <Center height="100%"> 
+            <Alert variant="subtle" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center">
+              <AlertIcon boxSize="40px" mr={0} />
+              <Text mt={100} fontSize="lg" fontWeight="bold">
+                No data available
+              </Text>
+            </Alert>
+          </Center>
+        )}
         </Box>
       </CardBody>
     </Card>
