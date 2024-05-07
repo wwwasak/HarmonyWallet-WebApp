@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import ProfileCard from "./components/ProfileCard";
 import IncomeLineChartCard from "./components/IncomeLineChartCard";
 import ExpenseLineChartCard from "./components/ExpenseLineChartCard";
@@ -160,8 +160,6 @@ const RecordingPage = () => {
         backgroundSize="cover"
         borderRadius={20}
         minH="80vh"
-        // pl={30}
-        // pr={30}
       >
         <FloatWindow />
         <Box
