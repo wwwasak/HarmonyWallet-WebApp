@@ -17,13 +17,16 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
     ...exchange,
     date: format(parseISO(exchange.date), "MM-dd-yyyy"),
   }));
-
+  const sortedExchanges = formattedExchanges.sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  ); // Sorting exchanges by date in descending order
+  const displayedExchanges = sortedExchanges.slice(0, 5);
   return (
     <Card gridArea={gridArea} h={473}>
       <CardHeader>
         <Flex justifyContent="space-around" alignItems="center">
           <Heading size="sm" textTransform="uppercase">
-            Exchange Records
+          Last 5 Exchange Records
           </Heading>
           <Link
             as={RouterLink}
@@ -38,8 +41,8 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
         <Divider my={2} />
       </CardHeader>
       <CardBody>
-        {formattedExchanges.length > 0 ? (
-          formattedExchanges.map((exchange, index) => (
+        {displayedExchanges.length > 0 ? (
+          displayedExchanges.map((exchange, index) => (
             <Box key={index} my={2} borderBottom="1px" p="5px">
               {exchange.date} - From {exchange.fromAmount}{" "}
               {exchange.fromCurrency} to {exchange.toAmount}{" "}

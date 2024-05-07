@@ -1,12 +1,4 @@
-import {
-  Grid,
-  GridItem,
-  HStack,
-  Box,
-  Button,
-  Link,
-  Text,
-} from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Box, Text } from "@chakra-ui/react";
 import BaseCurrencySelector from "./components/BaseCurrencySelector";
 import Calculator from "./components/Calculator";
 import CurrencyGrid from "./components/CurrencyGrid";
@@ -15,7 +7,7 @@ import React from "react";
 const RatesOverviewPage = () => {
   return (
     <Box
-      backgroundImage="url('./pictures/IMG_2142.jpg')"
+      bgGradient="linear(to-b, green.100, yellow.200)"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
@@ -41,10 +33,27 @@ const RatesOverviewPage = () => {
           <GridItem area="upper" marginX={10}>
             <HStack justifyContent="space-between" alignItems="center">
               <Calculator />
-              <Text color="white" fontWeight="700">
-                Base Amount: 1
-              </Text>
-              <BaseCurrencySelector />
+              <HStack>
+                <Text
+                  as="i"
+                  fontWeight="700"
+                  fontSize="xl"
+                  color="grey"
+                  marginRight={2}
+                >
+                  1
+                </Text>
+                <BaseCurrencySelector />
+                <Text
+                  as="i"
+                  fontWeight="700"
+                  fontSize="xl"
+                  color="grey"
+                  marginRight={2}
+                >
+                  =
+                </Text>
+              </HStack>
             </HStack>
           </GridItem>
 

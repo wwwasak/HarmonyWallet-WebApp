@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Amount from "./Amount";
-import budget from "../../../assets/budget.png";
 import CurrencySelector from "./CurrencySelector";
 import React from "react";
 import {
@@ -52,7 +51,7 @@ const Calculator = () => {
         />
 
         <Text color="grey" fontWeight="700">
-          Exchange Rate Calculator
+          Calculator
         </Text>
       </HStack>
 
