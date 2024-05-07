@@ -2,12 +2,13 @@ import ReactApexChart from "react-apexcharts";
 
 const RatesChart = ({ data, currency }) => {
   if (!data || !data.rates) {
-    return null;
+    return <div>Loading</div>;
   }
 
   const categories = Object.keys(data.rates).sort(
     (a, b) => new Date(a) - new Date(b)
   );
+
   const series = [
     {
       name: currency,
@@ -27,7 +28,6 @@ const RatesChart = ({ data, currency }) => {
     },
     xaxis: {
       categories,
-      show: false,
       axisBorder: {
         show: false,
       },

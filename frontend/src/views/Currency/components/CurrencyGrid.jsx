@@ -7,14 +7,17 @@ import React from "react";
 import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import useLatestRates from "../../../hooks/useLatestRates";
 import useRates from "../../../hooks/useRates.jsx";
-import { subDays, subMonths, subYears, format } from "date-fns";
+import { subDays, format } from "date-fns";
 
 const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
 const CurrencyGrid = () => {
   const { baseCurrency } = useCurrency();
   const { data, isLoading, error } = useLatestRates(baseCurrency);
-  const { data: weeklyData } = useRates(baseCurrency, oneWeekAgo);
+  const { data: weeklyData, isLoading: weeklyDataLoading } = useRates(
+    baseCurrency,
+    oneWeekAgo
+  );
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -48,19 +51,20 @@ const CurrencyGrid = () => {
             <CurrencyCardSkeleton />
           </CurrencyCardContainer>
         ))}
-      {sortedCurrencies.map(
-        (currency, index) =>
-          data.rates &&
-          data.rates[currency] && (
-            <CurrencyCardContainer key={index}>
-              <CurrencyCard
-                currency={currency}
-                rate={data.rates[currency]}
-                rates={weeklyData}
-              />
-            </CurrencyCardContainer>
-          )
-      )}
+      {!weeklyDataLoading &&
+        sortedCurrencies.map(
+          (currency, index) =>
+            data.rates &&
+            data.rates[currency] && (
+              <CurrencyCardContainer key={index}>
+                <CurrencyCard
+                  currency={currency}
+                  rate={data.rates[currency]}
+                  rates={weeklyData}
+                />
+              </CurrencyCardContainer>
+            )
+        )}
     </SimpleGrid>
   );
 };

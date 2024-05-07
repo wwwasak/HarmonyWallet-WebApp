@@ -12,7 +12,7 @@ const useNews = (baseCurrency, selectedCurrency) => {
     setLoading(true);
     axios
       .get(
-        `https://forexnewsapi.com/api/v1?currencypair=${baseCurrency}-${selectedCurrency}&items=1&page=1&token=dmo77gpbxukjmjpcg8xnvwlglqeo9d28svxpxti7`
+        `https://forexnewsapi.com/api/v1?currencypair-only=${baseCurrency}-${selectedCurrency}&items=3&page=1&token=dmo77gpbxukjmjpcg8xnvwlglqeo9d28svxpxti7`
       )
       .then((res) => {
         setData(res.data);
