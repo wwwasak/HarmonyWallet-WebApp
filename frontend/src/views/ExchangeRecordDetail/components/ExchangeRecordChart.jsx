@@ -57,43 +57,64 @@ export default function ExchangeRecordChart({ chartData }) {
   }, [chartData]);
 
   console.log(filteredData);
+
   return (
     <>
-      <Tabs variant="soft-rounded" colorScheme="green">
-        <Flex>
-          <TabList
-            padding="20px"
-            justifyContent="center"
-            flexDirection="column"
-          >
-            {filteredData.map((data, index) => (
-              <Tab
-                _selected={{
-                  bg: "green.300",
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-                key={index}
-                minW={40}
-              >
-                {data.currencyPair}
-              </Tab>
-            ))}
-          </TabList>
-          <TabPanels padding="20px" minHeight="500px" borderRadius="16px">
-            {filteredData.map((data, index) => (
-              <TabPanel key={index}>
-                <LineChart
-                  xAxis={data.dates.map((dateInfo) => dateInfo.date)}
-                  seriesData={data.dates.map((dateInfo) =>
-                    parseFloat(dateInfo.averageRate)
-                  )}
-                />
+      {filteredData.length === 0 ? (
+        <Tabs variant="soft-rounded" colorScheme="gray">
+          <Flex justifyContent="center" alignItems="center" height="100%">
+            <TabPanels padding="20px" minHeight="500px" borderRadius="16px" backgroundColor="gray.85">
+              <TabPanel display="flex" justifyContent="center" alignItems="center">
+                <TabList padding="20px" justifyContent="center" flexDirection="column">
+                  <Tab>
+                    You have not any exchange records yet in the selected period!
+                  </Tab>
+                </TabList>
               </TabPanel>
-            ))}
-          </TabPanels>
-        </Flex>
-      </Tabs>
+            </TabPanels>
+          </Flex>
+        </Tabs>
+      ) : (
+        <Tabs variant="soft-rounded" colorScheme="green">
+          <Flex>
+            <TabList
+              padding="20px"
+              justifyContent="center"
+              flexDirection="column"
+            >
+              {filteredData.map((data, index) => (
+                <Tab
+                  _selected={{
+                    bg: "green.300",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                  key={index}
+                  minW={40}
+                >
+                  {data.currencyPair}
+                </Tab>
+              ))}
+            </TabList>
+            <TabPanels padding="20px" minHeight="500px" borderRadius="16px">
+              {filteredData.map((data, index) => (
+                <TabPanel key={index}>
+                  <LineChart
+                    xAxis={data.dates
+                      .sort((a, b) => new Date(a.date) - new Date(b.date))
+                      .map((dateInfo) => dateInfo.date)}
+                    seriesData={data.dates
+                      .sort((a, b) => new Date(a.date) - new Date(b.date))
+                      .map((dateInfo) =>
+                      parseFloat(dateInfo.averageRate)
+                    )}
+                  />
+                </TabPanel>
+              ))}
+            </TabPanels>
+          </Flex>
+        </Tabs>
+      )}
     </>
   );
 }

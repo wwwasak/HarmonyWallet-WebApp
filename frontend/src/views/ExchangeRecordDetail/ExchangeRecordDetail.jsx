@@ -5,7 +5,7 @@ import {
   Button,
   Flex,
   Spinner,
-  Link,
+  Link
 } from "@chakra-ui/react";
 import ExchangeRecordChart from "./components/ExchangeRecordChart";
 import { useState, useEffect, useMemo } from "react";
@@ -61,6 +61,7 @@ export default function ExchangeRecordDetail() {
     try {
       const response = await axios.post(url, body, config);
       setData(response.data);
+      setChartData(response.data); // to fix the bug missing one exchange record always
     } catch (error) {
       console.error("Error fetching user info:", error);
     } finally {
