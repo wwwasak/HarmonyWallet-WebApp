@@ -8,18 +8,16 @@ const RatesDetailPage = () => {
   const { baseCurrency, selectedCurrency } = useParams();
   return (
     <Box
-      bg="red.100"
+      bgGradient="linear(to-b, green.100, yellow.200)"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
       borderRadius={20}
-      minH="100vh"
     >
       <Box
         bg="rgba(255, 255, 255, 0.5)"
         backdropFilter="blur(5px)"
         borderRadius={20}
-        minH="100vh"
       >
         <Link href="/exchangeoverview">
           <Button ml={20} mt={5}>
