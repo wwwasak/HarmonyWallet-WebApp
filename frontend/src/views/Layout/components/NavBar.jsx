@@ -52,7 +52,7 @@ const NavBar = () => {
               <Text
                 fontSize="xl"
                 fontWeight="bold"
-                bgGradient="linear(to-l, #7928CA, #FF0080)"
+                bgGradient="linear(to-r, green.600, yellow.800)"
                 bgClip="text"
               >
                 Harmony Wallet
