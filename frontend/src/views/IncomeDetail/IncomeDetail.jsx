@@ -53,7 +53,7 @@ export default function IncomeDetailsPage() {
         oneWeekAgo,
         filteredCurrency
       );
-      console.log(fetchedWeeklyIncomes);
+      
       setWeeklyIncomes(fetchedWeeklyIncomes);
 
       const fetchedFortnightlyIncomes = await getIncomes(

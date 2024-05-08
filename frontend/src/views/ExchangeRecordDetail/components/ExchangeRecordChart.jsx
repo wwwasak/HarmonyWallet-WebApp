@@ -56,8 +56,6 @@ export default function ExchangeRecordChart({ chartData }) {
     }
   }, [chartData]);
 
-  console.log(filteredData);
-
   return (
     <>
       {filteredData.length === 0 ? (

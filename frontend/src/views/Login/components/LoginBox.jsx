@@ -9,10 +9,12 @@ import {
   ButtonGroup,
   Flex,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigation } from "../../../stores/RouterNavigationContext.jsx";
 
 const LoginBox = (props) => {
-  const navigate = useNavigate();
+  const navigate = useNavigation();
+
   const setUsername = props.setUsername;
   const setPassword = props.setPassword;
   const handleLogin = props.handleLogin;

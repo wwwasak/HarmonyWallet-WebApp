@@ -16,14 +16,15 @@ import {
   Text
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
 import { format, parseISO } from "date-fns";
+
 import { BaseCurrencyContext } from "../../../stores/BaseCurrencyContext.jsx"
+import { useNavigation } from "../../../stores/RouterNavigationContext";
 
 const IncomeLineChartCard = ({ incomes = [] }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigation();
   const linkColor = useColorModeValue("blue.500", "blue.200");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

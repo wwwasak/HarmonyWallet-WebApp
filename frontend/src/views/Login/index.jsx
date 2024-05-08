@@ -1,15 +1,15 @@
 import { Grid, GridItem, Center } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
+import { useNavigation } from "../../stores/RouterNavigationContext.jsx";
 import AppInfo from "./components/AppInfo";
 import LoginBox from "./components/LoginBox";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigation();
   const loginUrl = import.meta.env.VITE_LOGIN_SERVER_URL;
   const validateTokenUrl = import.meta.env.VITE_GET_USER_INFO_URL;
   const authToken = localStorage.getItem("authToken");

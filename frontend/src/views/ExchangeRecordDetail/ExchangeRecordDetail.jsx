@@ -70,7 +70,7 @@ export default function ExchangeRecordDetail() {
   };
 
   const handleClickWeekly = () => {
-    console.log(weeklyData);
+    
     if (weeklyData === null) {
       fetchData(oneWeekAgo, setWeeklyData);
     } else {
@@ -80,7 +80,7 @@ export default function ExchangeRecordDetail() {
   };
 
   const handleClickFortnightly = () => {
-    console.log(fortnightlyData);
+    
     if (fortnightlyData === null) {
       fetchData(twoWeeksAgo, setFortnightlyData);
     } else {
@@ -90,7 +90,7 @@ export default function ExchangeRecordDetail() {
   };
 
   const handleClickMonthly = () => {
-    console.log(monthlyData);
+    
     if (monthlyData === null) {
       fetchData(oneMonthAgo, setMonthlyData);
     } else {
@@ -100,7 +100,7 @@ export default function ExchangeRecordDetail() {
   };
 
   const handleClickYearly = () => {
-    console.log(yearlyData);
+    
     if (yearlyData === null) {
       fetchData(oneYearAgo, setYearlyData);
     } else {

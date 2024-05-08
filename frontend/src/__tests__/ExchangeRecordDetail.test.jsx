@@ -1,7 +1,10 @@
-import { render, fireEvent, waitFor } from "@testing-library/react";
-import ExchangeRecordDetail from "../views/ExchangeRecordDetail/ExchangeRecordDetail";
+import { render } from "@testing-library/react";
+import '@testing-library/jest-dom';
+import { describe, expect, it } from "vitest";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+
+import ExchangeRecordDetail from "../views/ExchangeRecordDetail/ExchangeRecordDetail";
 
 describe("ExchangeRecordDetail component", () => {
     const axiosMock = new MockAdapter(axios);
@@ -14,14 +17,14 @@ describe("ExchangeRecordDetail component", () => {
 
         const { getByText, getByRole } = render(<ExchangeRecordDetail />);
 
-        expect(getByText("My Exchange Records")).toBeDefined();
-        expect(getByRole("button", { name: "Back" })).toBeDefined();
-        expect(getByRole("link", { name: "Back" })).toBeDefined();
+        expect(getByText("My Exchange Records")).toBeInTheDocument();
+        expect(getByRole("button", { name: "Back" })).toBeInTheDocument();
+        expect(getByRole("link", { name: "Back" })).toBeInTheDocument();
 
-        expect(getByRole("button", { name: "One Week" })).toBeDefined();
-        expect(getByRole("button", { name: "Two Weeks" })).toBeDefined();
-        expect(getByRole("button", { name: "One Month" })).toBeDefined();
-        expect(getByRole("button", { name: "One Year" })).toBeDefined();
+        expect(getByRole("button", { name: "Recent 1 Week" })).toBeInTheDocument();
+        expect(getByRole("button", { name: "Recent 2 Weeks" })).toBeInTheDocument();
+        expect(getByRole("button", { name: "Recent 1 Month" })).toBeInTheDocument();
+        expect(getByRole("button", { name: "Recent 1 Year" })).toBeInTheDocument();
     });
 
     // it("handles click events correctly", async () => {
@@ -30,10 +33,10 @@ describe("ExchangeRecordDetail component", () => {
 
     //     const { getByRole } = render(<ExchangeRecordDetail />);
 
-    //     fireEvent.click(getByRole("button", { name: "One Week" }));
-    //     fireEvent.click(getByRole("button", { name: "Two Weeks" }));
-    //     fireEvent.click(getByRole("button", { name: "One Month" }));
-    //     fireEvent.click(getByRole("button", { name: "One Year" }));
+    //     fireEvent.click(getByRole("button", { name: "Recent 1 Week" }));
+    //     fireEvent.click(getByRole("button", { name: "Recent 2 Weeks" }));
+    //     fireEvent.click(getByRole("button", { name: "Recent 1  Month" }));
+    //     fireEvent.click(getByRole("button", { name: "Recent 1 Year" }));
 
     //     await waitFor(() => {
     //         expect(axiosMock.history.post.length).toBe(4);

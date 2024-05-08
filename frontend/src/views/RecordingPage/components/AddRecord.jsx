@@ -24,7 +24,8 @@ import {
 } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigation } from "../../../stores/RouterNavigationContext";
 
 export default function FloatWindow() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,7 +40,7 @@ export default function FloatWindow() {
   const [toAmount, setToAmount] = useState("");
   const [toUnit, setToUnit] = useState("EUR");
 
-  const navigate = useNavigate();
+  const navigate = useNavigation();
 
   const handleIncomeExpenseClick = () => {
     setTableType("incomeExpense");
