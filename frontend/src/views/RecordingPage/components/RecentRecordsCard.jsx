@@ -11,16 +11,21 @@ import {
 } from "@chakra-ui/react";
 import { parseISO, format } from "date-fns";
 import { Link as RouterLink } from "react-router-dom";
+
 const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
   const linkColor = useColorModeValue("blue.500", "blue.200");
+
   const formattedExchanges = exchanges?.map((exchange) => ({
     ...exchange,
     date: format(parseISO(exchange.date), "MM-dd-yyyy"),
   }));
+
   const sortedExchanges = formattedExchanges.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   ); // Sorting exchanges by date in descending order
+  
   const displayedExchanges = sortedExchanges.slice(0, 5);
+
   return (
     <Card gridArea={gridArea} h={473}>
       <CardHeader>
