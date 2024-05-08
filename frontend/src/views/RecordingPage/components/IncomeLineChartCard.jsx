@@ -13,14 +13,14 @@ import {
   Link,
   useColorModeValue,
   Center,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
 import { format, parseISO } from "date-fns";
-import { BaseCurrencyContext } from "../../../stores/BaseCurrencyContext.jsx"
+import { BaseCurrencyContext } from "../../../stores/BaseCurrencyContext.jsx";
 
 const IncomeLineChartCard = ({ incomes = [] }) => {
   const navigate = useNavigate();
@@ -34,19 +34,19 @@ const IncomeLineChartCard = ({ incomes = [] }) => {
 
   useEffect(() => {
     const dateAmountMap = {};
-    incomes.forEach(item => {
+    incomes.forEach((item) => {
       const date = format(parseISO(item.date), "yyyy-MM-dd");
-      const amount = item.convertedAmount || item.amount; 
+      const amount = item.convertedAmount || item.amount;
       dateAmountMap[date] = (dateAmountMap[date] || 0) + amount;
     });
 
     const sortedDates = Object.keys(dateAmountMap).sort();
-    const amounts = sortedDates.map(date => parseFloat(dateAmountMap[date]).toFixed(2));
+    const amounts = sortedDates.map((date) =>
+      parseFloat(dateAmountMap[date]).toFixed(2)
+    );
     setFormattedData({ dates: sortedDates, amounts });
-
   }, [incomes, selectedCurrency]);
 
-  
   const handleCardClick = () => {
     navigate("/income");
   };
@@ -56,23 +56,23 @@ const IncomeLineChartCard = ({ incomes = [] }) => {
   };
 
   const getOption = () => {
-//  // Aggregate income by day
-//   const incomeByDate = incomes.reduce((acc, item) => {
-//     // Parse the date from each item
-//     const date = format(new Date(item.date), "yyyy-MM-dd");
-//     if (acc[date]) {
-//       acc[date] += item.amount; // Sum amounts for the same date
-//     } else {
-//       acc[date] = item.amount; // Initialize if not already present
-//     }
-//     return acc;
-//   }, {});
+    //  // Aggregate income by day
+    //   const incomeByDate = incomes.reduce((acc, item) => {
+    //     // Parse the date from each item
+    //     const date = format(new Date(item.date), "yyyy-MM-dd");
+    //     if (acc[date]) {
+    //       acc[date] += item.amount; // Sum amounts for the same date
+    //     } else {
+    //       acc[date] = item.amount; // Initialize if not already present
+    //     }
+    //     return acc;
+    //   }, {});
 
-//   // Convert the aggregated object into an array and sort by date
-//   const sortedIncomeData = Object.entries(incomeByDate)
-//     .map(([date, amount]) => ({ date, amount }))
-//     .sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
-  
+    //   // Convert the aggregated object into an array and sort by date
+    //   const sortedIncomeData = Object.entries(incomeByDate)
+    //     .map(([date, amount]) => ({ date, amount }))
+    //     .sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
+
     return {
       title: {
         text: "Income Records in Recent One Week",
@@ -159,7 +159,7 @@ const IncomeLineChartCard = ({ incomes = [] }) => {
       ],
     };
   };
-  
+
   return (
     <Card onClick={handleCardClick} cursor="pointer">
       <CardHeader>
@@ -183,7 +183,7 @@ const IncomeLineChartCard = ({ incomes = [] }) => {
         <Divider />
       </CardHeader>
       <CardBody>
-      <Box p={4} boxShadow="base" rounded="md" bg="white" minH="330px">
+        <Box p={4} boxShadow="base" rounded="md" bg="white" minH="330px">
           {/* {incomes.length > 0 ? (
             <ReactECharts option={getOption(incomes, filteredCurrency)} style={{ height: "300px" }} />
           ) : (
@@ -191,26 +191,43 @@ const IncomeLineChartCard = ({ incomes = [] }) => {
               No data available within 7 days
             </Center>
           )} */}
-           {loading ? (
+          {loading ? (
             <Spinner />
           ) : error ? (
             <Alert status="error">
               <AlertIcon />
               {error}
             </Alert>
-          ) : incomes.length > 0 ?(
-            <ReactECharts option={getOption(incomes, selectedCurrency)} style={{ height: "300px" }} />
-          ): (
-            <Center height="100%"> 
-            <Alert variant="subtle" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center">
-              <AlertIcon boxSize="40px" mr={0} />
-              <Text mt={100} fontSize="lg" style={{ color: "rgba(128, 128, 128, 0.75)" }} fontStyle="italic">
-              You have no income records in recent 7 days yet.<br/>
-              Click on the '+' icon at the bottom right of the page to start recording!
-              </Text>
-            </Alert>
-          </Center>
-        )}
+          ) : incomes.length > 0 ? (
+            <ReactECharts
+              option={getOption(incomes, selectedCurrency)}
+              style={{ height: "300px" }}
+            />
+          ) : (
+            <Center height="100%">
+              <Alert
+                bg="white"
+                variant="subtle"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                textAlign="center"
+              >
+                {/* <AlertIcon boxSize="40px" mr={0} /> */}
+                <Text
+                  mt={100}
+                  fontSize="lg"
+                  style={{ color: "rgba(128, 128, 128, 0.75)" }}
+                  fontStyle="italic"
+                >
+                  You have no income records in recent 7 days yet.
+                  <br />
+                  Click on the '+' icon at the bottom right of the page to start
+                  recording!
+                </Text>
+              </Alert>
+            </Center>
+          )}
         </Box>
       </CardBody>
     </Card>

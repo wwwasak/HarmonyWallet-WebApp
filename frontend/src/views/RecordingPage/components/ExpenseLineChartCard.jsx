@@ -13,14 +13,14 @@ import {
   Link,
   useColorModeValue,
   Center,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReactECharts from "echarts-for-react";
 import * as echarts from "echarts";
 import { format, parseISO } from "date-fns";
-import { BaseCurrencyContext } from "../../../stores/BaseCurrencyContext.jsx"
+import { BaseCurrencyContext } from "../../../stores/BaseCurrencyContext.jsx";
 
 const ExpenseLineChartCard = ({ expenses = [] }) => {
   const navigate = useNavigate();
@@ -34,16 +34,17 @@ const ExpenseLineChartCard = ({ expenses = [] }) => {
 
   useEffect(() => {
     const dateAmountMap = {};
-    expenses.forEach(item => {
+    expenses.forEach((item) => {
       const date = format(parseISO(item.date), "yyyy-MM-dd");
-      const amount = item.convertedAmount || item.amount; 
+      const amount = item.convertedAmount || item.amount;
       dateAmountMap[date] = (dateAmountMap[date] || 0) + amount;
     });
 
     const sortedDates = Object.keys(dateAmountMap).sort();
-    const amounts = sortedDates.map(date => parseFloat(dateAmountMap[date]).toFixed(2));
+    const amounts = sortedDates.map((date) =>
+      parseFloat(dateAmountMap[date]).toFixed(2)
+    );
     setFormattedData({ dates: sortedDates, amounts });
-
   }, [expenses, selectedCurrency]);
 
   const handleCardClick = () => {
@@ -55,7 +56,6 @@ const ExpenseLineChartCard = ({ expenses = [] }) => {
   };
 
   const getOption = () => {
-
     return {
       title: {
         text: "Expense Records in Recent One Week",
@@ -142,7 +142,7 @@ const ExpenseLineChartCard = ({ expenses = [] }) => {
       ],
     };
   };
-  
+
   return (
     <Card onClick={handleCardClick} cursor="pointer">
       <CardHeader>
@@ -166,27 +166,44 @@ const ExpenseLineChartCard = ({ expenses = [] }) => {
         <Divider />
       </CardHeader>
       <CardBody>
-      <Box p={4} boxShadow="base" rounded="md" bg="white" minH="330px">
-           {loading ? (
+        <Box p={4} boxShadow="base" rounded="md" bg="white" minH="330px">
+          {loading ? (
             <Spinner />
           ) : error ? (
             <Alert status="error">
               <AlertIcon />
               {error}
             </Alert>
-          ) : expenses.length > 0 ?(
-            <ReactECharts option={getOption(expenses, selectedCurrency)} style={{ height: "300px" }} />
-          ): (
-            <Center height="100%"> 
-            <Alert variant="subtle" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center">
-              <AlertIcon boxSize="40px" mr={0} />
-              <Text mt={100} fontSize="lg" style={{ color: "rgba(128, 128, 128, 0.75)" }} fontStyle="italic">
-              You have no expense records in recent 7 days yet.<br/>
-              Click on the '+' icon at the bottom right of the page to start recording!
-              </Text>
-            </Alert>
-          </Center>
-        )}
+          ) : expenses.length > 0 ? (
+            <ReactECharts
+              option={getOption(expenses, selectedCurrency)}
+              style={{ height: "300px" }}
+            />
+          ) : (
+            <Center height="100%">
+              <Alert
+                bg="white"
+                variant="subtle"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                textAlign="center"
+              >
+                {/* <AlertIcon boxSize="40px" mr={0} /> */}
+                <Text
+                  mt={100}
+                  fontSize="lg"
+                  style={{ color: "rgba(128, 128, 128, 0.75)" }}
+                  fontStyle="italic"
+                >
+                  You have no expense records in recent 7 days yet.
+                  <br />
+                  Click on the '+' icon at the bottom right of the page to start
+                  recording!
+                </Text>
+              </Alert>
+            </Center>
+          )}
         </Box>
       </CardBody>
     </Card>
