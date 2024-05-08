@@ -11,7 +11,7 @@ const RatesDetailCard = ({ baseCurrency, selectedCurrency }) => {
       borderRadius={20}
       margin={3}
     >
-      <Heading size="md" color="white">
+      <Heading size="md" marginY={3}>
         1 {baseCurrency} <ArrowForwardIcon /> {selectedCurrency}
       </Heading>
 

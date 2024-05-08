@@ -1,8 +1,23 @@
 import ReactApexChart from "react-apexcharts";
+import { useCurrency } from "../../../stores/BaseCurrencyContext";
+import useRates from "../../../hooks/useRates.jsx";
+import { subDays, format } from "date-fns";
 
-const RatesChart = ({ data, currency }) => {
-  if (!data || !data.rates) {
+const RatesChart = ({ currency }) => {
+  const { baseCurrency } = useCurrency();
+  const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
+  const { data, isLoading, error } = useRates(baseCurrency, oneWeekAgo);
+
+  if (error) {
+    return <Text>Error: {error}</Text>;
+  }
+
+  if (isLoading) {
     return <div>Loading</div>;
+  }
+
+  if (!data || !data.rates || Object.keys(data.rates).length === 0) {
+    return <div>No data available</div>;
   }
 
   const categories = Object.keys(data.rates).sort(
@@ -27,7 +42,7 @@ const RatesChart = ({ data, currency }) => {
       },
     },
     xaxis: {
-      categories,
+      categories: categories,
       axisBorder: {
         show: false,
       },
@@ -53,12 +68,16 @@ const RatesChart = ({ data, currency }) => {
   };
 
   return (
-    <ReactApexChart
-      options={options}
-      series={series}
-      type="line"
-      height={200}
-    />
+    data &&
+    data.rates &&
+    baseCurrency !== currency && (
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="line"
+        height={200}
+      />
+    )
   );
 };
 
