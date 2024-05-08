@@ -32,7 +32,7 @@ const getExchanges = async () => {
   const url = import.meta.env.VITE_GET_EXCHANGES_URL;
   const authToken = localStorage.getItem("authToken");
   const body = {
-    fromDate: format(subDays(new Date(), 6), "yyyy-MM-dd"),
+    fromDate: format(subDays(new Date(), 1000), "yyyy-MM-dd"),
   };
   const config = {
     headers: {
