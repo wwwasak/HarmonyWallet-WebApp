@@ -17,7 +17,7 @@ const NewsGrid = ({ baseCurrency, selectedCurrency }) => {
       borderRadius={20}
       margin={3}
     >
-      <Heading size="md" color="white">
+      <Heading size="md" marginY={3}>
         Related News
       </Heading>
 

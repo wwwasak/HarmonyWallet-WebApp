@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CardBody,
@@ -10,15 +9,15 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import LocalTime from "./LocalTime";
+import RatesChart from "./RatesChart";
 import React from "react";
 import star from "../../../assets/star.png";
 import starFavorite from "../../../assets/starFavorite.png";
-import { useCurrency } from "../../../stores/BaseCurrencyContext";
-import LocalTime from "./LocalTime";
-import RatesChart from "./RatesChart";
 
-const CurrencyCard = ({ currency, rate, rates }) => {
+const CurrencyCard = ({ currency, rate }) => {
   const { baseCurrency } = useCurrency();
   const [isFavorite, setIsFavorite] = useLocalStorage(currency, false);
 
@@ -49,7 +48,7 @@ const CurrencyCard = ({ currency, rate, rates }) => {
       </CardHeader>
       <CardBody alignItems="center" padding={0}>
         <Link to={`/ratesDetail/${baseCurrency}/${currency}`}>
-          <RatesChart data={rates} currency={currency} />
+          <RatesChart currency={currency} />
           <Flex flexDirection="column" alignItems="center" margin={2}>
             <Button fontSize="lg">{rate}</Button>
             <HStack>
@@ -60,7 +59,6 @@ const CurrencyCard = ({ currency, rate, rates }) => {
                 height="auto"
                 margin={1}
               />
-
               <Text fontSize="lg" fontWeight="bold">
                 {currency}
               </Text>
