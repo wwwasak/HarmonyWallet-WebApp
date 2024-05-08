@@ -125,16 +125,17 @@ export default function ExchangeRecordDetail() {
         borderRadius={20}
         minH="100vh"
       >
-        <Center>
-          <Text fontSize="2xl" fontWeight="bold" m={5}>
-            My Exchange Records
-          </Text>
-        </Center>
         <Flex>
           <Link href="/">
             <Button>Back</Button>
           </Link>
         </Flex>
+
+        <Center>
+          <Text fontSize="2xl" fontWeight="bold" m={5}>
+            My Exchange Records
+          </Text>
+        </Center>
 
         <Center textAlign="center">
           <Flex justifyContent="space-around" m={5} minW={800}>
@@ -142,25 +143,25 @@ export default function ExchangeRecordDetail() {
               onClick={handleClickWeekly}
               colorScheme={currentRange === "one week" ? "blue" : "gray"}
             >
-              One Week
+              Recent 1 Week
             </Button>
             <Button
               onClick={handleClickFortnightly}
               colorScheme={currentRange === "two weeks" ? "blue" : "gray"}
             >
-              Two Weeks
+              Recent 2 Weeks
             </Button>
             <Button
               onClick={handleClickMonthly}
               colorScheme={currentRange === "one month" ? "blue" : "gray"}
             >
-              One Month
+              Recent 1 Month
             </Button>
             <Button
               onClick={handleClickYearly}
               colorScheme={currentRange === "one year" ? "blue" : "gray"}
             >
-              One Year
+              Recent 1 Year
             </Button>
           </Flex>
         </Center>

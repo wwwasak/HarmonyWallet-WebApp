@@ -8,7 +8,7 @@ import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
 import RecordingPage from "../views/RecordingPage";
-import RatesDetailPage from "../views/Detail/RatesDetailPage";
+import RatesDetailPage from "../views/CurrencyDetail/RatesDetailPage.jsx";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
 import ForgotPassword from "../views/ForgotPassword/index";
 import { RequireAuthProvider } from "../stores/RequireAuthContext.jsx";
