@@ -81,6 +81,10 @@ export default function ExpenseDetail() {
     fetchExpense();
   }, [filteredCurrency]);
 
+  useEffect(() => {
+    setFilteredCurrency(baseCurrency);
+  }, [baseCurrency]);
+
   return (
     <Box
       backgroundImage="url('./pictures/IMG_2138.jpg')"

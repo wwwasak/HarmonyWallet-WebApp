@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import { CURRENCIES } from "../../../data/CURRENCIES.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const IncomeSelector = ({ selected, onSelect }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +19,10 @@ const IncomeSelector = ({ selected, onSelect }) => {
   const filteredCurrencies = CURRENCIES.filter((currency) =>
     currency.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    setSelectedCurrency(selected);
+  }, [selected]);
 
   return (
     <Menu>

@@ -1,7 +1,7 @@
 import { Text, Box, Center, Button, Flex } from "@chakra-ui/react";
 import IncomeChartTabs from "./components/IncomeChartTabs.jsx";
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import IncomeSelector from "./components/IncomeSelector.jsx";
 import { BaseCurrencyContext } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
@@ -81,6 +81,10 @@ export default function IncomeDetailsPage() {
   useEffect(() => {
     fetchIncomes();
   }, [filteredCurrency]);
+
+  useEffect(() => {
+    setFilteredCurrency(baseCurrency);
+  }, [baseCurrency]);
 
   return (
     <Box

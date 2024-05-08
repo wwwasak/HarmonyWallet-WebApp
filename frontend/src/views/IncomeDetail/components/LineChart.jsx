@@ -30,6 +30,9 @@ export default function LineChart({ xAxis, seriesData }) {
         },
       },
     },
+    stroke: {
+      curve: "straight",
+    },
   };
   const series = [
     {
