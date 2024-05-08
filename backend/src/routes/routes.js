@@ -4,7 +4,7 @@ const router = express.Router();
 
 import api from "./api/index.js";
 import login from "./login.js";
-import signup from "./singup.js";
+import signup from "./signup.js";
 
 router.use("/api", api);
 router.get("/", (req, res) => {

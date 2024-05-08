@@ -12,7 +12,6 @@ export default function SignupResult(props) {
     const fetchData = async () => {
       try {
         const response = await props.sendInfoToServer();
-        console.log(response);
         setIsResponded(true);
         setMessage("Registration successful!");
         setIsSuccess(true);
