@@ -54,6 +54,18 @@ export default function FloatWindow() {
     const url = "http://localhost:3000/api/add-record";
     const authToken = localStorage.getItem("authToken");
 
+    if (tableType === "incomeExpense") {
+      if (!date || !incomeType || !amount || !unit) {
+        alert("Please fill in all fields.");
+        return;
+      }
+    } else if (tableType === "exchangeRecord") {
+      if (!date || !fromAmount || !fromUnit || !toAmount || !toUnit) {
+        alert("Please fill in all fields.");
+        return;
+      }
+    }
+    
     const data =
       tableType === "incomeExpense"
         ? {
