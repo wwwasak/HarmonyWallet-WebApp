@@ -180,8 +180,9 @@ const ExpenseLineChartCard = ({ expenses = [] }) => {
             <Center height="100%"> 
             <Alert variant="subtle" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center">
               <AlertIcon boxSize="40px" mr={0} />
-              <Text mt={100} fontSize="lg" fontWeight="bold">
-                No data available
+              <Text mt={100} fontSize="lg" style={{ color: "rgba(128, 128, 128, 0.75)" }} fontStyle="italic">
+              You have no expense records in recent 7 days yet.<br/>
+              Click on the '+' icon at the bottom right of the page to start recording!
               </Text>
             </Alert>
           </Center>

@@ -66,8 +66,10 @@ export default function ExchangeRecordChart({ chartData }) {
             <TabPanels padding="20px" minHeight="500px" borderRadius="16px" backgroundColor="gray.85">
               <TabPanel display="flex" justifyContent="center" alignItems="center">
                 <TabList padding="20px" justifyContent="center" flexDirection="column">
-                  <Tab>
-                    You have not any exchange records yet in the selected period!
+                  <Tab style={{ color: "rgba(128, 128, 128, 0.75)" }} fontStyle="italic">
+                    You have not any exchange records yet in the selected period.
+                    <br />
+                    Click on the 'Back' button and then find the '+' icon at the bottom right of the page to start recording!
                   </Tab>
                 </TabList>
               </TabPanel>
@@ -106,8 +108,8 @@ export default function ExchangeRecordChart({ chartData }) {
                     seriesData={data.dates
                       .sort((a, b) => new Date(a.date) - new Date(b.date))
                       .map((dateInfo) =>
-                      parseFloat(dateInfo.averageRate)
-                    )}
+                        parseFloat(dateInfo.averageRate)
+                      )}
                   />
                 </TabPanel>
               ))}

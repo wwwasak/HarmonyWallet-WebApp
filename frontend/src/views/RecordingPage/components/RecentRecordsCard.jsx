@@ -50,7 +50,7 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
             </Box>
           ))
         ) : (
-          <Box>No exchange records available.</Box>
+          <Box style={{ color: "rgba(128, 128, 128, 0.75)" }} fontStyle={"italic"}>You have no exchange records. Click on the '+' icon at the bottom right of the page to start recording!</Box>
         )}
       </CardBody>
     </Card>
