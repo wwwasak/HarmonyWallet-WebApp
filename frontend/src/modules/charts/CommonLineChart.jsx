@@ -38,6 +38,9 @@ export default function LineChart({ xAxis, seriesData }) {
     stroke: {
       curve: "straight",
     },
+    dataLabels: {
+      enabled: false,
+    },
   };
   const series = [
     {
