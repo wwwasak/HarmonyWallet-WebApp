@@ -129,6 +129,9 @@ cd ./backend
 npm test
 ```
 
+## Deployment
+We deploy our project onto AWS EC2 Cloud to archive source code and ssh into ec2.
+
 ## How to use our application?
 
 ### 1. Sign up and log in
