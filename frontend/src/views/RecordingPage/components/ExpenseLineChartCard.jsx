@@ -110,7 +110,7 @@ const ExpenseLineChartCard = ({ expenses = [] }) => {
         {
           name: "Expense",
           type: "line",
-          smooth: true,
+          smooth: false,
           symbol: "circle",
           symbolSize: 8,
           showSymbol: false,
