@@ -1,4 +1,4 @@
-# HarmonyWallet WebApp - A online wallet for expats and international students
+# HarmonyWallet WebApp - An online wallet for expats and international students
 
 ## Introduction
 
