@@ -7,10 +7,11 @@ import {
   Spinner,
   Link
 } from "@chakra-ui/react";
-import ExchangeRecordChart from "./components/ExchangeRecordChart";
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { format, subDays, subMonths } from "date-fns";
+
+import ExchangeRecordChart from "./components/ExchangeRecordChart";
 
 export default function ExchangeRecordDetail() {
   const [weeklyData, setWeeklyData] = useState(null);
