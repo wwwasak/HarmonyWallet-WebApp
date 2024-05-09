@@ -33,9 +33,9 @@ router.post("/", authenticateToken, async (req, res) => {
 
     const filteredExchanges = exchanges.map((exchange) => ({
       date: exchange.date,
-      fromAmount: exchange.fromAmount,
+      fromAmount: exchange.fromAmount.toFixed(2),
       fromCurrency: exchange.fromCurrency.currency,
-      toAmount: exchange.toAmount,
+      toAmount: exchange.toAmount.toFixed(2),
       toCurrency: exchange.toCurrency.currency,
     }));
 

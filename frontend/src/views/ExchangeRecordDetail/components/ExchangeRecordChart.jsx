@@ -5,6 +5,8 @@ import {
   Tab,
   TabPanel,
   Flex,
+  CardBody,
+  Card,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
@@ -62,13 +64,31 @@ export default function ExchangeRecordChart({ chartData }) {
       {filteredData.length === 0 ? (
         <Tabs variant="soft-rounded" colorScheme="gray">
           <Flex justifyContent="center" alignItems="center" height="100%">
-            <TabPanels padding="20px" minHeight="500px" borderRadius="16px" backgroundColor="gray.85">
-              <TabPanel display="flex" justifyContent="center" alignItems="center">
-                <TabList padding="20px" justifyContent="center" flexDirection="column">
-                  <Tab style={{ color: "rgba(128, 128, 128, 0.75)" }} fontStyle="italic">
-                    You have not any exchange records yet in the selected period.
+            <TabPanels
+              padding="20px"
+              minHeight="500px"
+              borderRadius="16px"
+              backgroundColor="gray.85"
+            >
+              <TabPanel
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <TabList
+                  padding="20px"
+                  justifyContent="center"
+                  flexDirection="column"
+                >
+                  <Tab
+                    style={{ color: "rgba(128, 128, 128, 0.75)" }}
+                    fontStyle="italic"
+                  >
+                    You have not any exchange records yet in the selected
+                    period.
                     <br />
-                    Click on the 'Back' button and then find the '+' icon at the bottom right of the page to start recording!
+                    Click on the 'Back' button and then find the '+' icon at the
+                    bottom right of the page to start recording!
                   </Tab>
                 </TabList>
               </TabPanel>
@@ -83,19 +103,29 @@ export default function ExchangeRecordChart({ chartData }) {
               justifyContent="center"
               flexDirection="column"
             >
-              {filteredData.map((data, index) => (
-                <Tab
-                  _selected={{
-                    bg: "green.300",
-                    color: "white",
-                    fontWeight: "bold",
-                  }}
-                  key={index}
-                  minW={40}
+              <Card>
+                <CardBody
+                  alignItems="center"
+                  width="100%"
+                  maxH="455px"
+                  overflowY="auto"
+                  borderRadius={15}
                 >
-                  {data.currencyPair}
-                </Tab>
-              ))}
+                  {filteredData.map((data, index) => (
+                    <Tab
+                      _selected={{
+                        bg: "green.300",
+                        color: "white",
+                        fontWeight: "bold",
+                      }}
+                      key={index}
+                      minW={40}
+                    >
+                      {data.currencyPair}
+                    </Tab>
+                  ))}
+                </CardBody>
+              </Card>
             </TabList>
             <TabPanels padding="20px" minHeight="500px" borderRadius="16px">
               {filteredData.map((data, index) => (
@@ -106,9 +136,7 @@ export default function ExchangeRecordChart({ chartData }) {
                       .map((dateInfo) => dateInfo.date)}
                     seriesData={data.dates
                       .sort((a, b) => new Date(a.date) - new Date(b.date))
-                      .map((dateInfo) =>
-                        parseFloat(dateInfo.averageRate)
-                      )}
+                      .map((dateInfo) => parseFloat(dateInfo.averageRate))}
                   />
                 </TabPanel>
               ))}

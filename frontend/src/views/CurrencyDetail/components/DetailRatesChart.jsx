@@ -31,10 +31,6 @@ const DetailRatesChart = ({ data, currency }) => {
       tooltip: {
         enabled: false,
       },
-      // labels: {
-      //   hideOverlappingLabels: true,
-      //   rotate: 0,
-      // },
       labels: {
         show: false,
       },

@@ -23,7 +23,7 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
   const sortedExchanges = formattedExchanges.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   ); // Sorting exchanges by date in descending order
-  
+
   const displayedExchanges = sortedExchanges.slice(0, 5);
 
   return (
@@ -31,7 +31,7 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
       <CardHeader>
         <Flex justifyContent="space-around" alignItems="center">
           <Heading size="sm" textTransform="uppercase">
-          Last 5 Exchange Records
+            Last 5 Exchange Records
           </Heading>
           <Link
             as={RouterLink}
@@ -55,7 +55,13 @@ const RecentRecordsCard = ({ gridArea, exchanges = [] }) => {
             </Box>
           ))
         ) : (
-          <Box style={{ color: "rgba(128, 128, 128, 0.75)" }} fontStyle={"italic"}>You have no exchange records. Click on the '+' icon at the bottom right of the page to start recording!</Box>
+          <Box
+            style={{ color: "rgba(128, 128, 128, 0.75)" }}
+            fontStyle={"italic"}
+          >
+            You have no exchange records. Click on the '+' icon at the bottom
+            right of the page to start recording!
+          </Box>
         )}
       </CardBody>
     </Card>
