@@ -39,8 +39,6 @@ router.post("/", authenticateToken, async (req, res) => {
       toCurrency: exchange.toCurrency.currency,
     }));
 
-    console.log(filteredExchanges);
-
     res.status(200).json(filteredExchanges);
   } catch (error) {
     return res.status(500).send({ message: "Server error" });

@@ -12,7 +12,6 @@ export default function CheckUsernameQuestion(props) {
     const fetchData = async () => {
       try {
         const response = await props.checkUsernameQuestion();
-        console.log(response);
         setIsResponded(true);
         setMessage("Your information is correct!");
         setIsSuccess(true);

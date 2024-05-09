@@ -15,7 +15,6 @@ router.post("/", authenticateToken, async (req, res) => {
   const { fromDate, currency } = req.body;
 
   const upperCasedCurrency = currency.toUpperCase();
-  console.log(fromDate);
 
   try {
     const userId = req.user.userId;
@@ -34,8 +33,6 @@ router.post("/", authenticateToken, async (req, res) => {
     }
 
     const fromDateObj = parseISO(fromDate);
-    console.log(fromDateObj);
-    console.log(format(fromDateObj, "yyyy-MM-dd"));
 
     const incomes = await Income.find({
       user: userId,

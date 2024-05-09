@@ -53,8 +53,6 @@ router.post("/", authenticateToken, async (req, res) => {
       })
     );
 
-    console.log(convertedExpenses);
-
     res.status(200).json(convertedExpenses);
   } catch (error) {
     res.status(500).send({ message: "Server error" });

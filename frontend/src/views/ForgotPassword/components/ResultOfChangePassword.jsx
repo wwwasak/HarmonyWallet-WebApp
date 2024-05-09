@@ -11,7 +11,6 @@ export default function ResultOfChangePassword(props) {
     const fetchData = async () => {
       try {
         const response = await props.changePassword();
-        console.log(response);
         setIsResponded(true);
         setMessage("Change successful");
 
