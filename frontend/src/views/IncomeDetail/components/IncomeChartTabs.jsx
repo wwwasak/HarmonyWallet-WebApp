@@ -1,14 +1,6 @@
-import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Box,
-} from "@chakra-ui/react";
-import LeftIncomeChart from "./LeftIncomeChart";
-import RightChart from "./RightIncomeChart";
-import { useNavigation } from "../../../stores/RouterNavigationContext";
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from "@chakra-ui/react";
+import LeftIncomeChart from "../../../modules/charts/CommonLineChart";
+import RightChart from "../../../modules/commonLayout/RightChart";
 
 export default function IncomeChartTabs({
   weeklyIncomes,
@@ -16,11 +8,6 @@ export default function IncomeChartTabs({
   monthlyIncomes,
   yearlyIncomes,
 }) {
-  const navigate = useNavigation();
-  const handleButtonClick = () => {
-    navigate("/");
-  };
-
   return (
     <Box>
       <Tabs variant="soft-rounded" colorScheme="green">
@@ -84,8 +71,18 @@ export default function IncomeChartTabs({
                 <RightChart chartData={weeklyIncomes} />
               </>
             ) : (
-              <p style={{ color: "rgba(128, 128, 128, 0.75)", fontStyle: "italic", textAlign: "center" }}>No records in recent 7 days.<br />
-              Click on the 'Back' button and then find the '+' icon at the bottom right of the page to start recording!</p>
+              <p
+                style={{
+                  color: "rgba(128, 128, 128, 0.75)",
+                  fontStyle: "italic",
+                  textAlign: "center",
+                }}
+              >
+                No records in recent 7 days.
+                <br />
+                Click on the 'Back' button and then find the '+' icon at the
+                bottom right of the page to start recording!
+              </p>
             )}
           </TabPanel>
           <TabPanel
@@ -101,8 +98,18 @@ export default function IncomeChartTabs({
                 <RightChart chartData={fortnightlyIncomes} />
               </>
             ) : (
-              <p style={{ color: "rgba(128, 128, 128, 0.75)", fontStyle: "italic", textAlign: "center" }}>No records in recent 14 days.<br />
-              Click on the 'Back' button and then find the '+' icon at the bottom right of the page to start recording!</p>
+              <p
+                style={{
+                  color: "rgba(128, 128, 128, 0.75)",
+                  fontStyle: "italic",
+                  textAlign: "center",
+                }}
+              >
+                No records in recent 14 days.
+                <br />
+                Click on the 'Back' button and then find the '+' icon at the
+                bottom right of the page to start recording!
+              </p>
             )}
           </TabPanel>
           <TabPanel
@@ -118,8 +125,18 @@ export default function IncomeChartTabs({
                 <RightChart chartData={monthlyIncomes} />
               </>
             ) : (
-              <p style={{ color: "rgba(128, 128, 128, 0.75)", fontStyle: "italic", textAlign: "center" }}>No records in recent 30 days.<br />
-              Click on the 'Back' button and then find the '+' icon at the bottom right of the page to start recording!</p>
+              <p
+                style={{
+                  color: "rgba(128, 128, 128, 0.75)",
+                  fontStyle: "italic",
+                  textAlign: "center",
+                }}
+              >
+                No records in recent 30 days.
+                <br />
+                Click on the 'Back' button and then find the '+' icon at the
+                bottom right of the page to start recording!
+              </p>
             )}
           </TabPanel>
           <TabPanel
@@ -135,8 +152,18 @@ export default function IncomeChartTabs({
                 <RightChart chartData={yearlyIncomes} />
               </>
             ) : (
-              <p style={{ color: "rgba(128, 128, 128, 0.75)", fontStyle: "italic", textAlign: "center" }}>No records in recent 1 year.<br />
-              Click on the 'Back' button and then find the '+' icon at the bottom right of the page to start recording!</p>
+              <p
+                style={{
+                  color: "rgba(128, 128, 128, 0.75)",
+                  fontStyle: "italic",
+                  textAlign: "center",
+                }}
+              >
+                No records in recent 1 year.
+                <br />
+                Click on the 'Back' button and then find the '+' icon at the
+                bottom right of the page to start recording!
+              </p>
             )}
           </TabPanel>
         </TabPanels>

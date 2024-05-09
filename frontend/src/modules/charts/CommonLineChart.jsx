@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 
 export default function LineChart({ xAxis, seriesData }) {
   const dataPeriod = xAxis;
+
   var options = {
     chart: {
       toolbar: {
@@ -15,18 +16,22 @@ export default function LineChart({ xAxis, seriesData }) {
       type: "area",
     },
     tooltip: {
-      enabled: false,
-    },
-    grid: {
-      show: true,
+      enabled: true,
     },
     xaxis: {
       categories: dataPeriod,
+      labels: {
+        rotate: 0,
+      },
+      tooltip: {
+        enabled: false,
+      },
+      tickAmount: 6,
     },
     yaxis: {
       labels: {
         formatter: function (val) {
-          return val.toFixed(0); // Converts the y-axis values to integers
+          return val.toFixed(0);
         },
       },
     },
@@ -36,13 +41,13 @@ export default function LineChart({ xAxis, seriesData }) {
   };
   const series = [
     {
+      name: "Income",
       data: seriesData,
     },
   ];
   return (
     <Box
       m={10}
-      // bg="green.100"
       borderRadius="16px"
       height="400px"
       minW="200px"
