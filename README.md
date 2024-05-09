@@ -4,6 +4,9 @@
 
 HarmonyWallet is a comprehensive tool designed to assist international students and others needing regular access to currency exchange rates and personal finance management. It supports inquiring about the exchange rates of 20 major currencies worldwide over the past year and offers features such as real-time exchange rate display, currency conversion, historical exchange rate charts, and relevant financial news display. The application also allows users to add their income, expense, and exchange records, displaying these records in various chart forms.
 
+### Project Wiki 
+https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/wiki/Home-%E2%80%90-Project%E2%80%90group%E2%80%90enchanting%E2%80%90eagles-Wiki 
+
 ## Steps to Run Our Application
 To get the HarmonyWallet application running on your local devices, please follow the step-by-step instructions. :)
 
