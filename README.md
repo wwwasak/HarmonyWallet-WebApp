@@ -104,21 +104,36 @@ You can copy and paste the link in your browser and you will see our application
 
 ### 1. Sign up and log in
 After finishing the steps to run the application, the first page you will see is the Login page.
+
 ![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/d5d56cfc-ff4b-42ea-a3b4-5780cf6064df)
 
 To enjoy all the functions of our application, the first thing you need to do is signing up! Just click on the “Sign up” button and the application will jump to another page where you can input your username. After you enter your username, the application will check whether there are other users using the same username as you. If yes, the page will warn that “Username already exists.” Then you need to enter another username.
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/3ecdbced-2458-48f3-b06e-5bdedc9b7a06)
+
 If your username is unique, the page will show that “Username is available.” 
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/ffebf7e2-cf3b-47ee-9ccd-4b9f977892e1)
 
 Then click on the “Next” button. The website will jump to another page allowing you to input and confirm your password. You must enter the exactly same password twice or you will see the warning “Passwords do not match.” 
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/f838fdeb-8cfe-43c9-9e74-656c7c5792c6)
+
 After setting up your password successfully, click on the “Next” button. Then you can select your security question and input the corresponding answer in case that you forget your password. Then click on the “Next” button.
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/b48f81e2-e850-4e2b-8dce-cb6c0243c332)
 
 On the following page, you can select your base currency.
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/8b014fcd-391b-4027-bf4e-0fc470e56887)
+
 The signing up is all done! Now you will see the login page again and enter your username and password and click on the “Log in” button. Then you will see your personal home page showing your username, base currency, income record chart, expense record chart and exchange records.
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/e26efb5a-2a25-46ab-bf70-5926138d5389)
+
 If you need to change your base currency or password, click the button in the top right-hand corner of the profile part.
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/71079f3d-39e2-4138-8f49-fcbe794d5820)
 
 You can click on the “Logout” button in the top right-hand corner to log out. However, you need to log in again before your next use. :)
 
@@ -128,20 +143,34 @@ In each currency grid, you can see the name of the currency, the current exchang
 In the top right-hand corner of each currency grid, there is a star which you can click on to add that currency to your favourite. Your favourite currencies will be displayed before other currencies.
 You can alter the base currency through the drop down list in the top right-hand corner to see more exchange rates.
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/5587da09-b158-4a76-aa14-918852547a7c)
+
 There is a calculator button in the top right-hand corner of the home page. After clicking on that, the conversion calculator will pop up. There you can select the base currency and target currency and input the amount, then you can get the concerted amount according to the current exchange rate.
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/351c0e1c-a7a2-4a43-8db3-586ccc9e64a6)
 
 By clicking on the currency grid, you can see the line chart describing the exchange rate changes from recent 7 days to recent 1 year with the statistical data below the chart.
 In addition, there are some links of relevant finical news about the two currencies (the base currency and the target currency) which you can click into to see the news details.
 If there is no news about the base currency and the target currency, the news only about the target currency will be returned.
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/4a311859-ac12-4e7f-b11c-7382e187c383)
+
 ### 3.Record
 When you first log in your account, you won’t see any income, expense or exchange records. You can add your own records by clicking the “+” button in the bottom right-hand corner.
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/744e315c-9c91-4355-bf36-930284511052)
+
 A pop-up window allows you to add income/expense records or exchange record. Input the record details and then click “Save”. The record would be saved successfully.
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/fe157834-ed2e-4d83-9428-882deed3b45b)
 
 After you added a record, you will see the newly added record in your home page. (It should be noted that the records shown in your home page are in recent 7 days by default. That means if you add a record of 2 months ago, you won’t see it in the home page.)
 
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/61c9ee67-c58e-4a7f-982b-d9aa08404e09)
+
 When you click the chart or the “More” link in the top right-hand corner, you will be brought to the income detail page where you can see your income records in recent 7 days, recent 14 days, recent 30 days and recent 1 year in the form of the line chart and the pie chart.
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/84733aeb-b512-42cb-bd61-83bf6b441e8a)
 
 One bright spot of the line chart is the amount shown has been converted according to your base currency. For example, if your base currency is CNY and you just added an income record of 100 EUR(Let’s say the exchange rate of EUR to CNY is 9.0), the income amount in the line chart is 900 which is converted according to your base currency CNY.
 You can alter the currency through the drop down list in the top right-hand corner. Then the amount in the line chart would be changed according to the currency you just chose.
@@ -151,6 +180,8 @@ One thing need to be noted is that all the default currency in the currency sele
 The expense part is in the same way.
 
 When you add an exchange record, the newly added record will appear in your home page as well. Because of the limit of the space, only the last 5 exchange records will appear in your home page and you need to click on “More” to find more records.
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/3acc16c2-ebc4-48c6-9f18-568db47dbad3)
 
 In the exchange detail page, you can see your exchange records in recent 7 days, recent 14 days, recent 30 days and recent 1 year. The left part is the tabs generated according to the types of your exchange currencies. The exchange rate shown in the right line chart is calculated according to the amount of the base currency and the amount of target currency of the record.
 
