@@ -90,27 +90,28 @@ You can copy and paste the link in your browser and you will see our application
 ### 1. Sign up and log in
 After finishing the steps to run the application, the first page you will see is the Login page.
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/d5d56cfc-ff4b-42ea-a3b4-5780cf6064df)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/5dc7e9c8-abaa-496c-8e61-c37803ef238d)
+
 
 To enjoy all the functions of our application, the first thing you need to do is signing up! Just click on the “Sign up” button and the application will jump to another page where you can input your username. After you enter your username, the application will check whether there are other users using the same username as you. If yes, the page will warn that “Username already exists.” Then you need to enter another username.
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/3ecdbced-2458-48f3-b06e-5bdedc9b7a06)
+<img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/3ecdbced-2458-48f3-b06e-5bdedc9b7a06" alt="" width="400" height="300">
 
 If your username is unique, the page will show that “Username is available.” 
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/ffebf7e2-cf3b-47ee-9ccd-4b9f977892e1)
+<img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/ffebf7e2-cf3b-47ee-9ccd-4b9f977892e1" alt="" width="400" height="300">
 
 Then click on the “Next” button. The website will jump to another page allowing you to input and confirm your password. You must enter the exactly same password twice or you will see the warning “Passwords do not match.” 
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/f838fdeb-8cfe-43c9-9e74-656c7c5792c6)
+<img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/f838fdeb-8cfe-43c9-9e74-656c7c5792c6" alt="" width="400" height="300">
 
 After setting up your password successfully, click on the “Next” button. Then you can select your security question and input the corresponding answer in case that you forget your password. Then click on the “Next” button.
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/b48f81e2-e850-4e2b-8dce-cb6c0243c332)
+<img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/b48f81e2-e850-4e2b-8dce-cb6c0243c332" alt="" width="400" height="300">
 
 On the following page, you can select your base currency.
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/8b014fcd-391b-4027-bf4e-0fc470e56887)
+<img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/8b014fcd-391b-4027-bf4e-0fc470e56887" alt="" width="450" height="400">
 
 The signing up is all done! Now you will see the login page again and enter your username and password and click on the “Log in” button. Then you will see your personal home page showing your username, base currency, income record chart, expense record chart and exchange records.
 
@@ -118,7 +119,7 @@ The signing up is all done! Now you will see the login page again and enter your
 
 If you need to change your base currency or password, click the button in the top right-hand corner of the profile part.
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/71079f3d-39e2-4138-8f49-fcbe794d5820)
+<img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/71079f3d-39e2-4138-8f49-fcbe794d5820" alt="" width="450" height="600">
 
 You can click on the “Logout” button in the top right-hand corner to log out. However, you need to log in again before your next use. :)
 
@@ -132,7 +133,7 @@ You can alter the base currency through the drop down list in the top right-hand
 
 There is a calculator button in the top right-hand corner of the home page. After clicking on that, the conversion calculator will pop up. There you can select the base currency and target currency and input the amount, then you can get the concerted amount according to the current exchange rate.
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/351c0e1c-a7a2-4a43-8db3-586ccc9e64a6)
+<img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-enchanting-eagles/assets/140019411/351c0e1c-a7a2-4a43-8db3-586ccc9e64a6" alt="" width="700" height="400">
 
 By clicking on the currency grid, you can see the line chart describing the exchange rate changes from recent 7 days to recent 1 year with the statistical data below the chart.
 In addition, there are some links of relevant finical news about the two currencies (the base currency and the target currency) which you can click into to see the news details.
