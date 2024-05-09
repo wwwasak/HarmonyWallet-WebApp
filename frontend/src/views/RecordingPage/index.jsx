@@ -94,9 +94,9 @@ const RecordingPage = () => {
   const [username, setUsername] = useState("");
   const [baseCurrency, setBaseCurrency] = useState("");
   const [exchanges, setExchanges] = useState([]);
-  const [incomes, setIncomes] = useState([]); 
-  const [expenses, setExpenses] = useState([]); 
-  
+  const [incomes, setIncomes] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -120,9 +120,7 @@ const RecordingPage = () => {
 
     const fetchIncomes = async () => {
       try {
-        const fetchedIncomes = await getIncomes(
-          oneWeekAgo, baseCurrency
-        ); 
+        const fetchedIncomes = await getIncomes(oneWeekAgo, baseCurrency);
         setIncomes(fetchedIncomes);
       } catch (error) {
         console.error("Failed to fetch incomes:", error);
@@ -131,9 +129,7 @@ const RecordingPage = () => {
 
     const fetchExpenses = async () => {
       try {
-        const fetchedExpenses = await getExpenses(
-          oneWeekAgo, baseCurrency
-        ); 
+        const fetchedExpenses = await getExpenses(oneWeekAgo, baseCurrency);
         setExpenses(fetchedExpenses);
       } catch (error) {
         console.error("Failed to fetch exchanges:", error);
@@ -154,7 +150,7 @@ const RecordingPage = () => {
   return (
     <>
       <Box
-        backgroundImage="url('./pictures/IMG_2143.JPG')"
+        bgGradient="linear(to-b, gray.200, blue.700)"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
@@ -186,14 +182,17 @@ const RecordingPage = () => {
               <ProfileCard username={username} baseCurrency={baseCurrency} />
             </GridItem>
             <GridItem gridArea="income">
-              <IncomeLineChartCard w="100%" h="100%"  
-              incomes={incomes}
-            >
-            </IncomeLineChartCard>
+              <IncomeLineChartCard
+                w="100%"
+                h="100%"
+                incomes={incomes}
+              ></IncomeLineChartCard>
             </GridItem>
             <GridItem gridArea="expense">
-              <ExpenseLineChartCard w="100%" h="100%"
-              expenses={expenses}
+              <ExpenseLineChartCard
+                w="100%"
+                h="100%"
+                expenses={expenses}
               ></ExpenseLineChartCard>
             </GridItem>
             <GridItem gridArea="records">

@@ -88,7 +88,7 @@ export default function ExpenseDetail() {
 
   return (
     <Box
-      backgroundImage="url('./pictures/IMG_2138.jpg')"
+      bgGradient="linear(to-b, yellow.200, yellow.700)"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
@@ -102,16 +102,16 @@ export default function ExpenseDetail() {
         minH="100vh"
       >
         <Center>
-          <Text fontSize="2xl" fontWeight="bold" m={10}>
+          <Text fontSize="2xl" fontWeight="bold" m={8}>
             My Expense Details
           </Text>
         </Center>
 
         <Flex justifyContent="space-between">
-          <Button onClick={() => navigate("/")} ml={10}>
+          <Button onClick={() => navigate("/")} mb={5} ml={10}>
             Back
           </Button>
-          <Box mr={10}>
+          <Box mb={5} mr={10}>
             <ExpenseSelector
               selected={filteredCurrency}
               onSelect={setFilteredCurrency}

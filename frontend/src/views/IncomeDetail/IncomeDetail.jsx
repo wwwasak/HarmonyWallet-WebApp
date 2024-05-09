@@ -54,7 +54,7 @@ export default function IncomeDetailsPage() {
         oneWeekAgo,
         filteredCurrency
       );
-      
+
       setWeeklyIncomes(fetchedWeeklyIncomes);
 
       const fetchedFortnightlyIncomes = await getIncomes(
@@ -89,7 +89,7 @@ export default function IncomeDetailsPage() {
 
   return (
     <Box
-      backgroundImage="url('./pictures/IMG_2142.jpg')"
+      bgGradient="linear(to-b, yellow.200, yellow.700)"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
@@ -103,16 +103,16 @@ export default function IncomeDetailsPage() {
         minH="100vh"
       >
         <Center>
-          <Text fontSize="2xl" fontWeight="bold" m={10}>
+          <Text fontSize="2xl" fontWeight="bold" m={8}>
             My Income Details
           </Text>
         </Center>
 
         <Flex justifyContent="space-between">
-          <Button onClick={() => navigate("/")} mb={10} ml={10}>
+          <Button onClick={() => navigate("/")} mb={5} ml={10}>
             Back
           </Button>
-          <Box mr={10} mb={10}>
+          <Box mr={10} mb={5}>
             <IncomeSelector
               selected={filteredCurrency}
               onSelect={setFilteredCurrency}
