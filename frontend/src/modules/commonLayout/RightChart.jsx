@@ -48,7 +48,7 @@ export default function RightChart({ chartData }) {
       custom: function ({ seriesIndex, dataPointIndex, w }) {
         const label = w.globals.labels[seriesIndex];
         const amount = showedAmount[seriesIndex];
-        return label + ": " + amount;
+        return label + ": " + amount.toFixed(2);
       },
     },
   };
