@@ -6,7 +6,7 @@ import {
   TabPanel,
   Flex,
 } from "@chakra-ui/react";
-import LineChart from "../../IncomeDetail/components/LineChart";
+import LineChart from "../../../modules/charts/CommonLineChart";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
 

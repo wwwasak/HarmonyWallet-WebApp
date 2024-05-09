@@ -4,16 +4,10 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Button,
   Box,
 } from "@chakra-ui/react";
 import LeftIncomeChart from "./LeftIncomeChart";
 import RightChart from "./RightIncomeChart";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import useIncome from "../../../hooks/useIncome";
-import axios from "axios";
 import { useNavigation } from "../../../stores/RouterNavigationContext";
 
 export default function IncomeChartTabs({

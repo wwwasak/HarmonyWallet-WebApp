@@ -1,8 +1,6 @@
 import { Box } from "@chakra-ui/react";
-import DefaultIncomeLineChart from "./DefaultIncomeLineChart";
-import LineChartComponent from "../../../modules/charts/LineChartComponent";
 import { useState, useEffect } from "react";
-import LineChart from "./LineChart";
+import LineChart from "../charts/CommonLineChart";
 import { parseISO, format } from "date-fns";
 
 export default function LeftIncomeChart({ datePeriod }) {

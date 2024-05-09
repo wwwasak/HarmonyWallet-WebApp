@@ -1,10 +1,11 @@
 import { Text, Box, Center, Button, Flex } from "@chakra-ui/react";
-import ExpenseChartTabs from "../../views/IncomeDetail/components/IncomeChartTabs.jsx";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import ExpenseSelector from "../../views/IncomeDetail/components/IncomeSelector.jsx";
-import { BaseCurrencyContext } from "../../stores/BaseCurrencyContext.jsx";
 import { subDays, subMonths, subYears, format } from "date-fns";
+
+import ExpenseChartTabs from "../../modules/commonLayout/CommonRecordChartTabs.jsx";
+import ExpenseSelector from "../../modules/commonLayout/CurrencySelector.jsx";
+import { BaseCurrencyContext } from "../../stores/BaseCurrencyContext.jsx";
 import { useNavigation } from "../../stores/RouterNavigationContext.jsx";
 
 const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");

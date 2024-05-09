@@ -9,10 +9,10 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import { CURRENCIES } from "../../../data/CURRENCIES.js";
+import { CURRENCIES } from "../../data/CURRENCIES";
 import { useState, useEffect } from "react";
 
-const IncomeSelector = ({ selected, onSelect }) => {
+const CurrencySelector = ({ selected, onSelect }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState(selected);
 
@@ -59,4 +59,4 @@ const IncomeSelector = ({ selected, onSelect }) => {
   );
 };
 
-export default IncomeSelector;
+export default CurrencySelector;

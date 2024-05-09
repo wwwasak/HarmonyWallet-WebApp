@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Chart from "react-apexcharts";
 
-export default function RightIncomeChart({ chartData }) {
+export default function RightChart({ chartData }) {
   const labelAmountMap = {};
   const showedLabelMap = {};
   chartData.forEach((dataItem) => {
