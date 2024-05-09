@@ -34,7 +34,9 @@ npm install mongodb
 ```
 
 Note: the connection string has been added into the application code
+```bash
 mongodb+srv://pli791:exZlk93F7nRBnidq@cluster0.sj4dd4c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+```
 
 ### Step 4: Set Up the Backend
 #### 1. In your terminal, navigate to the “backend” directory of the cloned project:
