@@ -4,27 +4,31 @@ dotenv.config();
 import mongoose from "mongoose";
 
 import User from "../models/user-schema.js";
-import News from "../models/news-schema.js";
+import Currency from "../models/currency-schema.js";
+import Expense from "../models/expense-schema.js";
+import Income from "../models/income-schema.js";
+import Exchange from "../models/exchange-schema.js";
+import { initDummyDatabase } from "../services/dummyDatabase.js";
 
-import { getRelatedNews } from "../services/getRelatedNews.js";
+import { initCurrencyDatabase } from "../services/initCurrencyDatabase.js";
+import { fillMissingRates } from "../services/fillMissingRates.js";
 
 // This is a standalone program which will populate the database with initial data.
 async function run() {
   console.log("Connecting to database...");
   await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 
-  const user1 = new User({
-    username: "user1",
-    security_question: "String1",
-    auestion_answer: "String",
-    password: "123456",
-    default_currency: null,
-    notification: [],
-    favourite_currency: [],
-  });
+  await Expense.deleteMany();
+  await Income.deleteMany();
+  await Exchange.deleteMany();
+  await User.deleteMany();
 
-  await user1.save();
+  await Currency.deleteMany();
 
+  await initCurrencyDatabase();
+
+  await fillMissingRates();
+  await initDummyDatabase();
   await mongoose.disconnect();
   console.log("Done!");
 }

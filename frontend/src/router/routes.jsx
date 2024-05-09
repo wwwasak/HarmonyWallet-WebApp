@@ -2,85 +2,76 @@ import { BaseCurrencyProvider } from "../stores/BaseCurrencyContext";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../views/Layout/LayoutPage";
 import ErrorPage from "../views/Layout/ErrorPage";
-import ExchangeRecordDetail from "../views/ExchangeRecordDetail/index";
-import IncomeDetail from "../views/IncomeDetail";
-import ExpenseDetail from "../views/ExpenseDetail";
+import ExchangeRecordDetail from "../views/ExchangeRecordDetail/ExchangeRecordDetail";
+import IncomeDetail from "../views/IncomeDetail/IncomeDetail";
+import ExpenseDetail from "../views/ExpenseDetail/ExpenseDetail";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
-import SignupUsername from "../views/SignUp/components/SignupUsername";
-import SignupPassword from "../views/SignUp/components/SignupPassword";
-import SignupQuestion from "../views/SignUp/components/SignupQuestion";
-import SignupCurrency from "../views/SignUp/components/SignupCurrency";
-import ChangePassword from "../views/SignUp/components/ChangePassword";
 import RecordingPage from "../views/RecordingPage";
-import RatesDetailPage from "../views/Detail/RatesDetailPage";
+import RatesDetailPage from "../views/CurrencyDetail/RatesDetailPage.jsx";
 import RatesOverviewPage from "../views/Currency/RatesOverviewPage";
+import ForgotPassword from "../views/ForgotPassword/index";
+import { RequireAuthProvider } from "../stores/RequireAuthContext.jsx";
+import { NavigationProvider } from "../stores/RouterNavigationContext.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <BaseCurrencyProvider>
-        <Layout />
-      </BaseCurrencyProvider>
+      <RequireAuthProvider>
+        <BaseCurrencyProvider>
+          <NavigationProvider>
+            <Layout />
+          </NavigationProvider>
+        </BaseCurrencyProvider>
+      </RequireAuthProvider>
     ),
     errorElement: <ErrorPage />,
 
     children: [
-    { path: "exchangeoverview", element: <RatesOverviewPage /> },
+      { path: "exchangeoverview", element: <RatesOverviewPage /> },
       {
         path: "ratesDetail/:baseCurrency/:selectedCurrency",
         element: <RatesDetailPage />,
       },
-    
+
       {
-        path: "recording",
+        path: "/",
         element: <RecordingPage />,
       },
       {
-        path: "exchange-record",
+        path: "exchange",
         element: <ExchangeRecordDetail />,
       },
       {
-        path: "income-detail",
+        path: "income",
         element: <IncomeDetail />,
       },
       {
-        path: "expense-detail",
+        path: "expense",
         element: <ExpenseDetail />,
       },
     ],
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <NavigationProvider>
+        <Login />
+      </NavigationProvider>
+    ),
   },
   {
     path: "/signup",
-    element: <SignUp />,
-    children: [
-      {
-        index: true,
-        element: <SignupUsername />,
-      },
-      {
-        path: "password",
-        element: <SignupPassword />,
-      },
-      {
-        path: "question",
-        element: <SignupQuestion />,
-      },
-      {
-        path: "currency",
-        element: <SignupCurrency />,
-      },
-    ],
+    element: (
+      <NavigationProvider>
+        <SignUp />
+      </NavigationProvider>
+    ),
   },
-
   {
-    path: "/changePassword",
-    element: <ChangePassword />,
+    path: "/forgot-password",
+    element: <ForgotPassword />,
   },
 ]);
 

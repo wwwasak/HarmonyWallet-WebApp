@@ -1,16 +1,16 @@
 import { CURRENCIES } from "../../../data/CURRENCIES.js";
 import { SimpleGrid, Text } from "@chakra-ui/react";
+import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import CurrencyCard from "./CurrencyCard";
 import CurrencyCardContainer from "./CurrencyCardContainer";
 import CurrencyCardSkeleton from "./CurrencyCardSkeleton";
 import React from "react";
-import { useCurrency } from "../../../stores/BaseCurrencyContext";
 import useLatestRates from "../../../hooks/useLatestRates";
 
 const CurrencyGrid = () => {
   const { baseCurrency } = useCurrency();
   const { data, isLoading, error } = useLatestRates(baseCurrency);
-  console.log(data);
+
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   if (error) {
@@ -18,20 +18,18 @@ const CurrencyGrid = () => {
   }
 
   const favoriteCurrencies = [];
-  const unfavoriteCurrencies = [];
+  const unFavoriteCurrencies = [];
 
   CURRENCIES.forEach((currency) => {
-    if (data.rates && data.rates[currency]) {
-      if (localStorage.getItem(currency) === "true") {
-        favoriteCurrencies.push(currency);
-      } else {
-        unfavoriteCurrencies.push(currency);
-      }
+    const isFavorite = localStorage.getItem(currency) === "true";
+    if (isFavorite) {
+      favoriteCurrencies.push(currency);
+    } else {
+      unFavoriteCurrencies.push(currency);
     }
   });
 
-  const sortedCurrencies = [...favoriteCurrencies, ...unfavoriteCurrencies];
-  console.log(sortedCurrencies);
+  const sortedCurrencies = [...favoriteCurrencies, ...unFavoriteCurrencies];
 
   return (
     <SimpleGrid
@@ -45,13 +43,15 @@ const CurrencyGrid = () => {
             <CurrencyCardSkeleton />
           </CurrencyCardContainer>
         ))}
-      {sortedCurrencies.map((currency, index) => (
-        <CurrencyCardContainer key={index}>
-          {data.rates && data.rates[currency] && (
-            <CurrencyCard currency={currency} rate={data.rates[currency]} />
-          )}
-        </CurrencyCardContainer>
-      ))}
+      {sortedCurrencies.map(
+        (currency, index) =>
+          data.rates &&
+          data.rates[currency] && (
+            <CurrencyCardContainer key={index}>
+              <CurrencyCard currency={currency} rate={data.rates[currency]} />
+            </CurrencyCardContainer>
+          )
+      )}
     </SimpleGrid>
   );
 };

@@ -29,7 +29,9 @@ const CurrencySelector = ({ baseCurrency, setBaseCurrency }) => {
           <Input
             placeholder="Type to search..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
           />
         </Box>
         {filteredCurrencies.map((currency, index) => (

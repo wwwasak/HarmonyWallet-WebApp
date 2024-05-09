@@ -9,10 +9,12 @@ import {
   ButtonGroup,
   Flex,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigation } from "../../../stores/RouterNavigationContext.jsx";
 
 const LoginBox = (props) => {
-  const navigate = useNavigate();
+  const navigate = useNavigation();
+
   const setUsername = props.setUsername;
   const setPassword = props.setPassword;
   const handleLogin = props.handleLogin;
@@ -20,7 +22,7 @@ const LoginBox = (props) => {
   return (
     <Box>
       <Flex justifyContent="center">
-        <Card h="100%" w="50%">
+        <Card h="100%" w="400px">
           <CardBody>
             <Stack spacing={6}>
               <Input
@@ -30,12 +32,15 @@ const LoginBox = (props) => {
                 onChange={(e) => setUsername(e.target.value)}
               />
               <Input
+                type="password"
                 variant="filled"
                 placeholder="Password"
                 size="lg"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Link>forgot password</Link>
+              <Link href="/forgot-password" ml={3} color={"red.300"}>
+                forgot password?
+              </Link>
               <ButtonGroup gap="20">
                 <Button h="50px" w="180px" onClick={() => navigate("/signup")}>
                   Sign Up

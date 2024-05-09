@@ -1,120 +1,211 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Grid,
-  Text,
-  Heading,
-  Flex,
-  Divider,
-  Box,
-} from "@chakra-ui/react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import ProfileCard from "./components/ProfileCard";
-// import IncomeLineChartCard from "./components/IncomeLineChartCard";
+import IncomeLineChartCard from "./components/IncomeLineChartCard";
+import ExpenseLineChartCard from "./components/ExpenseLineChartCard";
 import RecentRecordsCard from "./components/RecentRecordsCard";
-import FloatWindow from "./components/FloatWindow";
+import FloatWindow from "./components/AddRecord";
+import { subDays, format } from "date-fns";
 
-const data = [
-  { Date: "17/04/2024", currency: 2400, amt: 2400 },
-  { Date: "16/04/2024", currency: 1398, amt: 2210 },
-  { Date: "15/04/2024", currency: 9800, amt: 2290 },
-  { Date: "14/04/2024", currency: 3908, amt: 2000 },
-  { Date: "13/04/2024", currency: 4800, amt: 2181 },
-  { Date: "12/04/2024", currency: 3800, amt: 2500 },
-  { Date: "11/04/2024", currency: 4300, amt: 2100 },
-];
+import axios from "axios";
+import { useEffect, useState } from "react";
+const oneWeekAgo = format(subDays(new Date(), 6), "yyyy-MM-dd");
 
-const IncomeLineChartCard = ({ gridArea }) => {
-  return (
-    <Card gridArea={gridArea}>
-      <CardHeader>
-        <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">
-            Income
-          </Heading>
-        </Flex>
-        <Divider my={2} />
-      </CardHeader>
-      <CardBody>
-        <Box p={4} boxShadow="base" rounded="md" bg="white" width="100%">
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data}>
-              <XAxis dataKey="Date" />
-              <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="currency" stroke="#8884d8" />
-            </LineChart>
-          </ResponsiveContainer>
-        </Box>
-      </CardBody>
-    </Card>
-  );
+const getUserInfo = async () => {
+  const url = import.meta.env.VITE_GET_USER_INFO_URL;
+  const authToken = localStorage.getItem("authToken");
+  const body = {};
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
 };
 
-const ExpenseLineChartCard = ({ gridArea }) => {
-  return (
-    <Card gridArea={gridArea}>
-      <CardHeader>
-        <Flex justifyContent="center" alignItems="center">
-          <Heading size="sm" textTransform="uppercase">
-            Expense
-          </Heading>
-        </Flex>
-        <Divider my={2} />
-      </CardHeader>
-      <CardBody>
-        <Box p={4} boxShadow="base" rounded="md" bg="white" width="100%">
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data}>
-              <XAxis dataKey="Date" />
-              <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="currency" stroke="#8884d8" />
-            </LineChart>
-          </ResponsiveContainer>
-        </Box>
-      </CardBody>
-    </Card>
-  );
+const getExchanges = async () => {
+  const url = import.meta.env.VITE_GET_EXCHANGES_URL;
+  const authToken = localStorage.getItem("authToken");
+  const body = {
+    fromDate: format(subDays(new Date(), 1000), "yyyy-MM-dd"),
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
 };
 
-// gridArea arguments: row-start/column-start/row-end/column-end
+const getIncomes = async (fromDate, currency) => {
+  const url = import.meta.env.VITE_GET_INCOMES_URL;
+  const authToken = localStorage.getItem("authToken");
+  const body = {
+    fromDate: fromDate,
+    currency: currency,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
+};
+
+const getExpenses = async (fromDate, currency) => {
+  const url = import.meta.env.VITE_GET_EXPENSES_URL;
+  const authToken = localStorage.getItem("authToken");
+  const body = {
+    fromDate: fromDate,
+    currency: currency,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  try {
+    const response = await axios.post(url, body, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    return null;
+  }
+};
+
 const RecordingPage = () => {
-  const preferredCurrency = "NZD";
-  return (
-    <Card>
-      <Grid templateColumns="1fr 3fr" gap={6}>
-        <ProfileCard
-          gridArea="1 / 1 / 2 / 2"
-          preferredCurrency={preferredCurrency}
-        />
-        <IncomeLineChartCard gridArea="1 / 2 / 1 / 4">
-          <Text>Line Chart Data</Text>
-        </IncomeLineChartCard>
-        <ExpenseLineChartCard gridArea="2 / 2 / 2 / 4">
-          <Text>More Data Here</Text>
-        </ExpenseLineChartCard>
-        <RecentRecordsCard gridArea="2 / 1 / 2 / 2">
-          <Text>Additional Info</Text>
-        </RecentRecordsCard>
-      </Grid>
+  const [username, setUsername] = useState("");
+  const [baseCurrency, setBaseCurrency] = useState("");
+  const [exchanges, setExchanges] = useState([]);
+  const [incomes, setIncomes] = useState([]);
+  const [expenses, setExpenses] = useState([]);
 
-      <FloatWindow />
-    </Card>
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = await getUserInfo();
+        setUsername(userInfo.username);
+        setBaseCurrency(userInfo.base_currency);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+        window.location = "/login";
+      }
+    };
+
+    const fetchExchanges = async () => {
+      try {
+        const fetchedExchanges = await getExchanges(5);
+        setExchanges(fetchedExchanges);
+      } catch (error) {
+        console.error("Failed to fetch exchanges:", error);
+      }
+    };
+
+    const fetchIncomes = async () => {
+      try {
+        const fetchedIncomes = await getIncomes(oneWeekAgo, baseCurrency);
+        setIncomes(fetchedIncomes);
+      } catch (error) {
+        console.error("Failed to fetch incomes:", error);
+      }
+    };
+
+    const fetchExpenses = async () => {
+      try {
+        const fetchedExpenses = await getExpenses(oneWeekAgo, baseCurrency);
+        setExpenses(fetchedExpenses);
+      } catch (error) {
+        console.error("Failed to fetch exchanges:", error);
+      }
+    };
+
+    const fetchData = async () => {
+      await fetchUserInfo();
+      if (username.length > 0) {
+        await fetchExchanges();
+        await fetchIncomes();
+        await fetchExpenses();
+      }
+    };
+    fetchData();
+  }, [baseCurrency, username]);
+
+  return (
+    <>
+      <Box
+        bgGradient="linear(to-b, gray.200, blue.700)"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
+        borderRadius={20}
+        minH="80vh"
+      >
+        <FloatWindow />
+        <Box
+          bg="rgba(255, 255, 255, 0.5)"
+          backdropFilter="blur(10px)"
+          borderRadius={20}
+          minH="80vh"
+          p={10}
+        >
+          <Grid
+            minH="100vh"
+            templateColumns="repeat(5, 1fr)"
+            templateRows="repeat(2, 1fr)"
+            gap={20}
+            p={20}
+            pr={20}
+            pl={20}
+            gridTemplateAreas={`
+               "profile income income income income"
+               "records expense expense expense expense "
+             `}
+          >
+            <GridItem gridArea="profile">
+              <ProfileCard username={username} baseCurrency={baseCurrency} />
+            </GridItem>
+            <GridItem gridArea="income">
+              <IncomeLineChartCard
+                w="100%"
+                h="100%"
+                incomes={incomes}
+              ></IncomeLineChartCard>
+            </GridItem>
+            <GridItem gridArea="expense">
+              <ExpenseLineChartCard
+                w="100%"
+                h="100%"
+                expenses={expenses}
+              ></ExpenseLineChartCard>
+            </GridItem>
+            <GridItem gridArea="records">
+              <RecentRecordsCard
+                w="100%"
+                h="100%"
+                exchanges={exchanges}
+              ></RecentRecordsCard>
+            </GridItem>
+          </Grid>
+        </Box>
+      </Box>
+    </>
   );
 };
 

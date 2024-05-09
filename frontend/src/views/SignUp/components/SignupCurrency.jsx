@@ -1,29 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Box, Button, Flex, Input, Select, Stack } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
+import { useState } from "react";
 
-export default function SignupQuestion() {
-  const navigate = useNavigate();
+import SingupCurrenciesSelector from "./SignupCurrenciesSelector.jsx";
+
+export default function SignupCurrency(props) {
+  const [isSelected, setIsSelected] = useState(false);
   return (
-    <Box p={8} maxW="400px" mx="auto">
-      <Stack spacing={6}>
-        <Select placeholder="Select your case currency" size="lg">
-          <option value="C1">C1</option>
-          <option value="C2">C2</option>
-          <option value="C3">C3</option>
-        </Select>
+    <Box p={8} w="300px" mx="auto">
+      <Stack spacing={6} textAlign="center">
+        <Text fontSize="2xl">Select Your Currency</Text>
+        <SingupCurrenciesSelector
+          handleChange={props.handleChange}
+          setIsSelected={setIsSelected}
+        />
         <Flex justify="space-between">
-          <Link to="/signup/question">
-            <Button colorScheme="gray" size="lg">
-              Back
-            </Button>
-          </Link>
-
+          <Button colorScheme="gray" size="lg" onClick={props.prevStep}>
+            Back
+          </Button>
           <Button
             colorScheme="blue"
             size="lg"
-            onClick={() => navigate("/login")}
+            onClick={props.nextStep}
+            isDisabled={!isSelected}
           >
             Next
           </Button>
