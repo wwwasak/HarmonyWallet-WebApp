@@ -51,13 +51,7 @@ cd project-group-enchanting-eagles/backend
 npm install
 ```
 
-#### 3.Connect to and initialize the database by running:
-
-```bash
-npm run init-db
-```
-
-#### 4. Start the backend server with the following command:
+#### 3. Start the backend server with the following command:
 
 ```bash
 npm run dev
@@ -86,6 +80,16 @@ npm run dev
 
 Then, you will see a message “Local: http://localhost:5173/” indicating that the application is ready and running at “http://localhost:5173”. 
 You can copy and paste the link in your browser and you will see our application! :)
+
+#### Please note: 
+if you encounter some problems about the database, you can try to initialize the database by running the following code:
+
+```bash
+cd project-group-enchanting-eagles/backend
+```
+```bash
+npm run init-db
+```
 
 ## How to run the test files?
 
