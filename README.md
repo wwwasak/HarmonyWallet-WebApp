@@ -85,6 +85,41 @@ npm run dev
 Then, you will see a message “Local: http://localhost:5173/” indicating that the application is ready and running at “http://localhost:5173”. 
 You can copy and paste the link in your browser and you will see our application! :)
 
+## How to run the test files?
+
+### 1. Location of test files
+
+#### Frontend test files:
+frontend/src/\_\_tests\_\_/
+
+#### Backend test files:
+backend/src/controllers/\_\_tests\_\_/dailyRateController.test.js
+backend/src/middleware/\_\_tests\_\_/authenticateToken.test.js
+backend/src/models/\_\_tests\_\_/schema.test.js
+backend/src/services/\_\_tests\_\_/fillMissingRates.test.js
+backend/src/services/\_\_tests\_\_/getCurrentDate.test.js
+backend/src/services/\_\_tests\_\_/getExchangeRate.test.js
+
+### 2. Please run the following code in your terminal:
+
+#### Frontend unit tests:
+
+```bash
+cd ./frontend
+```
+```bash
+npm test
+```
+
+#### Backend unit tests:
+
+```bash
+cd ./backend
+```
+```bash
+npm test
+```
+
 ## How to use our application?
 
 ### 1. Sign up and log in
@@ -172,38 +207,3 @@ When you add an exchange record, the newly added record will appear in your home
 In the exchange detail page, you can see your exchange records in recent 7 days, recent 14 days, recent 30 days and recent 1 year. The left part is the tabs generated according to the types of your exchange currencies. The exchange rate shown in the right line chart is calculated according to the amount of the base currency and the amount of target currency of the record.
 
 Hope our HarmonyWallet application will bring you convenience and happiness. :)
-
-## How to run the test files?
-
-### 1. Location of test files
-
-#### Frontend test files:
-frontend/src/\_\_tests\_\_/
-
-#### Backend test files:
-backend/src/controllers/\_\_tests\_\_/dailyRateController.test.js
-backend/src/middleware/\_\_tests\_\_/authenticateToken.test.js
-backend/src/models/\_\_tests\_\_/schema.test.js
-backend/src/services/\_\_tests\_\_/fillMissingRates.test.js
-backend/src/services/\_\_tests\_\_/getCurrentDate.test.js
-backend/src/services/\_\_tests\_\_/getExchangeRate.test.js
-
-### 2. Please run the following code in your terminal:
-
-#### Frontend unit tests:
-
-```bash
-cd ./frontend
-```
-```bash
-npm test
-```
-
-#### Backend unit tests:
-
-```bash
-cd ./backend
-```
-```bash
-npm test
-```
