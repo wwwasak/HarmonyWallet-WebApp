@@ -54,7 +54,12 @@ cd project-group-enchanting-eagles/backend
 npm install
 ```
 
-#### 3. Start the backend server with the following command:
+#### 3.Initialize the database:
+```bash
+npm run init-db
+```
+
+#### 4. Start the backend server with the following command:
 
 ```bash
 npm run dev
